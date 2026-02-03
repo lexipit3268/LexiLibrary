@@ -1,6 +1,5 @@
-import express from "express";
-import cors from "cors";
-
+const express = require('express');
+const cors = require('cors')
 const app = express();
 
 app.use(cors());
@@ -9,4 +8,4 @@ app.get("/", (req, res) => {
    res.json({ message: "Welcome to contact book application." });
 });
 
-export default app;
+module.exports = app;
