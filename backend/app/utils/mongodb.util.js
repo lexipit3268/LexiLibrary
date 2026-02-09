@@ -3,7 +3,7 @@ class MongoDB {
   static client;
   static async connect(uri) {
     if (this.client) return this.client;
-    this.client = MongoClient.connect(uri);
+    this.client = await MongoClient.connect(uri);
     return this.client;
   }
 }

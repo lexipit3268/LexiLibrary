@@ -11,6 +11,11 @@ const config = {
   api: {
     prefix: process.env.API_PREFIX,
   },
+  cloudiary: {
+    cloud_name: process.env.CLOUNDIARY_NAME,
+    api_key: process.env.CLOUNDIARY_KEY,
+    api_secret: process.env.CLOUNDIARY_SECRET,
+  },
 };
 
 module.exports = config;
