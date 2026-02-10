@@ -54,6 +54,10 @@ exports.findOne = async (req, res, next) => {
   try {
     const categoryService = new CategoryService(MongoDB.client);
     const document = await categoryService.findById(req.params.id);
+    if (!document)
+      return next(
+        new ApiError(StatusCodes.NOT_FOUND, `Not found category with id = ${req.params.id}`),
+      );
     return res.send(document);
   } catch (error) {
     return next(
