@@ -1,8 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Playwrite+HR:wght@100..400&display=swap');
 @import 'tailwindcss';
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat';
+}
+
+.LexiLibrary {
+  font-size: 40px;
+  font-family: 'Playwrite HR';
+}
+
+:root {
+  --primary: #d48c6a;
+  --secondary: #9d674e;
+
+  --bg-primary: #fff5f0;
+  --bg-secondary: #faedcd;
+  --bg-tertiary: #f4eee0;
+
+  --subtext-color: #6a665f;
+  --text-color: #000000;
+  --white: #ffffff;
 }
