@@ -1,0 +1,24 @@
+<script setup lang="ts">
+import { ElDivider } from 'element-plus'
+</script>
+
+<template>
+  <div
+    v-if="true"
+    class="w-full min-h-38 bg-(--bg-quaternary) flex flex-row justify-between items-center p-10"
+  >
+    <div class="flex gap-4">
+      <ElDivider class="w-36! border-black!"></ElDivider>
+      <div class="flex flex-row items-center gap-4">
+        <h3 class="text-5xl newsreaderFont">Đăng ký</h3>
+        <p class="text-(--subtext-color) max-w-72">
+          Chúng tôi sẽ gửi tin cập nhật nhanh nhất cho bạn
+        </p>
+      </div>
+    </div>
+    <div class="w-full max-w-2xl flex-1 flex min-h-12">
+      <input type="text" name="" id="" placeholder="Nhập email..." class="basis-3/4 bg-white p-2" />
+      <button type="button" class="basis-1/4 primary-btn">Đăng ký</button>
+    </div>
+  </div>
+</template>

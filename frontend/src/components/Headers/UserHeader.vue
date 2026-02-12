@@ -1,10 +1,15 @@
 <template>
-  <header class="sticky top-0 z-50 w-full shadow-sm flex items-center">
-    <div class="px-18 flex flex-row justify-between w-full min-h-20">
+  <header class="sticky top-0 z-50 w-full shadow-sm flex items-center justify-center bg-white">
+    <div class="px-18 flex flex-row justify-between w-full max-w-380 min-h-20">
       <nav class="flex flex-row items-center gap-4 text-base flex-1">
         <div>
-          <router-link to="/" class="isActive">Trang chủ</router-link>
+          <router-link to="/" v-slot="{ isExactActive }">
+            <a href="/" :class="['isActive', isExactActive ? 'router-link-active' : '']">
+              Trang chủ
+            </a>
+          </router-link>
         </div>
+
         <div>
           <router-link to="/book" class="isActive">Sách</router-link>
         </div>
@@ -17,7 +22,7 @@
       </nav>
 
       <div class="flex flex-row justify-center items-center">
-        <RouterLink to="/"> <h1 class="LexiLibrary">LexiLibrary</h1></RouterLink>
+        <RouterLink to="/"> <h1 class="LexiLibrary">Lexilibrary</h1></RouterLink>
       </div>
 
       <div class="flex flex-row justify-end items-center gap-6 text-xl flex-1">

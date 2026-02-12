@@ -1,5 +1,5 @@
 <script setup>
-import MainFooter from '@/components/MainFooter.vue'
+import MainFooter from '@/components/Footers/MainFooter.vue'
 import MainHeader from '@/components/Headers/UserHeader.vue'
 </script>
 

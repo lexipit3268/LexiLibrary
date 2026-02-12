@@ -8,6 +8,7 @@ const router = createRouter({
       component: () => import('../layouts/DefaultLayout.vue'),
       children: [
         { path: '', name: 'homePage', component: () => import('../views/user/HomePage.vue') },
+        { path: 'book', name: 'bookPage', component: () => import('../views/user/BookView.vue') },
       ],
     },
   ],
