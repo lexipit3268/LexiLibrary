@@ -1,15 +1,15 @@
 <script setup>
-import HeroSlider from '@/components/HeroSlider.vue'
-import NumberStatistics from '@/components/NumberStatistics.vue'
+import CategorySection from '@/components/HomepageSections/CategorySection.vue'
+import HeroSection from '@/components/HomepageSections/HeroSection.vue'
+import NewArrivalsSection from '@/components/HomepageSections/NewArrivalsSection.vue'
 </script>
 
 <template>
-  <div class="hero-section h-screen flex flex-col">
-    <HeroSlider></HeroSlider>
-    <NumberStatistics></NumberStatistics>
+  <HeroSection />
+  <div class="books-section bg-(--bg-primary)">
+    <NewArrivalsSection />
+    <CategorySection />
   </div>
-  <div class="new-arrivals-section"></div>
-  <div class="categories-section"></div>
   <div class="testimonials-section"></div>
   <div class="quote-section"></div>
 </template>

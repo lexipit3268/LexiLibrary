@@ -29,6 +29,10 @@ body {
   @apply text-center text-white! bg-(--primary) hover:bg-yellow-700 transition-colors duration-200 cursor-pointer;
 }
 
+.cta-btn {
+  @apply flex flex-row justify-between items-center gap-8 my-10 px-8 py-3 rounded-full hover:bg-white! hover:text-(--primary)! border hover:border-(--primary) hover:shadow-lg transition-all! duration-200!;
+}
+
 input {
   outline: none;
   border: 1px solid transparent;
