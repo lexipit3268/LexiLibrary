@@ -7,9 +7,9 @@ import CategoriesSilder from './CategoriesSlider.vue'
   <div class="py-10 h-fit">
     <MainTitle
       class="pl-18"
-      :type="'row'"
-      :title="'Thể loại'"
-      :subtext="'Đa dạng chủ đề, phong phú lựa chọn.'"
+      type="row"
+      title="Thể loại"
+      subtext="Đa dạng chủ đề, phong phú lựa chọn."
     />
     <div class="flex relative overflow-hidden min-h-110 py-8">
       <div class="w-4xl"></div>

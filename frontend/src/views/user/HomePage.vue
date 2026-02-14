@@ -1,7 +1,9 @@
 <script setup>
+import BrandSlider from '@/components/BrandSlider.vue'
 import CategorySection from '@/components/HomepageSections/CategorySection.vue'
 import HeroSection from '@/components/HomepageSections/HeroSection.vue'
 import NewArrivalsSection from '@/components/HomepageSections/NewArrivalsSection.vue'
+import SocialproofSection from '@/components/HomepageSections/SocialproofSection.vue'
 </script>
 
 <template>
@@ -9,6 +11,10 @@ import NewArrivalsSection from '@/components/HomepageSections/NewArrivalsSection
   <div class="books-section bg-(--bg-primary)">
     <NewArrivalsSection />
     <CategorySection />
+  </div>
+  <div class="social-proof-section">
+    <SocialproofSection />
+    <BrandSlider />
   </div>
   <div class="testimonials-section"></div>
   <div class="quote-section"></div>

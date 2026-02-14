@@ -26,7 +26,7 @@ const splideOptions = {
   autoWidth: true,
   gap: '60px',
   autoScroll: {
-    speed: 0.6,
+    speed: 0.4,
     pauseOnHover: true,
   },
   breakpoints: {

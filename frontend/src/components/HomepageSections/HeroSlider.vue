@@ -1,7 +1,7 @@
 <template>
   <div class="hero-slider w-full h-fit overflow-hidden">
-    <Splide :options="splideOptions" ref="splideRef">
-      <SplideSlide v-for="(slide, index) in slides" :key="index">
+    <ElCarousel trigger="click" height="480px" interval="4000" autoplay>
+      <ElCarousel-item v-for="(slide, index) in slides" :key="index">
         <div
           class="slide-content"
           :style="{
@@ -20,42 +20,15 @@
             </p>
           </div>
         </div>
-      </SplideSlide>
-    </Splide>
+      </ElCarousel-item>
+    </ElCarousel>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { Splide, SplideSlide } from '@splidejs/vue-splide'
 import '@splidejs/vue-splide/css'
 import AppLogo from '@/components/AppLogo.vue'
-import { ElDivider } from 'element-plus'
-
-const splideRef = ref(null)
-
-const splideOptions = {
-  type: 'fade',
-  rewind: true,
-  speed: 2000,
-  interval: 4000,
-  autoplay: true,
-  arrows: false,
-  pagination: true,
-  pauseOnHover: false,
-  pauseOnFocus: false,
-  easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
-  intersection: {
-    active: false,
-  },
-}
-
-onMounted(() => {
-  if (splideRef.value?.splide) {
-    splideRef.value.splide.Components.Autoplay.play()
-  }
-})
-
+import { ElCarousel, ElDivider } from 'element-plus'
 const slides = [
   {
     image:
@@ -86,7 +59,8 @@ const slides = [
   color: white;
 }
 
-:deep(.splide__pagination__page.is-active) {
-  background: var(--primary);
+:deep(.el-carousel__arrow) {
+  background-color: var(--secondary);
+  border-radius: 0;
 }
 </style>
