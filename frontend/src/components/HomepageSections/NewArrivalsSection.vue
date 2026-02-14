@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-214 py-14">
-    <MainTitle title="Sách mới cập nhật"></MainTitle>
+    <MainTitle title="Sách mới cập nhật" divider></MainTitle>
     <div class="h-fit cursor-e-resize flex flex-col justify-center items-center">
       <div class="w-full">
         <Splide :options="splideOptions" aria-label="Sách mới cập nhật">

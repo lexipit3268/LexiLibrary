@@ -12,6 +12,7 @@ import BadgesBox from './BadgesBox.vue'
       type="row"
       :title="`Uy tín \n& Trách nhiệm`"
       subtext="Uy tín được đặt lên hàng đầu với nhiều nhà cộng tác lớn nhỏ"
+      divider
     ></MainTitle>
     <div class="badges flex gap-10 h-full">
       <div class="flex flex-col gap-10">

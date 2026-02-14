@@ -4,6 +4,7 @@ import CategorySection from '@/components/HomepageSections/CategorySection.vue'
 import HeroSection from '@/components/HomepageSections/HeroSection.vue'
 import NewArrivalsSection from '@/components/HomepageSections/NewArrivalsSection.vue'
 import SocialproofSection from '@/components/HomepageSections/SocialproofSection.vue'
+import TestimonialsSection from '@/components/HomepageSections/TestimonialsSection.vue'
 </script>
 
 <template>
@@ -16,6 +17,6 @@ import SocialproofSection from '@/components/HomepageSections/SocialproofSection
     <SocialproofSection />
     <BrandSlider />
   </div>
-  <div class="testimonials-section"></div>
+  <TestimonialsSection />
   <div class="quote-section"></div>
 </template>
