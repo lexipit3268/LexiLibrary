@@ -6,8 +6,8 @@
   <div v-else-if="type == 'row'" class="flex justify-start items-center gap-8">
     <ElDivider v-if="divider" class="w-36! border-black! m-0!" />
     <div>
-      <h3 class="newsreaderFont text-6xl whitespace-pre-line">{{ title }}</h3>
-      <p class="text-(--subtext-color) max-w-125">
+      <h3 class="mainTitle-title newsreaderFont text-6xl whitespace-pre-line">{{ title }}</h3>
+      <p class="mainTitle-subtext text-(--subtext-color) max-w-125">
         {{ subtext }}
       </p>
     </div>
