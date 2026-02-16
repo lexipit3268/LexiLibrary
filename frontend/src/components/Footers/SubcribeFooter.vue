@@ -4,7 +4,6 @@ import { ElDivider } from 'element-plus'
 
 <template>
   <div
-    v-if="true"
     class="w-full min-h-38 bg-(--bg-quaternary) flex flex-row justify-between items-center py-10 px-18"
   >
     <div class="flex gap-4">

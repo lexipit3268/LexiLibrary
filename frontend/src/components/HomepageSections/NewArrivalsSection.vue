@@ -3,7 +3,11 @@
     <MainTitle title="Sách mới cập nhật" divider></MainTitle>
     <div class="h-fit cursor-e-resize flex flex-col justify-center items-center">
       <div class="w-full">
-        <Splide :options="splideOptions" aria-label="Sách mới cập nhật">
+        <Splide
+          :options="splideOptions"
+          :extensions="{ AutoScroll }"
+          aria-label="Sách mới cập nhật"
+        >
           <SplideSlide v-for="(book, index) in books" :key="index">
             <BookCard
               :title="book.title"
@@ -25,6 +29,7 @@
 
 <script setup>
 import { Splide, SplideSlide } from '@splidejs/vue-splide'
+import { AutoScroll } from '@splidejs/splide-extension-auto-scroll'
 import BookCard from '../BookCard.vue'
 import MainTitle from '../MainTitle.vue'
 import '@splidejs/vue-splide/css'
@@ -69,8 +74,11 @@ const splideOptions = {
   arrows: false,
   pagination: false,
   autoWidth: true,
-  start: 0,
-  gap: '50px',
+  gap: '40px',
+  autoScroll: {
+    speed: 0.6,
+    pauseOnHover: true,
+  },
   breakpoints: {
     1024: { perPage: 3, padding: { left: '30px', right: '30px' } },
     768: { perPage: 2, padding: 0 },

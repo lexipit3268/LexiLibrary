@@ -7,7 +7,7 @@ import SubcribeFooter from './SubcribeFooter.vue'
 </script>
 
 <template>
-  <SubcribeFooter />
+  <SubcribeFooter v-if="true" />
   <div class="flex flex-col items-center justify-end bg-(--secondary) min-h-140">
     <div class="flex gap-40 w-full max-w-380 px-18 text-white mb-6">
       <div class="flex flex-col items-center"><AppLogo class="w-24"></AppLogo></div>

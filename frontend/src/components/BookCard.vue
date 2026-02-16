@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col w-52.5 h-fit gap-3 cursor-e-resize">
-    <div class="relative aspect-2/3 w-full overflow-hidden rounded-sm shadow-sm">
+    <div class="relative aspect-2/3 w-full overflow-hidden rounded-sm shadow-sm group">
       <img
         :src="image"
         :alt="title"
         loading="lazy"
-        class="w-full h-full object-cover cursor-pointer"
+        class="w-full h-full object-cover cursor-pointer group-hover:scale-110 transition-all duration-300"
       />
     </div>
     <div class="flex flex-col text-center gap-1">
