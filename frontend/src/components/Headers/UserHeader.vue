@@ -1,5 +1,7 @@
 <template>
-  <header class="sticky top-0 z-50 w-full shadow-sm flex items-center justify-center bg-white">
+  <header
+    class="sticky top-0 z-50 w-full shadow-sm flex items-center justify-center bg-white/70 backdrop-blur-md"
+  >
     <div class="px-18 flex flex-row justify-between w-full max-w-380 min-h-20">
       <nav class="flex flex-row items-center gap-4 text-base flex-1">
         <div>
@@ -29,9 +31,9 @@
         <div>
           <router-link to="/book"><FontAwesomeIcon :icon="faSearch"></FontAwesomeIcon></router-link>
         </div>
-        <div>
+        <div class="w-fit h-fit rounded-full">
           <el-dropdown placement="bottom">
-            <el-button>
+            <el-button class="w-fit! h-fit! rounded-full!">
               <el-avatar
                 v-if="userRole !== 'guest'"
                 :size="32"

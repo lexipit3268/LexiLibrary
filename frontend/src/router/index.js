@@ -7,8 +7,28 @@ const router = createRouter({
       name: 'home',
       component: () => import('../layouts/DefaultLayout.vue'),
       children: [
-        { path: '', name: 'homePage', component: () => import('../views/user/HomePage.vue') },
-        { path: 'book', name: 'bookPage', component: () => import('../views/user/BookView.vue') },
+        {
+          path: '',
+          name: 'home-page',
+          component: () => import('../views/user/HomePage.vue'),
+        },
+        {
+          path: 'book',
+          children: [
+            {
+              path: '',
+              name: 'book-page',
+              component: () => import('../views/user/BookView.vue'),
+              meta: { title: 'Sách - LexiLibrary' },
+            },
+            {
+              path: ':id', //   /book/:id
+              name: 'single-book',
+              component: () => import('../views/user/SingleBook.vue'),
+              meta: { title: 'Sách - LexiLibrary' },
+            },
+          ],
+        },
       ],
     },
   ],
@@ -19,6 +39,11 @@ const router = createRouter({
       return { top: 0, behavior: 'smooth' }
     }
   },
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || 'LexiLibrary'
+  next()
 })
 
 export default router
