@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-52.5 h-fit gap-3 cursor-e-resize">
+  <div class="flex flex-col w-52.5 h-fit gap-3 cursor-pointer" @click="handleClick">
     <div class="relative aspect-2/3 w-full overflow-hidden rounded-sm shadow-sm group">
       <img
         :src="image"
@@ -22,4 +22,10 @@ const { title, author, price, image } = defineProps({
   price: Number,
   image: String,
 })
+
+const emit = defineEmits(['SelectedBook'])
+const handleClick = () => {
+  alert('You clicked ' + title + ', id sách')
+  emit('SelectedBook', 'id sách')
+}
 </script>

@@ -9,7 +9,7 @@ import { ElDivider } from 'element-plus'
     <div class="overflow-hidden h-full relative">
       <img
         loading="lazy"
-        src="../../../public/pexels-minan1398-1291486.jpg"
+        src="../../../public/IMG_2919.jpg"
         alt=""
         class="object-cover h-full w-full object-center"
       />

@@ -19,3 +19,9 @@ import { ElDivider } from 'element-plus'
     </div>
   </div>
 </template>
+<style scoped>
+input:focus,
+input:hover {
+  border: 1px solid var(--primary);
+}
+</style>

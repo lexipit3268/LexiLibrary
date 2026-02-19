@@ -1,7 +1,10 @@
+import LoginForm from '@/components/AccessForm/LoginForm.vue'
+import RegisterForm from '@/components/AccessForm/RegisterForm.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // client
     {
       path: '/',
       name: 'home',
@@ -31,6 +34,23 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import('../views/AccessForm.vue'),
+      props: {
+        formType: LoginForm,
+      },
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: () => import('../views/AccessForm.vue'),
+      props: {
+        formType: RegisterForm,
+      },
+    },
+    // 404
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',

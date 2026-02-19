@@ -33,7 +33,7 @@
         </div>
         <div class="w-fit h-fit rounded-full">
           <el-dropdown placement="bottom">
-            <el-button class="w-fit! h-fit! rounded-full!">
+            <el-button class="w-fit! h-fit! rounded-full! bg-transparent! mt-0.5">
               <el-avatar
                 v-if="userRole !== 'guest'"
                 :size="32"
@@ -48,7 +48,7 @@
                     ><router-link to="/login">Đăng nhập</router-link>
                   </el-dropdown-item>
                   <el-dropdown-item
-                    ><router-link to="/login">Đăng ký</router-link>
+                    ><router-link to="/register">Đăng ký</router-link>
                   </el-dropdown-item>
                 </template>
 
@@ -122,5 +122,5 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCartShopping, faSearch, faUser, faBell } from '@fortawesome/free-solid-svg-icons'
 import { ref } from 'vue'
-const userRole = ref('user')
+const userRole = ref('guest')
 </script>

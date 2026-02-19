@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import MainTitle from '../MainTitle.vue'
 import CategoriesSilder from './CategoriesSlider.vue'
 </script>

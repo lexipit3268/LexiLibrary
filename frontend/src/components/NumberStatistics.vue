@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row items-center justify-center bg-(--bg-secondary)">
+  <div class="bg-pattern flex flex-row items-center justify-center bg-(--bg-secondary)">
     <div class="grid grid-cols-4 place-content-center items-center text-center h-40 min-w-250">
       <div
         v-for="(item, index) in transitionedItems"
