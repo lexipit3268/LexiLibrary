@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(`${config.api.prefix}`, router);
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to Lexilibrary. CODE: ' + StatusCodes.OK });
+  res.json({ message: 'Welcome to Lexsilibrary. CODE: ' + StatusCodes.OK });
 });
 
 //Xu ly loi tap trung

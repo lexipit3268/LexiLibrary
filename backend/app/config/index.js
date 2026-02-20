@@ -16,6 +16,9 @@ const config = {
     api_key: process.env.CLOUNDIARY_KEY,
     api_secret: process.env.CLOUNDIARY_SECRET,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET || 'secret',
+  },
 };
 
 module.exports = config;

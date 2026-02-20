@@ -1,19 +1,12 @@
 const express = require('express');
-const router = express.Router();
 const staffController = require('../controllers/staff.controller');
+const { verifyToken, isStaff } = require('../middlewares/auth.middleware');
+const router = express.Router();
 
-router
-  .route('/')
-  .get(staffController.findAll)
-  .post(staffController.create)
-  .delete(staffController.deleteAll);
+router.post('/login', staffController.login);
 
-router.route('/login').post(staffController.login);
-router.route('/me').get(staffController.getMe);
+router.get('/me', verifyToken, isStaff, staffController.getMe);
 
-router
-  .route('/:id')
-  .get(staffController.findOne)
-  .put(staffController.update)
-  .delete(staffController.delete);
+router.route('/').get(verifyToken, isStaff, staffController.findAll).post(staffController.create);
+
 module.exports = router;
