@@ -56,9 +56,10 @@ exports.login = async (req, res, next) => {
       message: 'Đăng nhập thành công',
       token: token,
       user: {
-        maDocGia: user.maDocGia,
-        ten: user.ten,
+        code: user.maDocGia,
+        name: user.ten,
         role: user.role,
+        image: user.hinhAnh,
       },
     });
   } catch (error) {

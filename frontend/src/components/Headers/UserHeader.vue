@@ -34,11 +34,7 @@
         <div class="w-fit h-fit rounded-full">
           <el-dropdown placement="bottom">
             <el-button class="w-fit! h-fit! rounded-full! bg-transparent! mt-0.5">
-              <el-avatar
-                v-if="userRole !== 'guest'"
-                :size="32"
-                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-              />
+              <el-avatar v-if="userRole !== 'guest'" :size="32" :src="userAvatar" fit="cover" />
               <FontAwesomeIcon v-else :icon="faUser" class="text-xl text-black"></FontAwesomeIcon>
             </el-button>
             <template #dropdown>
@@ -61,6 +57,12 @@
                     >Đăng xuất
                   </el-dropdown-item>
                 </template>
+
+                <!-- <template v-else-if="userRole === 'staff'">
+                  <el-dropdown-item divided @click="handleLogout" class="logoutBtn"
+                    >Đăng xuất
+                  </el-dropdown-item>
+                </template> -->
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -119,8 +121,29 @@
 </style>
 
 <script setup>
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCartShopping, faSearch, faUser, faBell } from '@fortawesome/free-solid-svg-icons'
-import { ref } from 'vue'
-const userRole = ref('guest')
+import { useAuthStore } from '@/stores/auth'
+import { ElMessage } from 'element-plus'
+
+const authStore = useAuthStore()
+const router = useRouter()
+
+const userRole = computed(() => authStore.userRole)
+const userAvatar = computed(() => {
+  const hinhAnh = authStore.user?.image
+
+  if (!hinhAnh) {
+    return 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+  }
+
+  return hinhAnh
+})
+const handleLogout = () => {
+  authStore.logout()
+  ElMessage.success('Đã đăng xuất khỏi hệ thống')
+  router.push('/login')
+}
 </script>

@@ -55,10 +55,11 @@ exports.login = async (req, res, next) => {
     res.json({
       message: 'Staff login successful',
       token,
-      staff: {
-        maNV: staff.maNV,
-        hoTenNV: staff.hoTenNV,
+      user: {
+        id: staff.maNV,
+        name: staff.hoTenNV,
         role: 'staff',
+        image: staff.hinhAnh,
       },
     });
   } catch (error) {

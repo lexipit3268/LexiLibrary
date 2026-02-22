@@ -1,5 +1,7 @@
 import LoginForm from '@/components/AccessForm/LoginForm.vue'
 import RegisterForm from '@/components/AccessForm/RegisterForm.vue'
+import { useAuthStore } from '@/stores/auth'
+import { ElMessage } from 'element-plus'
 import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,7 +70,16 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'LexiLibrary'
-  next()
+  const authStore = useAuthStore()
+  if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+    ElMessage.warning('Vui lòng đăng nhập để tiếp tục')
+    next('/login')
+  } else if (to.meta.role && authStore.userRole !== to.meta.role) {
+    ElMessage.error('Bạn không có quyền truy cập vào khu vực này!')
+    next('/')
+  } else {
+    next()
+  }
 })
 
 export default router

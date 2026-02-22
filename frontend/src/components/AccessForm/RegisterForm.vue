@@ -1,26 +1,64 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { faArrowRight, faArrowLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle, faFacebookF } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { ElMessage } from 'element-plus'
+import AuthService from '@/services/auth.service'
 
 const carouselRef = ref(null)
 const activeStep = ref(0)
+const router = useRouter()
 
-const formData = reactive({
-  hoLot: '',
-  ten: '',
-  ngaySinh: '',
-  phai: 'Nam',
-  diaChi: '',
-  soDienThoai: '',
-  email: '',
-  matKhau: '',
+const hoLot = ref('')
+const ten = ref('')
+const ngaySinh = ref('')
+const phai = ref('Nam')
+const diaChi = ref('')
+const soDienThoai = ref('')
+const email = ref('')
+const matKhau = ref('')
+
+const is18Plus = (dateString) => {
+  if (!dateString) return false
+  const today = new Date()
+  const birthDate = new Date(dateString)
+  let age = today.getFullYear() - birthDate.getFullYear()
+  const m = today.getMonth() - birthDate.getMonth()
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--
+  return age >= 18
+}
+
+const isStep1Valid = computed(() => {
+  return (
+    hoLot.value.trim().length >= 2 &&
+    ten.value.trim().length >= 2 &&
+    ngaySinh.value !== '' &&
+    is18Plus(ngaySinh.value) &&
+    diaChi.value.trim() !== ''
+  )
+})
+
+const isStep2Valid = computed(() => {
+  const phoneRegex = /^(0|\+84)(\d{9})$/
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return (
+    phoneRegex.test(soDienThoai.value) && emailRegex.test(email.value) && matKhau.value.length >= 6
+  )
 })
 
 const nextStep = () => {
-  carouselRef.value.next()
-  activeStep.value = 1
+  if (isStep1Valid.value) {
+    carouselRef.value.next()
+    activeStep.value = 1
+  } else {
+    if (!is18Plus(ngaySinh.value) && ngaySinh.value !== '') {
+      ElMessage.warning('Độc giả phải từ 18 tuổi trở lên')
+    } else {
+      ElMessage.warning('Vui lòng điền đúng và đủ thông tin cá nhân')
+    }
+  }
 }
 
 const prevStep = () => {
@@ -28,7 +66,37 @@ const prevStep = () => {
   activeStep.value = 0
 }
 
-const handleRegister = () => console.log('Đăng ký:', formData)
+const handleRegister = async () => {
+  if (!isStep2Valid.value) {
+    ElMessage.warning('Vui lòng kiểm tra lại định dạng Email, SĐT hoặc Mật khẩu')
+    return
+  }
+
+  const payload = {
+    hoLot: hoLot.value,
+    ten: ten.value,
+    ngaySinh: ngaySinh.value,
+    phai: phai.value,
+    diaChi: diaChi.value,
+    soDienThoai: soDienThoai.value,
+    email: email.value,
+    matKhau: matKhau.value,
+  }
+
+  try {
+    ElMessage.info('Đang xử lý đăng ký...')
+    const response = await AuthService.register(payload)
+
+    if (response.status === 201 || response.status === 200) {
+      ElMessage.success(
+        `Đăng ký thành công - Mã: ${response.data.maDocGia}. Vui lòng đăng nhập lại`,
+      )
+      setTimeout(() => router.push('/login'), 2000)
+    }
+  } catch (error) {
+    ElMessage.error(error.response?.data?.message || 'Lỗi kết nối máy chủ')
+  }
+}
 </script>
 
 <template>
@@ -54,7 +122,7 @@ const handleRegister = () => console.log('Đăng ký:', formData)
       :autoplay="false"
       arrow="never"
       indicator-position="none"
-      height="380px"
+      height="350px"
     >
       <el-carousel-item>
         <div class="p-8 space-y-6">
@@ -67,7 +135,7 @@ const handleRegister = () => console.log('Đăng ký:', formData)
                 >Họ và tên lót</label
               >
               <input
-                v-model="formData.hoLot"
+                v-model="hoLot"
                 type="text"
                 placeholder="..."
                 class="w-full py-2 bg-transparent text-base outline-none"
@@ -79,7 +147,7 @@ const handleRegister = () => console.log('Đăng ký:', formData)
                 >Tên</label
               >
               <input
-                v-model="formData.ten"
+                v-model="ten"
                 type="text"
                 placeholder="..."
                 class="w-full py-2 bg-transparent text-base outline-none"
@@ -94,7 +162,7 @@ const handleRegister = () => console.log('Đăng ký:', formData)
                 >Ngày sinh</label
               >
               <input
-                v-model="formData.ngaySinh"
+                v-model="ngaySinh"
                 type="date"
                 class="w-full py-2 bg-transparent text-sm outline-none font-sans"
               />
@@ -105,7 +173,7 @@ const handleRegister = () => console.log('Đăng ký:', formData)
                 >Phái</label
               >
               <select
-                v-model="formData.phai"
+                v-model="phai"
                 class="w-full py-2 bg-transparent text-sm outline-none cursor-pointer"
               >
                 <option value="Nam">Nam</option>
@@ -120,9 +188,9 @@ const handleRegister = () => console.log('Đăng ký:', formData)
               >Địa chỉ thường trú</label
             >
             <input
-              v-model="formData.diaChi"
+              v-model="diaChi"
               type="text"
-              placeholder="Xã/Phường, Quận/Huyện..."
+              placeholder="..."
               class="w-full py-2 bg-transparent text-sm outline-none"
             />
           </div>
@@ -148,7 +216,7 @@ const handleRegister = () => console.log('Đăng ký:', formData)
               >Số điện thoại</label
             >
             <input
-              v-model="formData.soDienThoai"
+              v-model="soDienThoai"
               type="tel"
               placeholder="09xxxxxxxx"
               class="w-full py-2 bg-transparent text-base outline-none"
@@ -160,7 +228,7 @@ const handleRegister = () => console.log('Đăng ký:', formData)
               >Email (Tài khoản)</label
             >
             <input
-              v-model="formData.email"
+              v-model="email"
               type="email"
               placeholder="example@mail.com"
               class="w-full py-2 bg-transparent text-base outline-none"
@@ -172,7 +240,7 @@ const handleRegister = () => console.log('Đăng ký:', formData)
               >Mật khẩu</label
             >
             <input
-              v-model="formData.matKhau"
+              v-model="matKhau"
               type="password"
               placeholder="••••••••"
               class="w-full py-2 bg-transparent text-base outline-none"
@@ -206,18 +274,16 @@ const handleRegister = () => console.log('Đăng ký:', formData)
         >
         <div class="flex gap-2 w-full">
           <button
-            class="flex-1 py-2 bg-white border border-(--bg-secondary) hover:border-(--primary) transition-all active:scale-95"
+            class="cursor-pointer flex-1 flex items-center justify-center py-2 border border-(--bg-secondary) bg-white hover:bg-amber-500/20 transition-colors"
           >
-            <span class="text-xs flex items-center justify-center gap-4"
-              ><FontAwesomeIcon :icon="faGoogle" /> Google</span
-            >
+            <FontAwesomeIcon :icon="faGoogle" class="text-xs mr-2" />
+            <span class="text-[10px] font-bold uppercase">Google</span>
           </button>
           <button
-            class="flex-1 py-2 bg-white border border-(--bg-secondary) hover:border-(--primary) transition-all active:scale-95"
+            class="cursor-pointer flex-1 flex items-center justify-center py-2 border border-(--bg-secondary) bg-white hover:bg-amber-500/20 transition-colors"
           >
-            <span class="text-xs flex items-center justify-center gap-4"
-              ><FontAwesomeIcon :icon="faFacebookF" /> Facebook</span
-            >
+            <FontAwesomeIcon :icon="faFacebookF" class="text-xs mr-2" />
+            <span class="text-[10px] font-bold uppercase">Facebook</span>
           </button>
         </div>
       </div>
@@ -230,16 +296,13 @@ const handleRegister = () => console.log('Đăng ký:', formData)
 </template>
 
 <style scoped>
-/* Tùy chỉnh màu sắc cho Element Plus Carousel */
 :deep(.el-carousel__container) {
   background-color: transparent;
 }
-
 input[type='date']::-webkit-calendar-picker-indicator {
   filter: sepia(0.5) hue-rotate(15deg);
   cursor: pointer;
 }
-
 input::placeholder {
   color: #e2e8f0;
 }
