@@ -10,7 +10,10 @@ class BookService {
       return []
     }
   }
-
+  async getBooks(params = {}) {
+    const response = await axios.get(API_URL, { params })
+    return response.data
+  }
   async getBook(maSach) {
     try {
       const response = await axios.get(API_URL + maSach)

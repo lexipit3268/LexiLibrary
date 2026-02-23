@@ -16,7 +16,33 @@ exports.findAll = async (req, res, next) => {
       filter.maTheLoai = req.query.category;
     }
 
-    const documents = await bookService.find(filter);
+    if (req.query.publisher) {
+      filter.maNXB = req.query.publisher;
+    }
+
+    if (req.query.minPrice || req.query.maxPrice) {
+      filter.donGia = {};
+
+      if (req.query.minPrice) {
+        filter.donGia.$gte = Number(req.query.minPrice);
+      }
+
+      if (req.query.maxPrice) {
+        filter.donGia.$lte = Number(req.query.maxPrice);
+      }
+    }
+
+    let sortOption = {};
+
+    if (req.query.sort === 'price_asc') {
+      sortOption.donGia = 1;
+    }
+
+    if (req.query.sort === 'price_desc') {
+      sortOption.donGia = -1;
+    }
+
+    const documents = await bookService.find(filter, sortOption);
 
     return res.send(documents);
   } catch (error) {

@@ -23,8 +23,8 @@ class Book {
     Object.keys(book).forEach((key) => book[key] === undefined && delete book[key]);
     return book;
   }
-  async find(filter) {
-    const cursor = await this.Book.find(filter);
+  async find(filter, sort = {}) {
+    const cursor = await this.Book.find(filter).sort(sort);
     return cursor.toArray();
   }
 

@@ -70,7 +70,7 @@
                   <span>Quyển</span>
                 </template>
               </ElInputNumber>
-              <AddToCartBtn :book="props.book" @add-to-cart="handleAddToCart" />
+              <AddToCartBtn :book="props.book" @add-to-cart="handleAddToCart(props.book.tenSach)" />
               <button
                 type="button"
                 class="w-12 h-12 p-4 rounded-full shadow-md flex items-center justify-center cursor-pointer bg-white group hover:bg-amber-600/20 transition-all duration-200"
@@ -141,13 +141,13 @@ import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
 
 const props = defineProps({
   book: Object,
+  categories: Array,
 })
 
 const paragraphs = computed(() => {
   if (!props.book.moTa) return []
   return props.book.moTa.split('\n').filter((p) => p.trim() !== '')
 })
-const categories = ['Văn học', 'Kinh tế', 'Kỹ năng sống', 'Tâm lý', 'Tiểu thuyết']
 
 const num = ref(1)
 const activeName = ref('1')
