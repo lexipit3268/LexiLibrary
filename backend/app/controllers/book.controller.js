@@ -4,16 +4,26 @@ const ApiError = require('../api-error');
 const { StatusCodes } = require('http-status-codes');
 
 exports.findAll = async (req, res, next) => {
-  let documents = [];
   try {
     const bookService = new BookService(MongoDB.client);
-    documents = await bookService.find({});
+
+    const filter = {};
+    if (req.query.q) {
+      filter.tenSach = { $regex: req.query.q, $options: 'i' };
+    }
+
+    if (req.query.category) {
+      filter.maTheLoai = req.query.category;
+    }
+
+    const documents = await bookService.find(filter);
+
+    return res.send(documents);
   } catch (error) {
     return next(
       new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, 'An error occurred while retrieving books'),
     );
   }
-  return res.send(documents);
 };
 
 exports.create = async (req, res, next) => {
@@ -36,7 +46,7 @@ exports.create = async (req, res, next) => {
 
 exports.deleteAll = async (req, res, next) => {
   try {
-    const bookService = new CategoryService(MongoDB.client);
+    const bookService = new BookService(MongoDB.client);
     const result = await bookService.deleteAll();
     if (!result) throw new ApiError(StatusCodes.CONFLICT, 'Cannot delete all');
     return res.send({ message: `Deleted ${result.deletedCount} books` });
@@ -72,7 +82,6 @@ exports.update = async (req, res, next) => {
       return next(new ApiError(StatusCodes.NOT_FOUND, `Not found book with id = ${req.params.id}`));
     return res.send(document);
   } catch (error) {
-    f;
     return next(
       new ApiError(
         StatusCodes.INTERNAL_SERVER_ERROR,
@@ -88,7 +97,7 @@ exports.delete = async (req, res, next) => {
     const result = await bookService.delete(req.params.id);
     if (!result)
       return next(new ApiError(StatusCodes.NOT_FOUND, `Not found book with id = ${req.params.id}`));
-    return res.send({ message: `Deleted ${result.deletedCount} categories` });
+    return res.send({ message: `Deleted ${result.deletedCount} books` });
   } catch (error) {
     return next(
       new ApiError(

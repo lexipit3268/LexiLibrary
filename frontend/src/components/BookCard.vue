@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col w-52.5 h-fit gap-3 cursor-pointer" @click="handleClick">
+  <div
+    class="flex flex-col w-52.5 h-fit gap-3 cursor-pointer"
+    @click="router.push({ name: 'single-book', params: { id } })"
+  >
     <div class="relative aspect-2/3 w-full overflow-hidden rounded-sm shadow-sm group">
       <img
         :src="image"
@@ -16,16 +19,13 @@
   </div>
 </template>
 <script setup>
-const { title, author, price, image } = defineProps({
+import router from '@/router'
+
+const { id, title, author, price, image } = defineProps({
+  id: String,
   title: String,
   author: String,
   price: Number,
   image: String,
 })
-
-const emit = defineEmits(['SelectedBook'])
-const handleClick = () => {
-  alert('You clicked ' + title + ', id sách')
-  emit('SelectedBook', 'id sách')
-}
 </script>

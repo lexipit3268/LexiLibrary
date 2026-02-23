@@ -6,11 +6,12 @@
         <div class="flex justify-center gap-14 h-full">
           <BookCard
             v-for="book in group"
-            :key="book.title"
-            :title="book.title"
-            :author="book.author"
-            :image="book.image"
-            :price="book.price"
+            :key="book.tenSach"
+            :id="book.maSach"
+            :title="book.tenSach"
+            :author="book.tacGia"
+            :image="book.hinhAnh"
+            :price="book.donGia"
           />
         </div>
       </ElCarouselItem>

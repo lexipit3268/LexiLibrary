@@ -1,11 +1,11 @@
 <template>
   <div>
     <BreadcrumbComponent
-      :title="props.book.title"
+      :title="props.book.tenSach"
       :paths="[
         { label: 'Trang chủ', path: '/' },
         { label: 'Sách', path: '/book' },
-        { label: props.book.title, path: '' },
+        { label: props.book.tenSach, path: '' },
       ]"
     />
     <div class="flex flex-col w-full px-30 my-24">
@@ -15,7 +15,7 @@
           class="bg-pattern overflow-hidden h-fit w-auto bg-amber-800/10 p-16 group hover:shadow-2xl transition-all duration-300"
         >
           <img
-            :src="props.book.image"
+            :src="props.book.hinhAnh"
             alt=""
             class="max-w-115 place-self-center object-cover shadow-2xl group-hover:shadow-none group-hover:scale-115 ease-in-out transition-all duration-300"
           />
@@ -25,17 +25,27 @@
         <div class="flex flex-col gap-4 py-5 max-w-145">
           <div class="flex flex-col gap-8">
             <h3 class="newsreaderFont text-4xl text-(--secondary) text-shadow-md">
-              {{ props.book.title }}
+              {{ props.book.tenSach }}
             </h3>
-            <p class="text-(--subtext-color)">{{ props.book.description }}</p>
+            <div class="text-(--subtext-color)">
+              <div class="flex flex-col">
+                <p
+                  v-for="(p, index) in paragraphs"
+                  :key="index"
+                  class="text-(--subtext-color) mb-2 last:mb-0"
+                >
+                  {{ p }}
+                </p>
+              </div>
+            </div>
             <div>
               <div class="grid grid-cols-2 grid-rows-3 w-fit gap-x-16 gap-y-2">
                 <p class="text-(--subtext-color)">Tác giả:</p>
-                <span class="font-medium"> {{ props.book.author }}</span>
+                <span class="font-medium"> {{ props.book.tacGia }}</span>
                 <p class="text-(--subtext-color)">Nhà xuất bản:</p>
                 <span class="font-medium">{{ props.book.publisher }}</span>
                 <p class="text-(--subtext-color)">Sẵn có:</p>
-                <span class="font-medium">{{ props.book.quantity }} quyển</span>
+                <span class="font-medium">{{ props.book.soQuyen }} quyển</span>
               </div>
               <div class="space-y-2">
                 <p class="text-(--subtext-color)">Thể loại:</p>
@@ -47,7 +57,7 @@
 
           <!-- checkout -->
           <div class="space-y-2">
-            <p class="text-2xl font-bold tracking-widest">${{ props.book.price }}.00</p>
+            <p class="text-2xl font-bold tracking-widest">${{ props.book.donGia }}.00</p>
             <div class="cta flex flex-row items-center gap-4 h-fit">
               <ElInputNumber
                 v-model="num"
@@ -87,7 +97,9 @@
         <el-collapse v-model="activeName" accordion>
           <el-collapse-item title="Mô tả" name="1">
             <div class="px-4">
-              {{ props.book.description }}
+              <div class="flex flex-col">
+                {{ props.book.moTa }}
+              </div>
             </div>
           </el-collapse-item>
           <el-collapse-item title="Thông tin giao nhận sách" name="2">
@@ -120,14 +132,20 @@
 <script setup>
 import { ElCollapse, ElDivider, ElInputNumber } from 'element-plus'
 import BreadcrumbComponent from '../BreadcrumbComponent.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import AddToCartBtn from '../AddToCartBtn.vue'
 import BookTags from '../BookTags.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
+
 const props = defineProps({
   book: Object,
+})
+
+const paragraphs = computed(() => {
+  if (!props.book.moTa) return []
+  return props.book.moTa.split('\n').filter((p) => p.trim() !== '')
 })
 const categories = ['Văn học', 'Kinh tế', 'Kỹ năng sống', 'Tâm lý', 'Tiểu thuyết']
 

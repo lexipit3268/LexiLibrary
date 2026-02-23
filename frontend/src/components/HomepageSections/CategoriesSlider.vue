@@ -40,7 +40,7 @@ onMounted(async () => {
             <router-link
               :to="{
                 path: '/book',
-                query: { category: cat.tenTheLoai },
+                query: { category: cat.maTheLoai },
               }"
               class="flex items-center justify-center w-full h-full text-center"
             >

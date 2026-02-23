@@ -10,10 +10,11 @@
         >
           <SplideSlide v-for="(book, index) in books" :key="index">
             <BookCard
-              :title="book.title"
-              :author="book.author"
-              :price="book.price"
-              :image="book.image"
+              :id="book.maSach"
+              :title="book.tenSach"
+              :author="book.tacGia"
+              :price="book.donGia"
+              :image="book.hinhAnh"
             />
           </SplideSlide>
         </Splide>
@@ -35,38 +36,16 @@ import MainTitle from '../MainTitle.vue'
 import '@splidejs/vue-splide/css'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-const books = [
-  {
-    title: 'Mắt biếc',
-    author: 'Nguyễn Nhật Ánh',
-    price: 500,
-    image: 'https://www.nxbtre.com.vn/Images/Book/nxbtre_full_01372019_043734.jpg',
-  },
-  {
-    title: 'Tiệm sách của nàng',
-    author: 'Nguyễn Nhật Ánh',
-    price: 450,
-    image: 'https://www.nxbtre.com.vn/Images/Book/nxbtre_full_25412024_024109.jpg',
-  },
-  {
-    title: 'Cô gái đến từ hôm qua',
-    author: 'Nguyễn Nhật Ánh',
-    price: 480,
-    image: 'https://www.nxbtre.com.vn/Images/Book/nxbtre_full_06202025_092033.jpg',
-  },
-  {
-    title: 'Tôi thấy hoa vàng trên cỏ xanh',
-    author: 'Nguyễn Nhật Ánh',
-    price: 520,
-    image: 'https://www.nxbtre.com.vn/Images/Book/NXBTreStoryFull_02482010_104821.jpg',
-  },
-  {
-    title: 'Ngồi khóc trên cây',
-    author: 'Nguyễn Nhật Ánh',
-    price: 400,
-    image: 'https://www.nxbtre.com.vn/Images/Book/nxbtre_full_31252025_082543.jpg',
-  },
-]
+import { onMounted, ref } from 'vue'
+import BookService from '@/services/book.service'
+
+const books = ref([])
+onMounted(async () => {
+  const data = await BookService.getBooks()
+  books.value = data.slice(-10)
+  console.log(books.value)
+})
+
 const splideOptions = {
   type: 'loop',
   drag: 'free',

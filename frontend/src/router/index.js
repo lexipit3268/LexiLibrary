@@ -29,6 +29,7 @@ const router = createRouter({
             {
               path: ':id', //   /book/:id
               name: 'single-book',
+              props: true,
               component: () => import('../views/user/SingleBook.vue'),
               meta: { title: 'Sách - LexiLibrary' },
             },
