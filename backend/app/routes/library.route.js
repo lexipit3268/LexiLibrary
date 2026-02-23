@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const fileUploader = require('../config/cloudinary');
 const publisherRoute = require('./publisher.route');
 const categoryRoute = require('./catagory.route');
 const bookRoute = require('./book.route');
@@ -14,6 +14,14 @@ router.use('/books', bookRoute);
 router.use('/staffs', staffRoute);
 router.use('/users', userRoute);
 router.use('/borrowings', borrowingRoute);
+
+router.route('/upload').post(fileUploader.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(500).send('Upload thất bại');
+  }
+  res.json({ imageUrl: req.file.path });
+});
+
 router.route('/').get((req, res) => {
   res.send({ message: 'Route ok' });
 });

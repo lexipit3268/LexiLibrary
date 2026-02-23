@@ -11,6 +11,6 @@ router
 router
   .route('/:id')
   .get(bookController.findOne)
-  .put(bookController.update)
+  .post(bookController.update)
   .delete(bookController.delete);
 module.exports = router;
