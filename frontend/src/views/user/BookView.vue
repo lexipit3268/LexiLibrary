@@ -34,7 +34,15 @@
       <div class="space-y-5">
         <div class="flex justify-between items-center">
           <h3 class="newsreaderFont text-3xl">Bộ lọc</h3>
-          <div v-if="selectedCategory || selectedPublisher" @click="resetFilter">
+          <div
+            v-if="
+              selectedCategory ||
+              selectedPublisher ||
+              selectedPrice[0] != 20 ||
+              selectedPrice[1] != 100
+            "
+            @click="resetFilter"
+          >
             <ElTooltip content="Đặt lại bộ lọc" placement="top">
               <FontAwesomeIcon
                 :icon="faFilterCircleXmark"
@@ -162,6 +170,7 @@ const books = ref([])
 const resetFilter = () => {
   selectedCategory.value = ''
   selectedPublisher.value = ''
+  selectedPrice.value = [20, 100]
 }
 const syncParamsFromUrl = () => {
   if (route.query.category) {
