@@ -199,7 +199,7 @@ const fetchBooks = async () => {
 
 onMounted(async () => {
   categories.value = await categoryService.getCategories()
-  publishers.value = await publisherService.getPublisher()
+  publishers.value = await publisherService.getPublishers()
 
   syncParamsFromUrl()
   await fetchBooks()

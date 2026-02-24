@@ -43,7 +43,11 @@
                 <p class="text-(--subtext-color)">Tác giả:</p>
                 <span class="font-medium"> {{ props.book.tacGia }}</span>
                 <p class="text-(--subtext-color)">Nhà xuất bản:</p>
-                <span class="font-medium">{{ props.book.publisher }}</span>
+                <span
+                  class="font-medium cursor-pointer hover:text-(--primary) transition-colors duration-300"
+                  @click="router.push({ name: 'book-page', query: { publisher: publisher.maNXB } })"
+                  >{{ publisher.tenNXB }}</span
+                >
                 <p class="text-(--subtext-color)">Sẵn có:</p>
                 <span class="font-medium">{{ props.book.soQuyen }} quyển</span>
               </div>
@@ -138,10 +142,12 @@ import BookTags from '../BookTags.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
+import router from '@/router'
 
 const props = defineProps({
   book: Object,
   categories: Array,
+  publisher: String,
 })
 
 const paragraphs = computed(() => {
