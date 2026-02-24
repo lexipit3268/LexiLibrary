@@ -250,7 +250,7 @@ const handleRegister = async () => {
           <div class="flex gap-4 mt-4">
             <button
               @click="prevStep"
-              class="flex-1 py-3 border border-(--bg-secondary) text-(--subtext-color) hover:bg-(--bg-primary) transition-all flex items-center justify-center gap-2"
+              class="secondary-btn flex-1 flex justify-center gap-4 items-center"
             >
               <FontAwesomeIcon :icon="faArrowLeft" class="text-[10px]" />
               <span class="text-[10px] font-bold uppercase">Quay lại</span>

@@ -6,12 +6,12 @@
       <div class="relative h-56 bg-(--bg-quaternary) flex justify-center">
         <div class="absolute -bottom-20">
           <div class="relative group cursor-pointer">
-            <el-avatar
-              :size="160"
-              :src="userAvatar"
-              class="border-4 border-white shadow-md transition-transform duration-500 group-hover:scale-105"
-              fit="cover"
-            />
+            <div class="overflow-hidden w-60 h-60 rounded-full border-4 border-white shadow-md">
+              <img
+                :src="user.hinhAnh"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+            </div>
             <div
               class="absolute inset-0 rounded-full bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             >
@@ -22,7 +22,7 @@
       </div>
 
       <div class="pt-24 pb-16 px-10 md:px-20 text-center">
-        <h2 class="LexiLibrary text-(--primary) mb-3">{{ user.name }}</h2>
+        <h2 class="LexiLibrary text-(--primary) mb-3">{{ user.hoLot }} {{ user.ten }}</h2>
         <div
           class="inline-block px-5 py-1 rounded-full bg-(--bg-primary) border border-(--primary)"
         >
@@ -32,8 +32,8 @@
         </div>
 
         <div class="mt-10 max-w-xl mx-auto">
-          <p class="newsreaderFont italic text-2xl text-(--subtext-color) leading-relaxed">
-            "Cuốn sách tốt nhất cho bạn là cuốn sách nói nhiều nhất với bạn."
+          <p class="newsreaderFont text-2xl text-(--subtext-color) leading-relaxed">
+            "Mỗi trang sách là một bước chân đưa ta đến gần hơn với những chân trời mới."
           </p>
         </div>
 
@@ -51,7 +51,7 @@
               <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-(--subtext-color)"
                 >Mã thành viên</label
               >
-              <p class="text-base font-medium text-black">{{ user.code }}</p>
+              <p class="text-base font-medium text-black">{{ user.maDocGia }}</p>
             </div>
 
             <div class="flex flex-col gap-1">
@@ -113,11 +113,7 @@
             Chỉnh sửa thông tin
           </button>
 
-          <button
-            class="bg-white border border-(--primary) text-(--primary) px-12 py-3.5 text-xs tracking-widest font-bold uppercase hover:bg-(--bg-primary) transition-all active:scale-95"
-          >
-            Thay đổi mật khẩu
-          </button>
+          <button class="secondary-btn">Thay đổi mật khẩu</button>
         </div>
       </div>
     </div>
@@ -125,25 +121,51 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCamera, faPenNib } from '@fortawesome/free-solid-svg-icons'
+import userService from '@/services/user.service'
+import { ElMessage } from 'element-plus'
 
 library.add(faCamera, faPenNib)
 
 const authStore = useAuthStore()
+const user = ref({})
 
-const user = computed(() => authStore.user || {})
+const fetchUserData = async () => {
+  try {
+    const token = authStore.token
+    if (!token) return
 
-const userAvatar = computed(() => {
-  return user.value.image || 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+    const detailData = await userService.getUserInfomation(token)
+
+    if (detailData) {
+      user.value = detailData
+      // authStore.user = detailData
+    }
+    console.log(user.value)
+  } catch (error) {
+    ElMessage.error('Không thể lấy thông tin người dùng mới nhất')
+    console.error(error)
+  }
+}
+
+onMounted(() => {
+  fetchUserData()
 })
 </script>
 
 <style scoped>
-:deep(.el-avatar img) {
+img {
   image-rendering: -webkit-optimize-contrast;
+
+  image-rendering: crisp-edges;
+
+  will-change: transform;
+  transform: translateZ(0);
+
+  backface-visibility: hidden;
 }
 </style>

@@ -49,10 +49,12 @@
                 </template>
 
                 <template v-else-if="userRole === 'user'">
-                  <el-dropdown-item
-                    ><router-link to="/me">Thông tin cá nhân</router-link>
+                  <el-dropdown-item>
+                    <router-link to="/me">Thông tin cá nhân</router-link>
                   </el-dropdown-item>
-                  <el-dropdown-item>Sách đã mượn</el-dropdown-item>
+                  <el-dropdown-item>
+                    <router-link to="/history">Sách đã mượn</router-link>
+                  </el-dropdown-item>
                   <el-dropdown-item divided @click="handleLogout" class="logoutBtn"
                     >Đăng xuất
                   </el-dropdown-item>

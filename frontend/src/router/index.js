@@ -38,7 +38,7 @@ const router = createRouter({
         {
           path: '/me',
           name: 'user-profile',
-          component: () => import('../views/PublicProfile.vue'),
+          component: () => import('../views/user/PublicProfile.vue'),
           meta: { title: 'Thông tin cá nhân', requiresAuth: true },
         },
       ],
