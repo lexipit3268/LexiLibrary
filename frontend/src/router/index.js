@@ -47,13 +47,35 @@ const router = createRouter({
     // Staff
     {
       path: '/staff',
-      name: 'staff-dashboard',
-      component: () => import('../views/staff/StaffDashboard.vue'),
+      name: 'staff-homepage',
+      component: () => import('../layouts/StaffLayout.vue'),
       meta: {
         title: 'Nhân viên - LexiLibrary',
         requiresAuth: true,
         role: 'staff',
       },
+      children: [
+        {
+          path: '',
+          name: 'staff-dashboard',
+          component: () => import('../views/staff/StaffDashboard.vue'),
+        },
+        {
+          path: 'books',
+          name: 'books-management',
+          component: () => import('../components/StaffDashboard/BooksManagement.vue'),
+        },
+        {
+          path: 'publishers',
+          name: 'publishers-management',
+          component: () => import('../components/StaffDashboard/PublishersManagement.vue'),
+        },
+        {
+          path: 'borrowing-history',
+          name: 'borrowing-management',
+          component: () => import('../components/StaffDashboard/BorrowingManagement.vue'),
+        },
+      ],
     },
 
     //auth
