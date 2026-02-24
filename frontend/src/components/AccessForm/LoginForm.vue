@@ -32,12 +32,12 @@ const handleLogin = async () => {
     })
 
     if (response.status === 200) {
-      const { user, accessToken } = response.data
-      authStore.setLogin(user, accessToken)
+      const { user, token } = response.data
+      authStore.setLogin(user, token)
 
       if (user.role === 'staff') {
         ElMessage.success(`Chào mừng ${user.name} quay lại trang quản trị.`)
-        router.push('/staff/dashboard')
+        router.push('/staff')
       } else {
         ElMessage.success(`Đăng nhập thành công! Chào mừng ${user.name}`)
         router.push('/')

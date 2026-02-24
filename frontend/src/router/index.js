@@ -35,8 +35,28 @@ const router = createRouter({
             },
           ],
         },
+        {
+          path: '/me',
+          name: 'user-profile',
+          component: () => import('../views/PublicProfile.vue'),
+          meta: { title: 'Thông tin cá nhân', requiresAuth: true },
+        },
       ],
     },
+
+    // Staff
+    {
+      path: '/staff',
+      name: 'staff-dashboard',
+      component: () => import('../views/staff/StaffDashboard.vue'),
+      meta: {
+        title: 'Nhân viên - LexiLibrary',
+        requiresAuth: true,
+        role: 'staff',
+      },
+    },
+
+    //auth
     {
       path: '/login',
       name: 'Login',
@@ -44,6 +64,7 @@ const router = createRouter({
       props: {
         formType: LoginForm,
       },
+      meta: { guestOnly: true },
     },
     {
       path: '/register',
@@ -53,6 +74,7 @@ const router = createRouter({
         formType: RegisterForm,
       },
     },
+
     // 404
     {
       path: '/:pathMatch(.*)*',
@@ -72,15 +94,22 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title || 'LexiLibrary'
   const authStore = useAuthStore()
+
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
     ElMessage.warning('Vui lòng đăng nhập để tiếp tục')
-    next('/login')
-  } else if (to.meta.role && authStore.userRole !== to.meta.role) {
-    ElMessage.error('Bạn không có quyền truy cập vào khu vực này!')
-    next('/')
-  } else {
-    next()
+    return next('/login')
   }
+
+  if (to.meta.guestOnly && authStore.isLoggedIn) {
+    return next('/')
+  }
+
+  if (to.meta.role && authStore.userRole !== to.meta.role) {
+    ElMessage.error('Bạn không có quyền truy cập vào khu vực này!')
+    return next('/')
+  }
+
+  next()
 })
 
 export default router
