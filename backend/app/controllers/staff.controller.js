@@ -60,6 +60,7 @@ exports.login = async (req, res, next) => {
         name: staff.hoTenNV,
         role: 'staff',
         image: staff.hinhAnh,
+        email: staff.email,
       },
     });
   } catch (error) {

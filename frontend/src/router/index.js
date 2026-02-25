@@ -75,6 +75,11 @@ const router = createRouter({
           name: 'borrowing-management',
           component: () => import('../components/StaffDashboard/BorrowingManagement.vue'),
         },
+        {
+          path: 'me',
+          name: 'staff-profile',
+          component: () => import('../views/staff/StaffProfile.vue'),
+        },
       ],
     },
 

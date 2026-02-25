@@ -8,7 +8,14 @@
           <div class="relative group cursor-pointer">
             <div class="overflow-hidden w-60 h-60 rounded-full border-4 border-white shadow-md">
               <img
+                v-if="user.hinhAnh"
                 :src="user.hinhAnh"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <img
+                v-else
+                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                alt=""
                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
             </div>

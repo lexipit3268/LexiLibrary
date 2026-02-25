@@ -4,6 +4,7 @@ import {
   faBook,
   faChartBar,
   faClockRotateLeft,
+  faHouse,
   faPeopleRoof,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
@@ -24,7 +25,7 @@ const handleLogout = () => {
 
 <template>
   <div
-    class="sidebar-container min-w-66 max-w-66 h-screen bg-white flex flex-col justify-between shadow-sm border-r border-(--bg-tertiary)"
+    class="sticky top-0 min-w-66 max-w-66 h-screen bg-white flex flex-col justify-between shadow-sm border-r border-(--bg-tertiary)"
   >
     <!-- logo  -->
     <div class="text-center min-h-20 py-2 border-b border-(--bg-tertiary) shadow-xs">
@@ -76,6 +77,12 @@ const handleLogout = () => {
       <div>
         <p class="menu-label font-bold uppercase tracking-[0.15em] mb-4 px-2 opacity-60">Khác</p>
         <div class="flex flex-col gap-1.5">
+          <router-link to="/">
+            <div class="nav-item">
+              <FontAwesomeIcon :icon="faHouse" class="w-5" />
+              <p>Trang chủ</p>
+            </div>
+          </router-link>
           <router-link to="/staff/me" v-slot="{ isExactActive, navigate }">
             <div @click="navigate" :class="['nav-item', isExactActive ? 'active' : '']">
               <FontAwesomeIcon :icon="faUser" class="w-5" />

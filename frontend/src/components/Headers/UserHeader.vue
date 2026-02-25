@@ -60,11 +60,14 @@
                   </el-dropdown-item>
                 </template>
 
-                <!-- <template v-else-if="userRole === 'staff'">
+                <template v-else-if="userRole === 'staff'">
+                  <el-dropdown-item>
+                    <router-link to="/staff">Trang quản lý</router-link>
+                  </el-dropdown-item>
                   <el-dropdown-item divided @click="handleLogout" class="logoutBtn"
                     >Đăng xuất
                   </el-dropdown-item>
-                </template> -->
+                </template>
               </el-dropdown-menu>
             </template>
           </el-dropdown>

@@ -1,6 +1,7 @@
 <script setup>
 import StaffHeader from '@/components/Headers/StaffHeader.vue'
 import SideMenu from '@/components/SideMenu.vue'
+import { ElBacktop } from 'element-plus'
 </script>
 
 <template>
@@ -13,4 +14,5 @@ import SideMenu from '@/components/SideMenu.vue'
       <RouterView></RouterView>
     </div>
   </div>
+  <ElBacktop class="primary-btn text-white!"></ElBacktop>
 </template>
