@@ -3,9 +3,9 @@
     v-if="isOpen"
     class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/10 backdrop-blur-[2px] font-['Montserrat']"
   >
-    <div class="bg-white w-full max-w-md p-8 shadow-2xl border border-(--primary)/15 rounded-3xl">
+    <div class="bg-white w-full max-w-md p-8 shadow-2xl border border-(--primary)/15">
       <h3 class="newsreaderFont text-2xl mb-6 text-(--primary)">
-        {{ isEditing ? 'Cập nhật' : 'Đăng ký' }} NXB
+        {{ isEditing ? 'Cập nhật' : 'Thêm' }} Nhà xuất bản
       </h3>
 
       <form @submit.prevent="submitForm" class="space-y-5">
@@ -17,7 +17,7 @@
             v-model="localForm.maNXB"
             type="text"
             :disabled="isEditing"
-            class="bg-(--bg-primary)/70 px-4 py-3 text-sm outline-none focus:border-(--primary) disabled:opacity-50 transition-all rounded-xl"
+            class="bg-(--bg-primary)/70 px-4 py-3 text-sm outline-none focus:border-(--primary) disabled:opacity-50 transition-all"
             placeholder="NXB-XXX"
           />
         </div>
@@ -29,7 +29,7 @@
           <input
             v-model="localForm.tenNXB"
             type="text"
-            class="bg-(--bg-primary)/70 px-4 py-3 text-sm outline-none focus:border-(--primary) transition-all rounded-xl"
+            class="bg-(--bg-primary)/70 px-4 py-3 text-sm outline-none focus:border-(--primary) transition-all"
             placeholder="Tên chính thức..."
           />
         </div>
@@ -41,7 +41,7 @@
           <textarea
             v-model="localForm.diaChi"
             rows="3"
-            class="bg-(--bg-primary)/70 px-4 py-3 text-sm resize-none outline-none focus:border-(--primary) transition-all rounded-xl"
+            class="bg-(--bg-primary)/70 px-4 py-3 text-sm resize-none outline-none focus:border-(--primary) transition-all"
             placeholder="Địa chỉ đầy đủ..."
           ></textarea>
         </div>
@@ -50,13 +50,13 @@
           <button
             type="button"
             @click="$emit('close')"
-            class="secondary-btn px-6! py-2! text-[10px]! border-transparent! rounded-xl!"
+            class="secondary-btn px-6! py-2! text-[10px]! border-transparent!"
           >
             Hủy bỏ
           </button>
           <button
             type="submit"
-            class="primary-btn px-8 py-2 font-bold text-xs uppercase tracking-widest shadow-lg shadow-(--primary)/20 rounded-xl"
+            class="primary-btn px-8 py-2 font-bold text-xs uppercase tracking-widest shadow-lg shadow-(--primary)/20"
           >
             Xác nhận
           </button>

@@ -61,24 +61,47 @@ const router = createRouter({
           component: () => import('../views/staff/StaffDashboard.vue'),
         },
         {
-          path: 'books',
+          path: 'book',
           name: 'books-management',
-          component: () => import('../components/StaffDashboard/BooksManagement.vue'),
+          component: () => import('../components/StaffBooksManagement/BookManagementLayout.vue'),
+          meta: { title: 'Quản lý sách' },
+          children: [
+            {
+              path: '',
+              name: 'books-management-main',
+              component: () => import('../components/StaffBooksManagement/BooksManagement.vue'),
+            },
+            {
+              path: 'create',
+              name: 'create-book',
+              component: () => import('../components/StaffBooksManagement/BookForm.vue'),
+            },
+            {
+              path: ':maSach',
+              name: 'book-details-management',
+              component: () => import('../components/StaffBooksManagement/StaffBookDetails.vue'),
+              props: true,
+            },
+          ],
         },
+
         {
-          path: 'publishers',
+          path: 'publisher',
           name: 'publishers-management',
           component: () => import('../components/StaffPublishersMng/PublishersManagement.vue'),
+          meta: { title: 'Quản lý nhà xuất bản' },
         },
         {
           path: 'borrowing-history',
           name: 'borrowing-management',
           component: () => import('../components/StaffDashboard/BorrowingManagement.vue'),
+          meta: { title: 'Quản lý nhà mượn trả' },
         },
         {
           path: 'me',
           name: 'staff-profile',
           component: () => import('../views/staff/StaffProfile.vue'),
+          meta: { title: 'Trang nhân viên' },
         },
       ],
     },

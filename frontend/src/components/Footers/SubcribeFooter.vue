@@ -14,7 +14,13 @@ import { ElDivider } from 'element-plus'
       </div>
     </div>
     <div class="w-full max-w-2xl flex-1 flex min-h-12">
-      <input type="text" name="" id="" placeholder="Nhập email..." class="basis-3/4 bg-white p-2" />
+      <input
+        type="text"
+        name=""
+        id=""
+        placeholder="Nhập email..."
+        class="basis-3/4 bg-white p-2 border border-transparent"
+      />
       <button type="button" class="basis-1/4 primary-btn">Đăng ký</button>
     </div>
   </div>

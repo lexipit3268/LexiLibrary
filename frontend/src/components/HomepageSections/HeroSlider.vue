@@ -12,7 +12,7 @@
             <AppLogo class="w-12 my-2"></AppLogo>
             <h2 class="quote-text text-white text-4xl px-4 my-4">“{{ slide.quote }}”</h2>
             <ElDivider class="w-[10%]! my-2!"></ElDivider>
-            <button class="primary-btn w-fit px-6 py-2 rounded-lg my-2">
+            <button class="primary-btn w-fit px-6 py-2 my-2">
               <router-link to="/book">Tìm sách ngay</router-link>
             </button>
             <p class="text-white text-sm opacity-80 mt-2">

@@ -3,21 +3,29 @@
     class="sticky top-0 w-full h-20 flex items-center justify-between px-6 border-b border-(--bg-tertiary) bg-white/70 backdrop-blur-md"
   >
     <div>
-      <h3 class="text-2xl" v-if="route.fullPath === '/staff'">
-        Chào mừng trở lại,
-        <span class="font-semibold">{{ staff.name }}</span
+      <h3 class="text-2xl" v-if="route.name === 'staff-dashboard'">
+        Chào mừng trở lại, <span class="font-semibold">{{ staff.name }}</span
         >!
       </h3>
-      <h3 class="text-2xl font-semibold" v-else-if="route.fullPath === '/staff/books'">
-        Danh sách sách
+
+      <h3
+        class="text-2xl font-semibold"
+        v-else-if="
+          ['books-management-main', 'book-details-management', 'create-book'].includes(route.name)
+        "
+      >
+        Quản lý sách
       </h3>
-      <h3 class="text-2xl font-semibold" v-else-if="route.fullPath === '/staff/publishers'">
+
+      <h3 class="text-2xl font-semibold" v-else-if="route.name === 'publishers-management'">
         Nhà xuất bản
       </h3>
-      <h3 class="text-2xl font-semibold" v-else-if="route.fullPath === '/staff/borrowing-history'">
+
+      <h3 class="text-2xl font-semibold" v-else-if="route.name === 'borrowing-management'">
         Lịch sử mượn
       </h3>
-      <h3 class="text-2xl font-semibold" v-else-if="route.fullPath === '/staff/me'">
+
+      <h3 class="text-2xl font-semibold" v-else-if="route.name === 'staff-profile'">
         Thông tin cá nhân
       </h3>
     </div>

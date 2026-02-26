@@ -61,7 +61,7 @@
             </thead>
             <tbody class="divide-y divide-(--bg-primary)">
               <tr
-                v-for="book in books.slice(-6).reverse()"
+                v-for="book in latestBooks"
                 :key="book._id"
                 class="group hover:bg-(--bg-primary)/60 transition-colors"
               >
@@ -80,7 +80,7 @@
                     </div>
                   </div>
                 </td>
-                <td class="py-4 text-sm">{{ book.maNXB }}</td>
+                <td class="py-4 text-sm">{{ getNamePublisher(book.maNXB) }}</td>
                 <td class="py-4 text-center">
                   <span
                     class="px-3 py-1 bg-(--bg-primary) text-(--primary) rounded-full text-xs font-bold border border-(--primary)/20"
@@ -99,13 +99,13 @@
           <h3 class="newsreaderFont text-xl mb-6">Thao tác nhanh</h3>
           <div class="flex flex-col gap-4">
             <button
-              class="primary-btn w-full py-4 rounded-xl font-bold flex items-center justify-center gap-3"
+              class="primary-btn w-full py-4 font-bold flex items-center justify-center gap-3"
             >
               <FontAwesomeIcon :icon="faPlus" />
               Nhập sách mới
             </button>
             <router-link to="/staff/borrowing-history">
-              <button class="cta-btn my-0! w-full! bg-white text-(--primary)">
+              <button class="cta-btn my-0! rounded-none! w-full! bg-white text-(--primary)">
                 <span>Quản lý mượn trả</span>
                 <FontAwesomeIcon :icon="faArrowRight" /></button
             ></router-link>
@@ -142,8 +142,8 @@ import { ElStatistic } from 'element-plus'
 
 const staffStore = useStaffStore()
 const { books, publishers, users } = storeToRefs(staffStore)
-console.log(books)
 
+const latestBooks = ref([])
 const bookLength = ref(0)
 const publisherLength = ref(0)
 const userLength = ref(0)
@@ -152,6 +152,10 @@ const outBookLength = useTransition(bookLength, { duration: 2000 })
 const outPublisherLength = useTransition(publisherLength, { duration: 2000 })
 const outUserLength = useTransition(userLength, { duration: 2000 })
 
+const getNamePublisher = (maNXB) => {
+  return publishers.value.find((p) => p.maNXB === maNXB).tenNXB
+}
+
 onMounted(async () => {
   if (books.value.length === 0) {
     await staffStore.fetchAllData()
@@ -159,6 +163,7 @@ onMounted(async () => {
   bookLength.value = books.value.length
   publisherLength.value = publishers.value.length
   userLength.value = users.value.length
+  latestBooks.value = books.value.slice(-6).reverse()
 })
 
 const statisticStyle =

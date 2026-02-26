@@ -1,6 +1,6 @@
 <script setup>
 import StaffHeader from '@/components/Headers/StaffHeader.vue'
-import SideMenu from '@/components/SideMenu.vue'
+import SideMenu from '@/components/StaffDashboard/SideMenu.vue'
 import { ElBacktop } from 'element-plus'
 </script>
 

@@ -36,6 +36,17 @@ export const useStaffStore = defineStore('staff', () => {
       isLoading.value = false
     }
   }
+  const removeBook = async (maSach) => {
+    try {
+      await bookService.deleteBook(maSach)
 
-  return { books, publishers, users, categories, isLoading, error, fetchAllData }
+      books.value = books.value.filter((b) => b.maSach !== maSach)
+
+      return true
+    } catch (error) {
+      console.error('Lỗi khi xóa sách tại Store:', error)
+      throw error
+    }
+  }
+  return { books, publishers, users, categories, removeBook, isLoading, error, fetchAllData }
 })

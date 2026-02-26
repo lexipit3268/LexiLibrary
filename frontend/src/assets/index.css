@@ -48,7 +48,6 @@ body {
 
 input {
   outline: none;
-  border: 1px solid transparent;
   transition: all 200ms ease;
 }
 

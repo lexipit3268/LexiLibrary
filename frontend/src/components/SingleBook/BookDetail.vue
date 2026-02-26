@@ -48,6 +48,8 @@
                   @click="router.push({ name: 'book-page', query: { publisher: publisher.maNXB } })"
                   >{{ publisher.tenNXB }}</span
                 >
+                <p class="text-(--subtext-color)">Năm xuất bản:</p>
+                <span class="font-medium">{{ props.book.namXuatBan }}</span>
                 <p class="text-(--subtext-color)">Sẵn có:</p>
                 <span class="font-medium">{{ props.book.soQuyen }} quyển</span>
               </div>
@@ -147,7 +149,7 @@ import router from '@/router'
 const props = defineProps({
   book: Object,
   categories: Array,
-  publisher: String,
+  publisher: Object,
 })
 
 const paragraphs = computed(() => {

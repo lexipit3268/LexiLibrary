@@ -51,14 +51,14 @@ const handleLogout = () => {
             </div>
           </router-link>
 
-          <router-link to="/staff/books" v-slot="{ isExactActive, navigate }">
-            <div @click="navigate" :class="['nav-item', isExactActive ? 'active' : '']">
+          <router-link to="/staff/book" v-slot="{ isActive, navigate }">
+            <div @click="navigate" :class="['nav-item', isActive ? 'active' : '']">
               <FontAwesomeIcon :icon="faBook" class="w-5" />
-              <p>Danh sách sách</p>
+              <p>Quản lý sách</p>
             </div>
           </router-link>
 
-          <router-link to="/staff/publishers" v-slot="{ isExactActive, navigate }">
+          <router-link to="/staff/publisher" v-slot="{ isExactActive, navigate }">
             <div @click="navigate" :class="['nav-item', isExactActive ? 'active' : '']">
               <FontAwesomeIcon :icon="faPeopleRoof" class="w-5" />
               <p>Nhà xuất bản</p>

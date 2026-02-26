@@ -4,7 +4,7 @@
       v-if="selectedBook"
       :book="selectedBook"
       :categories="bookCategoryNames"
-      :publisher="bookBublisher"
+      :publisher="bookPublisher"
     />
 
     <RelatedBook v-if="relatedBooks" :books="relatedBooks" />
@@ -51,7 +51,7 @@ const bookCategoryNames = computed(() => {
   })
 })
 
-const bookBublisher = computed(() => {
+const bookPublisher = computed(() => {
   if (!selectedBook.value || publishers.value.length === 0) return []
 
   const foundPublisher = publishers.value.find(

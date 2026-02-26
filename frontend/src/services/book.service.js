@@ -1,37 +1,34 @@
 import axios from 'axios'
 const API_URL = 'http://localhost:3000/api/library/books/'
 class BookService {
-  async getBooks() {
+  async _handleRequest(request) {
     try {
-      const response = await axios.get(API_URL)
+      const response = await request
       return response.data
     } catch (error) {
       console.error('Lỗi API:', error)
-      return []
-    }
-  }
-  async getBooks(params = {}) {
-    const response = await axios.get(API_URL, { params })
-    return response.data
-  }
-  async getBook(maSach) {
-    try {
-      const response = await axios.get(API_URL + maSach)
-      return response.data
-    } catch (error) {
-      console.error('Lỗi API:', error)
-      return {}
+      throw error
     }
   }
 
+  async getBooks() {
+    return this._handleRequest(axios.get(API_URL))
+  }
+
+  async getBooks(params = {}) {
+    return this._handleRequest(axios.get(API_URL, { params }))
+  }
+
+  async getBook(maSach) {
+    return this._handleRequest(axios.get(API_URL + maSach))
+  }
+
   async getRelatedBooks(maTheLoai) {
-    try {
-      const response = await axios.get(API_URL + `?category=` + maTheLoai)
-      return response.data
-    } catch (error) {
-      console.error('Lỗi API:', error)
-      return {}
-    }
+    return this._handleRequest(axios.get(API_URL + `?category=` + maTheLoai))
+  }
+
+  async deleteBook(maSach) {
+    return this._handleRequest(axios.delete(API_URL + maSach))
   }
 }
 export default new BookService()
