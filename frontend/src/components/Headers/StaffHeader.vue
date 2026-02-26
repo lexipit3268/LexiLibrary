@@ -25,15 +25,17 @@
     <div class="flex items-center gap-6">
       <div class="flex items-center gap-4">
         <ElBadge :value="32" type="primary" :offset="[-2, 2]">
-          <div class="staff-header-icon">
-            <FontAwesomeIcon :icon="faEnvelope" />
-          </div>
+          <ElTooltip content="Xem thư">
+            <div class="staff-header-icon">
+              <FontAwesomeIcon :icon="faEnvelope" /></div
+          ></ElTooltip>
         </ElBadge>
 
         <ElBadge :value="68" type="primary" :offset="[-2, 2]">
-          <div class="staff-header-icon">
-            <FontAwesomeIcon :icon="faBell" />
-          </div>
+          <ElTooltip content="Thông báo">
+            <div class="staff-header-icon">
+              <FontAwesomeIcon :icon="faBell" /></div
+          ></ElTooltip>
         </ElBadge>
       </div>
       <!-- staff infor -->
@@ -55,7 +57,7 @@
 import { useAuthStore } from '@/stores/auth'
 import { faBell, faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { ElAvatar, ElBadge } from 'element-plus'
+import { ElAvatar, ElBadge, ElTooltip } from 'element-plus'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()

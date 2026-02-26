@@ -1,37 +1,37 @@
 <template>
   <div class="p-6 min-h-screen bg-(--bg-primary) text-(--text-color)">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <div class="bg-white p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+      <div class="bg-white p-6 shadow-sm flex flex-col justify-between">
         <div class="flex justify-between items-start">
           <span class="newsreaderFont text-xl text-(--subtext-color)">Kho sách</span>
           <FontAwesomeIcon :icon="faBook" class="text-(--primary) text-xl" />
         </div>
         <div class="mt-4">
-          <h2 class="text-4xl font-bold tracking-tight">{{ books.length }}</h2>
+          <el-statistic :value="outBookLength" :precision="0" :value-style="statisticStyle" />
           <p class="text-xs text-green-600 font-bold mt-2">
             +3.68% <span class="text-(--subtext-color) font-normal ml-1 italic">tăng trưởng</span>
           </p>
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+      <div class="bg-white p-6 shadow-sm flex flex-col justify-between">
         <div class="flex justify-between items-start">
           <span class="newsreaderFont text-xl text-(--subtext-color)">Đối tác NXB</span>
-          <FontAwesomeIcon :icon="faBuilding" class="text-(--secondary) text-xl" />
+          <FontAwesomeIcon :icon="faBuilding" class="text-(--primary) text-xl" />
         </div>
         <div class="mt-4">
-          <h2 class="text-4xl font-bold tracking-tight">{{ publishers.length }}</h2>
+          <el-statistic :value="outPublisherLength" :precision="0" :value-style="statisticStyle" />
           <p class="text-xs text-(--subtext-color) mt-2 italic">Hợp tác bền vững</p>
         </div>
       </div>
 
-      <div class="bg-white p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+      <div class="bg-white p-6 shadow-sm flex flex-col justify-between">
         <div class="flex justify-between items-start">
           <span class="newsreaderFont text-xl text-(--subtext-color)">Độc giả</span>
-          <FontAwesomeIcon :icon="faUsers" class="text-(--subtext-color) text-xl" />
+          <FontAwesomeIcon :icon="faUsers" class="text-(--primary) text-xl" />
         </div>
         <div class="mt-4">
-          <h2 class="text-4xl font-bold tracking-tight">{{ users.length }}</h2>
+          <el-statistic :value="outUserLength" :precision="0" :value-style="statisticStyle" />
           <p class="text-xs text-green-600 font-bold mt-2">
             +3 <span class="text-(--subtext-color) font-normal ml-1 italic">thành viên mới</span>
           </p>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <div class="lg:col-span-2 bg-white rounded-3xl p-8 shadow-sm">
+      <div class="lg:col-span-2 bg-white p-8 shadow-sm">
         <div class="flex justify-between items-center mb-6">
           <h3 class="newsreaderFont text-2xl">Sách mới cập nhật</h3>
           <router-link to="/staff/books"
@@ -63,7 +63,7 @@
               <tr
                 v-for="book in books.slice(-6).reverse()"
                 :key="book._id"
-                class="group hover:bg-(--bg-primary)/30 transition-colors"
+                class="group hover:bg-(--bg-primary)/60 transition-colors"
               >
                 <td class="py-4">
                   <div class="flex items-center gap-4">
@@ -95,7 +95,7 @@
       </div>
 
       <div class="space-y-6">
-        <div class="bg-(--bg-secondary) rounded-3xl p-8">
+        <div class="bg-(--bg-secondary) p-8">
           <h3 class="newsreaderFont text-xl mb-6">Thao tác nhanh</h3>
           <div class="flex flex-col gap-4">
             <button
@@ -112,7 +112,7 @@
           </div>
         </div>
 
-        <div class="p-6 border border-(--primary)/20 rounded-3xl italic">
+        <div class="p-6 border border-(--primary)/20 italic">
           <p class="newsreaderFont text-(--subtext-color) leading-relaxed">
             "Sách là nguồn kiến thức vô tận, và chúng ta là những người dẫn đường."
           </p>
@@ -126,7 +126,8 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useTransition } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { useStaffStore } from '@/stores/staff'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -137,15 +138,31 @@ import {
   faPlus,
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons'
+import { ElStatistic } from 'element-plus'
 
 const staffStore = useStaffStore()
 const { books, publishers, users } = storeToRefs(staffStore)
 console.log(books)
+
+const bookLength = ref(0)
+const publisherLength = ref(0)
+const userLength = ref(0)
+
+const outBookLength = useTransition(bookLength, { duration: 2000 })
+const outPublisherLength = useTransition(publisherLength, { duration: 2000 })
+const outUserLength = useTransition(userLength, { duration: 2000 })
+
 onMounted(async () => {
   if (books.value.length === 0) {
     await staffStore.fetchAllData()
   }
+  bookLength.value = books.value.length
+  publisherLength.value = publishers.value.length
+  userLength.value = users.value.length
 })
+
+const statisticStyle =
+  'font-family: Montserrat; font-weight: 700; font-size: 2.25rem; color: var(--text-color); letter-spacing: -0.05em;'
 </script>
 
 <style scoped></style>

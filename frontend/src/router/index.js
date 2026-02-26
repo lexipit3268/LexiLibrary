@@ -68,7 +68,7 @@ const router = createRouter({
         {
           path: 'publishers',
           name: 'publishers-management',
-          component: () => import('../components/StaffDashboard/PublishersManagement.vue'),
+          component: () => import('../components/StaffPublishersMng/PublishersManagement.vue'),
         },
         {
           path: 'borrowing-history',

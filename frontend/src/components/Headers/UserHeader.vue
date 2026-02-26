@@ -15,7 +15,7 @@
         <div>
           <router-link to="/book" class="isActive">Sách</router-link>
         </div>
-        <div>
+        <div v-if="userRole !== 'staff'">
           <router-link to="/history" class="isActive">Lịch sử</router-link>
         </div>
         <div>
@@ -72,12 +72,12 @@
             </template>
           </el-dropdown>
         </div>
-        <div>
+        <div v-if="userRole !== 'staff'">
           <router-link to="/cart">
             <FontAwesomeIcon :icon="faCartShopping"></FontAwesomeIcon>
           </router-link>
         </div>
-        <div>
+        <div v-if="userRole !== 'staff'">
           <a href="">
             <FontAwesomeIcon :icon="faBell"></FontAwesomeIcon>
           </a>

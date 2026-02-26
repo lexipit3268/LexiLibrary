@@ -3,12 +3,13 @@
     class="p-6 font-['Montserrat'] bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto text-(--text-color)"
   >
     <div class="grid grid-cols-12 gap-6 items-start">
-      <div class="col-span-12 lg:col-span-4 space-y-6">
+      <div class="max-h-98 col-span-12 lg:col-span-4 space-y-6">
         <div
-          class="bg-white p-6 shadow-sm border border-(--primary)/10 text-center relative overflow-hidden"
+          class="h-75 bg-white p-6 shadow-sm border border-(--primary)/10 text-center relative overflow-hidden"
         >
-          <span class="absolute -right-4 -top-2 opacity-[0.05] text-6xl LexiLibrary select-none"
-            >Staff</span
+          <span
+            class="absolute -right-2 -bottom-4 opacity-[0.05] text-[6rem]! LexiLibrary select-none"
+            >staff</span
           >
 
           <div class="relative w-32 h-32 mx-auto mb-4">
@@ -39,7 +40,9 @@
         </div>
       </div>
 
-      <div class="col-span-12 lg:col-span-8 bg-white p-6 shadow-sm border border-(--primary)/10">
+      <div
+        class="max-h-98 col-span-12 lg:col-span-8 bg-white p-6 shadow-sm border border-(--primary)/10"
+      >
         <div class="mb-8">
           <h3 class="newsreaderFont text-xl mb-6 flex items-center gap-3">
             <span class="w-8 h-px bg-(--primary)"></span>
