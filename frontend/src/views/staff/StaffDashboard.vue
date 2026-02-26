@@ -43,7 +43,7 @@
       <div class="lg:col-span-2 bg-white p-8 shadow-sm">
         <div class="flex justify-between items-center mb-6">
           <h3 class="newsreaderFont text-2xl">Sách mới cập nhật</h3>
-          <router-link to="/staff/books"
+          <router-link to="/staff/book"
             ><button class="secondary-btn px-6! py-2!">Xem tất cả</button></router-link
           >
         </div>
@@ -100,6 +100,7 @@
           <div class="flex flex-col gap-4">
             <button
               class="primary-btn w-full py-4 font-bold flex items-center justify-center gap-3"
+              @click="router.push('staff/book/create')"
             >
               <FontAwesomeIcon :icon="faPlus" />
               Nhập sách mới
@@ -139,6 +140,7 @@ import {
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons'
 import { ElStatistic } from 'element-plus'
+import router from '@/router'
 
 const staffStore = useStaffStore()
 const { books, publishers, users } = storeToRefs(staffStore)
