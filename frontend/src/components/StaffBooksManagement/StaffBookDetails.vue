@@ -15,9 +15,13 @@
         class="bg-pattern overflow-hidden h-fit max-w-100 bg-amber-800/10 p-8 group hover:shadow-2xl transition-all duration-300"
       >
         <img
-          :src="book.hinhAnh"
+          :src="
+            book.hinhAnh
+              ? book.hinhAnh
+              : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=No+image'
+          "
           alt=""
-          class="max-w-72 place-self-center object-cover shadow-2xl group-hover:shadow-none group-hover:scale-115 ease-in-out transition-all duration-300"
+          class="max-w-72 place-self-center object-cover shadow-2xl group-hover:shadow-none group-hover:scale-105 ease-in-out transition-all duration-300"
         />
       </div>
 
@@ -62,7 +66,7 @@
               <h3 class="font-bold text-sm tracking-wide uppercase">Thao tác</h3>
               <div class="flex items-center gap-4">
                 <button
-                  @click="goToEdit"
+                  @click="router.push('edit/' + maSach)"
                   class="primary-btn px-4! py-2! min-h-10! font-bold text-sm flex items-center gap-3 shadow-xl shadow-(--primary)/20"
                 >
                   <FontAwesomeIcon :icon="faPenNib" class="text-sm" />

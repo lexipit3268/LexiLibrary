@@ -5,7 +5,11 @@
   >
     <div class="relative aspect-2/3 w-full overflow-hidden rounded-sm shadow-sm group">
       <img
-        :src="image"
+        :src="
+          image
+            ? image
+            : `https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Loading+image...`
+        "
         :alt="title"
         loading="lazy"
         class="w-full h-full object-cover cursor-pointer group-hover:scale-110 transition-all duration-300"

@@ -1,13 +1,12 @@
 <template>
-  <div
-    class="flex flex-col min-h-[calc(100%-80px)] w-full p-6 bg-(--bg-primary) font-['Montserrat']"
-  >
+  <LoadingComponent v-if="isLoading" />
+  <div class="flex flex-col min-h-[calc(100%-80px)] w-full p-6 bg-(--bg-primary)">
     <div class="flex justify-between items-center mb-4">
       <button
         @click="$router.back()"
         class="flex items-center gap-2 text-(--subtext-color) hover:text-(--primary) transition-all text-sm font-bold uppercase tracking-widest cursor-pointer"
       >
-        <FontAwesomeIcon :icon="faArrowLeft" /> Quay lại
+        <FontAwesomeIcon :icon="faArrowLeft" /> Quay lại danh sách
       </button>
     </div>
 
@@ -109,32 +108,48 @@
             </select>
           </div>
 
-          <div class="flex flex-col gap-1.5">
-            <label class="text-[10px] uppercase font-bold tracking-widest text-(--subtext-color)"
-              >Mã sách</label
-            >
-            <input
-              v-model="book.maSach"
-              :disabled="isEditMode"
-              type="text"
-              class="font-medium text-sm border-b border-(--primary)/40 focus:border-(--primary) outline-none pb-1 bg-transparent disabled:opacity-30"
-            />
+          <div class="flex flex-row gap-1.5">
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[10px] uppercase font-bold tracking-widest text-(--subtext-color)"
+                >Mã sách</label
+              >
+              <input
+                v-model="book.maSach"
+                :disabled="isEditMode"
+                type="text"
+                class="font-medium text-sm border-b border-(--primary)/40 focus:border-(--primary) outline-none pb-1 bg-transparent disabled:opacity-30"
+              />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label class="text-[10px] uppercase font-bold tracking-widest text-(--subtext-color)"
+                >Số quyển</label
+              >
+              <input
+                v-model="book.soQuyen"
+                type="number"
+                class="font-medium text-sm border-b border-(--primary)/40 focus:border-(--primary) outline-none pb-1 bg-transparent w-20!"
+              />
+            </div>
           </div>
-
-          <div class="flex flex-col gap-1.5">
-            <label class="text-[10px] uppercase font-bold tracking-widest text-(--subtext-color)"
-              >Năm XB / Đơn giá ($)</label
-            >
-            <div class="flex gap-2">
+          <div class="flex flex-row justify-between">
+            <div class="flex flex-col gap-2">
+              <label class="text-[10px] uppercase font-bold tracking-widest text-(--subtext-color)"
+                >Năm xuất bản</label
+              >
               <input
                 v-model="book.namXuatBan"
                 type="text"
-                class="w-20 font-medium text-sm border-b border-(--primary)/40 outline-none pb-1"
+                class="w-32 font-medium text-sm border-b border-(--primary)/40 outline-none pb-1"
               />
+            </div>
+            <div class="w-fit flex flex-col gap-2">
+              <label class="text-[10px] uppercase font-bold tracking-widest text-(--subtext-color)"
+                >Đơn giá</label
+              >
               <input
                 v-model="book.donGia"
                 type="number"
-                class="w-full font-medium text-sm border-b border-(--primary)/40 outline-none pb-1 text-(--primary)"
+                class="w-30 font-medium text-sm border-b border-(--primary)/40 outline-none pb-1 text-(--primary)"
               />
             </div>
           </div>
@@ -187,8 +202,9 @@ import { storeToRefs } from 'pinia'
 import { useStaffStore } from '@/stores/staff'
 import { faArrowLeft, faPlus, faSave, faCamera } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElUpload } from 'element-plus'
 import bookService from '@/services/book.service'
+import LoadingComponent from '../LoadingComponent.vue'
 
 const props = defineProps({
   maSach: String,
@@ -212,11 +228,47 @@ const book = reactive({
   maNXB: '',
   moTa: '',
   namXuatBan: new Date().getFullYear().toString(),
+  publicImgId: '',
 })
 
 const handleImageChange = (file) => {
   selectedFile.value = file.raw
   book.hinhAnh = URL.createObjectURL(file.raw)
+}
+
+const isLoading = ref(false)
+
+const handleSave = async () => {
+  if (!book.tenSach || !book.maSach) {
+    ElMessage.warning('Vui lòng điền đầy đủ thông tin')
+    return
+  }
+
+  try {
+    isLoading.value = true
+
+    if (selectedFile.value) {
+      const uploadRes = await bookService.uploadBookCover(selectedFile.value)
+      book.hinhAnh = uploadRes.coverUrl
+      book.publicImgId = uploadRes.publicId
+    }
+
+    if (isEditMode.value) {
+      console.log(book)
+      await bookService.updateBook(book.maSach, book)
+      ElMessage.success('Đã cập nhật dữ liệu sách thành công')
+    } else {
+      await bookService.createBook(book)
+      ElMessage.success('Đã thêm sách mới vào hệ thống')
+    }
+
+    router.push('/staff/book')
+  } catch (error) {
+    console.error(error)
+    ElMessage.error('Thao tác thất bại: ' + (error.response?.data?.message || error.message))
+  } finally {
+    isLoading.value = false
+  }
 }
 
 onMounted(async () => {
@@ -231,19 +283,4 @@ onMounted(async () => {
     }
   }
 })
-
-const handleSave = async () => {
-  try {
-    if (isEditMode.value) {
-      await bookService.updateBook(book.maSach, book)
-      ElMessage.success('Đã cập nhật dữ liệu')
-    } else {
-      await bookService.createBook(book)
-      ElMessage.success('Đã thêm sách vào hệ thống')
-    }
-    router.push('/staff/book')
-  } catch (error) {
-    ElMessage.error('Lỗi hệ thống, vui lòng thử lại sau' + error)
-  }
-}
 </script>

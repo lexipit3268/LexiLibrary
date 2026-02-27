@@ -37,7 +37,14 @@
                   <div
                     class="w-12 h-16 bg-(--bg-secondary) rounded flex items-center justify-center text-[10px] text-(--secondary) font-bold"
                   >
-                    <img :src="book.hinhAnh" alt="" />
+                    <img
+                      :src="
+                        book.hinhAnh
+                          ? book.hinhAnh
+                          : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty...'
+                      "
+                      alt=""
+                    />
                   </div>
                   <div>
                     <p class="font-bold text-sm">{{ book.tenSach }}</p>

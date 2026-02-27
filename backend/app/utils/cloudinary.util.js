@@ -6,12 +6,6 @@ class CloudinaryUtil {
     cloudinary.config(config.cloudiary);
   }
 
-  /**
-   * Upload ảnh lên Cloudinary
-   * @param {String} filePath
-   * @param {String} folderName
-   * @returns {Promise}
-   */
   async uploadImage(filePath, folderName) {
     try {
       const result = await cloudinary.uploader.upload(filePath, {
@@ -26,13 +20,10 @@ class CloudinaryUtil {
       throw new Error('Cloudinary Upload Error: ' + error.message);
     }
   }
-  /**
-   * Xóa ảnh trên Cloudinary
-   * @param {String} publicId
-   */
-  async deleteImage(publicId) {
+
+  async deleteImage(publicImgId) {
     try {
-      await cloudinary.uploader.destroy(publicId);
+      await cloudinary.uploader.destroy(publicImgId);
       console.log('Xóa ảnh thành công');
     } catch (error) {
       console.error('Cloudinary Delete Error:', error.message);

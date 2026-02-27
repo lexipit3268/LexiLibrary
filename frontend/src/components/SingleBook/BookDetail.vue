@@ -15,7 +15,11 @@
           class="bg-pattern overflow-hidden h-fit w-auto bg-amber-800/10 p-16 group hover:shadow-2xl transition-all duration-300"
         >
           <img
-            :src="props.book.hinhAnh"
+            :src="
+              props.book.hinhAnh
+                ? props.book.hinhAnh
+                : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty'
+            "
             alt=""
             class="max-w-115 place-self-center object-cover shadow-2xl group-hover:shadow-none group-hover:scale-115 ease-in-out transition-all duration-300"
           />

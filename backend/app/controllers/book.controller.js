@@ -2,7 +2,7 @@ const MongoDB = require('../utils/mongodb.util');
 const BookService = require('../services/book.service');
 const ApiError = require('../api-error');
 const { StatusCodes } = require('http-status-codes');
-
+const CloudinaryUtil = require('../utils/cloudinary.util');
 exports.findAll = async (req, res, next) => {
   try {
     const bookService = new BookService(MongoDB.client);
@@ -70,6 +70,30 @@ exports.create = async (req, res, next) => {
   }
 };
 
+exports.uploadCover = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return next(new ApiError(StatusCodes.BAD_REQUEST, 'Image cannot be empty'));
+    }
+
+    const coverUrl = req.file.path;
+    const publicId = req.file.filename;
+
+    return res.status(StatusCodes.OK).json({
+      message: 'Tải ảnh bìa thành công',
+      coverUrl: coverUrl,
+      publicId: publicId,
+    });
+  } catch (error) {
+    return next(
+      new ApiError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'An error occurred while uploading the book cover',
+      ),
+    );
+  }
+};
+
 exports.deleteAll = async (req, res, next) => {
   try {
     const bookService = new BookService(MongoDB.client);
@@ -103,10 +127,19 @@ exports.findOne = async (req, res, next) => {
 exports.update = async (req, res, next) => {
   try {
     const bookService = new BookService(MongoDB.client);
-    const document = await bookService.update(req.params.id, req.body);
-    if (!document)
+    const book = await bookService.findById(req.params.id);
+    if (!book)
       return next(new ApiError(StatusCodes.NOT_FOUND, `Not found book with id = ${req.params.id}`));
-    return res.send(document);
+
+    const newImgId = req.body.publicImgId;
+    const oldImgId = book.publicImgId;
+    console.log(book);
+
+    if (newImgId && oldImgId && newImgId !== oldImgId) {
+      await CloudinaryUtil.deleteImage(oldImgId);
+    }
+    const result = await bookService.update(req.params.id, req.body);
+    return res.send(result);
   } catch (error) {
     return next(
       new ApiError(

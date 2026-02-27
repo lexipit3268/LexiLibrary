@@ -77,6 +77,12 @@ const router = createRouter({
               component: () => import('../components/StaffBooksManagement/BookForm.vue'),
             },
             {
+              path: 'edit/:maSach',
+              name: 'edit-book',
+              component: () => import('../components/StaffBooksManagement/BookForm.vue'),
+              props: true,
+            },
+            {
               path: ':maSach',
               name: 'book-details-management',
               component: () => import('../components/StaffBooksManagement/StaffBookDetails.vue'),

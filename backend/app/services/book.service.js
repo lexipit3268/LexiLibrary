@@ -19,6 +19,7 @@ class Book {
           : [],
       hinhAnh: payload.hinhAnh,
       moTa: payload.moTa,
+      publicImgId: payload.publicImgId,
     };
     Object.keys(book).forEach((key) => book[key] === undefined && delete book[key]);
     return book;

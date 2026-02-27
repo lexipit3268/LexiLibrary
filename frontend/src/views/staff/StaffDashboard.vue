@@ -62,15 +62,23 @@
             <tbody class="divide-y divide-(--bg-primary)">
               <tr
                 v-for="book in latestBooks"
-                :key="book._id"
-                class="group hover:bg-(--bg-primary)/60 transition-colors"
+                :key="book.maSach"
+                class="group hover:bg-(--bg-primary)/60 transition-colors cursor-pointer"
+                @click="router.push('staff/book/' + book.maSach)"
               >
                 <td class="py-4">
                   <div class="flex items-center gap-4">
                     <div
                       class="w-12 h-16 bg-(--bg-secondary) rounded flex items-center justify-center text-[10px] text-(--secondary) font-bold"
                     >
-                      <img :src="book.hinhAnh" alt="" />
+                      <img
+                        :src="
+                          book.hinhAnh
+                            ? book.hinhAnh
+                            : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty...'
+                        "
+                        alt=""
+                      />
                     </div>
                     <div>
                       <p class="font-bold text-sm">{{ book.tenSach }}</p>

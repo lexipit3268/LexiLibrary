@@ -27,6 +27,20 @@ class BookService {
     return this._handleRequest(axios.get(API_URL + `?category=` + maTheLoai))
   }
 
+  async uploadBookCover(file) {
+    const formData = new FormData()
+    formData.append('image', file)
+    return this._handleRequest(axios.post(API_URL + 'upload-cover', formData))
+  }
+
+  async createBook(payload) {
+    return this._handleRequest(axios.post(API_URL, payload))
+  }
+
+  async updateBook(maSach, payload) {
+    return this._handleRequest(axios.post(API_URL + maSach, payload))
+  }
+
   async deleteBook(maSach) {
     return this._handleRequest(axios.delete(API_URL + maSach))
   }

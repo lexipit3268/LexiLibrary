@@ -13,7 +13,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'LexiLibrary',
+    folder: 'LexiLibrary/Books',
     allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
   },
 });

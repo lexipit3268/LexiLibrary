@@ -11,7 +11,9 @@
       <h3
         class="text-2xl font-semibold"
         v-else-if="
-          ['books-management-main', 'book-details-management', 'create-book'].includes(route.name)
+          ['books-management-main', 'book-details-management', 'create-book', 'edit-book'].includes(
+            route.name,
+          )
         "
       >
         Quản lý sách
