@@ -122,9 +122,7 @@
         </div>
 
         <div class="p-6 border border-(--primary)/20 italic">
-          <p class="newsreaderFont text-(--subtext-color) leading-relaxed">
-            "Sách là nguồn kiến thức vô tận, và chúng ta là những người dẫn đường."
-          </p>
+          <p class="newsreaderFont text-(--subtext-color) leading-relaxed">Làm</p>
           <p class="text-[10px] mt-4 uppercase tracking-[0.2rem] text-(--primary) font-bold">
             — LexiLibrary Staff
           </p>

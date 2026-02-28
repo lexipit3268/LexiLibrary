@@ -9,6 +9,11 @@ const brands = [
     name: 'Logo Marvel',
     src: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg',
   },
+  {
+    name: 'Logo Disney',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg',
+  },
+  { name: 'Lexipit', src: '../../public/brands/Lexipit8.svg' },
   { name: 'Logo 1', src: '../../public/brands/logo1.svg' },
   { name: 'Logo 2', src: '../../public/brands/logo2.svg' },
   { name: 'Logo 3', src: '../../public/brands/logo3.svg' },

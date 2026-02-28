@@ -73,6 +73,12 @@ import SubcribeFooter from './SubcribeFooter.vue'
       <router-link to="/">Lexilibrary</router-link>
     </div>
   </div>
+  <div class="w-full px-18 py-2 flex flex-col items-center justify-center bg-(--bg-primary)">
+    <img src="../../../public/brands/Lexipit8.svg" class="w-40" />
+    <div class="flex items-center justify-center gap-1 ml-4 text-xs">
+      <p class="">&copy; 2026 Lexipit3268. All Rights Reserved</p>
+    </div>
+  </div>
 </template>
 
 <style scoped></style>

@@ -21,7 +21,7 @@
                 : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty'
             "
             alt=""
-            class="max-w-115 place-self-center object-cover shadow-2xl group-hover:shadow-none group-hover:scale-115 ease-in-out transition-all duration-300"
+            class="max-w-115 place-self-center object-cover shadow-2xl group-hover:shadow-none group-hover:scale-105 ease-in-out transition-all duration-300"
           />
         </div>
 
