@@ -62,23 +62,29 @@
               <BookTags :categories="categories" />
             </div>
             <ElDivider border-style="dashed" />
-            <div class="space-y-2">
-              <h3 class="font-bold text-sm tracking-wide uppercase">Thao tác</h3>
-              <div class="flex items-center gap-4">
-                <button
-                  @click="router.push('edit/' + maSach)"
-                  class="primary-btn px-4! py-2! min-h-10! font-bold text-sm flex items-center gap-3 shadow-xl shadow-(--primary)/20"
-                >
-                  <FontAwesomeIcon :icon="faPenNib" class="text-sm" />
-                  Chỉnh sửa nội dung
-                </button>
+            <div class="flex gap-10">
+              <div>
+                <p class="text-sm tracking-wide uppercase">Đơn giá</p>
+                <p class="text-2xl font-bold tracking-widest mt-2">${{ book.donGia }}.00</p>
+              </div>
+              <div class="flex flex-col gap-2">
+                <h3 class="font-bold text-sm tracking-wide uppercase">Thao tác</h3>
+                <div class="flex items-center gap-4">
+                  <button
+                    @click="router.push('edit/' + maSach)"
+                    class="primary-btn px-4! py-2! min-h-10! font-bold text-sm flex items-center gap-3 shadow-xl shadow-(--primary)/20"
+                  >
+                    <FontAwesomeIcon :icon="faPenNib" class="text-sm" />
+                    Chỉnh sửa nội dung
+                  </button>
 
-                <button
-                  class="secondary-btn px-4! py-2! min-h-10! font-bold border-red-100 text-red-600 hover:bg-red-50"
-                  @click="deleteBook(maSach)"
-                >
-                  <FontAwesomeIcon :icon="faTrash" class="text-sm" />
-                </button>
+                  <button
+                    class="secondary-btn px-4! py-2! min-h-10! font-bold border-red-100 text-red-600 hover:bg-red-50"
+                    @click="deleteBook(maSach)"
+                  >
+                    <FontAwesomeIcon :icon="faTrash" class="text-sm" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

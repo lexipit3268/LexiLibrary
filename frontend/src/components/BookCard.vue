@@ -23,8 +23,8 @@
   </div>
 </template>
 <script setup>
-import router from '@/router'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const { id, title, author, price, image } = defineProps({
   id: String,
   title: String,

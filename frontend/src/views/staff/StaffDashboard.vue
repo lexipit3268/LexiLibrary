@@ -66,28 +66,34 @@
                 class="group hover:bg-(--bg-primary)/60 transition-colors cursor-pointer"
                 @click="router.push('staff/book/' + book.maSach)"
               >
-                <td class="py-4">
-                  <div class="flex items-center gap-4">
-                    <div
-                      class="w-12 h-16 bg-(--bg-secondary) rounded flex items-center justify-center text-[10px] text-(--secondary) font-bold"
-                    >
-                      <img
-                        :src="
-                          book.hinhAnh
-                            ? book.hinhAnh
-                            : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty...'
-                        "
-                        alt=""
-                      />
+                <ElTooltip
+                  :content="`Xem chi tiết ${book.maSach}`"
+                  :offset="0"
+                  placement="bottom-end"
+                >
+                  <td class="py-4">
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="w-12 h-16 bg-(--bg-secondary) rounded flex items-center justify-center text-[10px] text-(--secondary) font-bold"
+                      >
+                        <img
+                          :src="
+                            book.hinhAnh
+                              ? book.hinhAnh
+                              : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty...'
+                          "
+                          alt=""
+                        />
+                      </div>
+                      <div>
+                        <p class="font-bold text-sm">{{ book.tenSach }}</p>
+                        <p class="text-xs text-(--subtext-color)">
+                          Mã sách: {{ book.maSach.slice(-6).toUpperCase() }}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p class="font-bold text-sm">{{ book.tenSach }}</p>
-                      <p class="text-xs text-(--subtext-color)">
-                        Mã sách: {{ book.maSach.slice(-6).toUpperCase() }}
-                      </p>
-                    </div>
-                  </div>
-                </td>
+                  </td>
+                </ElTooltip>
                 <td class="py-4 text-sm">{{ getNamePublisher(book.maNXB) }}</td>
                 <td class="py-4 text-center">
                   <span
@@ -122,7 +128,9 @@
         </div>
 
         <div class="p-6 border border-(--primary)/20 italic">
-          <p class="newsreaderFont text-(--subtext-color) leading-relaxed">Làm</p>
+          <p class="newsreaderFont text-(--subtext-color) leading-relaxed">
+            Nếu làm không được thì vừa khóc vừa làm
+          </p>
           <p class="text-[10px] mt-4 uppercase tracking-[0.2rem] text-(--primary) font-bold">
             — LexiLibrary Staff
           </p>
@@ -145,7 +153,7 @@ import {
   faPlus,
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons'
-import { ElStatistic } from 'element-plus'
+import { ElStatistic, ElTooltip } from 'element-plus'
 import router from '@/router'
 
 const staffStore = useStaffStore()

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sticky top-0 w-full h-20 flex items-center justify-between px-6 border-b border-(--bg-tertiary) bg-white/70 backdrop-blur-md"
+    class="sticky top-0 z-50 w-full h-20 flex items-center justify-between px-6 border-b border-(--bg-tertiary) bg-white/70 backdrop-blur-md"
   >
     <div>
       <h3 class="text-2xl" v-if="route.name === 'staff-dashboard'">

@@ -113,6 +113,8 @@
         <ElSelect v-model="selectedSort" clearable placeholder="Sắp xếp theo..." class="max-w-62.5">
           <ElOption label="Sắp xếp theo giá tăng dần" value="priceIncreasing" />
           <ElOption label="Sắp xếp theo giá giảm dần" value="priceDecreasing" />
+          <ElOption label="Sắp xếp theo sách mới nhất" value="latest" />
+          <ElOption label="Sắp xếp theo sách cũ nhất" value="oldest" />
         </ElSelect>
       </div>
 
@@ -202,7 +204,11 @@ const fetchBooks = async () => {
 
   if (selectedSort.value === 'priceIncreasing') params.sort = 'price_asc'
   if (selectedSort.value === 'priceDecreasing') params.sort = 'price_desc'
-
+  if (selectedSort.value === 'latest') {
+    books.value.reverse()
+    return
+  }
+  // if (selectedSort.value === 'oldest')
   books.value = await BookService.getBooks(params)
 }
 
