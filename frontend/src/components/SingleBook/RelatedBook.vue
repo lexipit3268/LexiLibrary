@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col px-30 gap-16">
     <p class="newsreaderFont text-5xl text-center">Sách tương tự</p>
-    <ElCarousel :interval="4000" height="480px" indicator-position="outside" arrow="never">
+    <ElCarousel :interval="3000" height="480px" indicator-position="outside" arrow="never">
       <ElCarouselItem v-for="(group, index) in bookGroups" :key="index">
         <div class="flex justify-center gap-14 h-full">
           <BookCard

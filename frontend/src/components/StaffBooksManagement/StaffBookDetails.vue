@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col min-h-[calc(100%-80px)] w-full p-6 bg-(--bg-primary) justify-start">
+  <div
+    class="flex flex-col min-h-[calc(100%-80px)] max-h-150! w-full p-6 bg-(--bg-primary) justify-start"
+  >
     <button
       @click="$router.back()"
       class="cursor-pointer mb-8 flex items-center gap-2 text-(--subtext-color) hover:text-(--primary) transition-colors text-sm font-bold uppercase tracking-widest"

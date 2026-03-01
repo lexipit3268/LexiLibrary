@@ -8,7 +8,7 @@
         { label: props.book.tenSach, path: '' },
       ]"
     />
-    <div class="flex flex-col w-full px-30 my-24">
+    <div class="flex flex-col w-full px-30 py-24">
       <div class="flex flex-row w-full justify-start gap-16 mb-20">
         <!-- hinh anh sach -->
         <div

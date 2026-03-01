@@ -8,7 +8,7 @@
       :publisher="bookPublisher"
     />
 
-    <RelatedBook v-if="relatedBooks" :books="relatedBooks" />
+    <RelatedBook v-if="relatedBooks && relatedBooks.length >= 1" :books="relatedBooks" />
   </div>
 </template>
 
