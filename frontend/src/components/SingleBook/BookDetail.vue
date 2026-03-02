@@ -175,6 +175,13 @@ const handleAddToCart = (bookTitle) => {
     }).then(() => router.push('/login'))
     return
   }
+  if (authStore.userRole !== 'user') {
+    ElMessageBox.alert(
+      'Chỉ người dùng thông thường mới có thể mượn sách.',
+      'Quyền truy cập bị từ chối',
+    )
+    return
+  }
   alert('Add to cart book: ' + bookTitle + num.value)
 }
 </script>

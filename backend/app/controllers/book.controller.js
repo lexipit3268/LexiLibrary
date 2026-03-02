@@ -42,6 +42,14 @@ exports.findAll = async (req, res, next) => {
       sortOption.donGia = -1;
     }
 
+    if (req.query.sort === 'oldest') {
+      sortOption.namXuatBan = 1;
+    }
+
+    if (req.query.sort === 'latest') {
+      sortOption.namXuatBan = -1;
+    }
+
     const documents = await bookService.find(filter, sortOption);
 
     return res.send(documents);

@@ -4,7 +4,7 @@
   >
     <button
       @click="$router.back()"
-      class="cursor-pointer mb-8 flex items-center gap-2 text-(--subtext-color) hover:text-(--primary) transition-colors text-sm font-bold uppercase tracking-widest"
+      class="cursor-pointer mb-6 flex items-center gap-2 text-(--subtext-color) hover:text-(--primary) transition-colors text-sm font-bold uppercase tracking-widest"
     >
       <FontAwesomeIcon :icon="faArrowLeft" />
       Quay lại danh sách
@@ -80,12 +80,24 @@
                     Chỉnh sửa nội dung
                   </button>
 
-                  <button
-                    class="secondary-btn px-4! py-2! min-h-10! font-bold border-red-100 text-red-600 hover:bg-red-50"
-                    @click="deleteBook(maSach)"
-                  >
-                    <FontAwesomeIcon :icon="faTrash" class="text-sm" />
-                  </button>
+                  <ElTooltip content="Xem trên trang chủ">
+                    <router-link :to="`/book/${maSach}`" target="_blank">
+                      <button
+                        class="secondary-btn px-4! py-2! min-h-10! font-bold border-red-100 text-red-600 hover:bg-red-50"
+                      >
+                        <FontAwesomeIcon :icon="faEye" class="text-sm" />
+                      </button>
+                    </router-link>
+                  </ElTooltip>
+
+                  <ElTooltip content="Xóa sách">
+                    <button
+                      class="secondary-btn px-4! py-2! min-h-10! font-bold border-red-100 text-red-600 hover:bg-red-50"
+                      @click="deleteBook(maSach)"
+                    >
+                      <FontAwesomeIcon :icon="faTrash" class="text-sm" />
+                    </button>
+                  </ElTooltip>
                 </div>
               </div>
             </div>
@@ -102,9 +114,9 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useStaffStore } from '@/stores/staff'
 import bookService from '@/services/book.service'
-import { ElDivider, ElMessage, ElMessageBox } from 'element-plus'
+import { ElDivider, ElMessage, ElMessageBox, ElTooltip } from 'element-plus'
 import BookTags from '../BookTags.vue'
-import { faArrowLeft, faPenNib, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faEye, faPenNib, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const props = defineProps({

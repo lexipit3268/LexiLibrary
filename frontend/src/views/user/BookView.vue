@@ -202,13 +202,12 @@ const fetchBooks = async () => {
     params.maxPrice = selectedPrice.value[1]
   }
 
+  if (selectedSort.value === 'latest') params.sort = 'latest'
+  if (selectedSort.value === 'oldest') params.sort = 'oldest'
+
   if (selectedSort.value === 'priceIncreasing') params.sort = 'price_asc'
   if (selectedSort.value === 'priceDecreasing') params.sort = 'price_desc'
-  if (selectedSort.value === 'latest') {
-    books.value.reverse()
-    return
-  }
-  // if (selectedSort.value === 'oldest')
+
   books.value = await BookService.getBooks(params)
 }
 
