@@ -140,7 +140,7 @@
   </div>
 </template>
 <script setup>
-import { ElCollapse, ElDivider, ElInputNumber } from 'element-plus'
+import { ElCollapse, ElDivider, ElInputNumber, ElMessageBox } from 'element-plus'
 import BreadcrumbComponent from '../BreadcrumbComponent.vue'
 import { computed, ref } from 'vue'
 import AddToCartBtn from '../AddToCartBtn.vue'
@@ -148,7 +148,11 @@ import BookTags from '../BookTags.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
-import router from '@/router'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
+const router = useRouter()
 
 const props = defineProps({
   book: Object,
@@ -164,6 +168,13 @@ const paragraphs = computed(() => {
 const num = ref(1)
 const activeName = ref('1')
 const handleAddToCart = (bookTitle) => {
+  if (!authStore.isLoggedIn) {
+    ElMessageBox.confirm(`Vui lòng đăng nhập để thực hiện chức năng này`, 'Yêu cầu đăng nhập', {
+      confirmButtonText: 'Đăng nhập',
+      cancelButtonText: 'Hủy bỏ',
+    }).then(() => router.push('/login'))
+    return
+  }
   alert('Add to cart book: ' + bookTitle + num.value)
 }
 </script>
