@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-(--bg-primary) p-6 overflow-y-auto">
-    <div class="bg-white p-6 shadow-sm border border-(--primary)/10 flex flex-col min-h-100">
+  <div class="bg-(--bg-primary) p-6 overflow-y-auto min-h-[calc(100%-80px)]">
+    <div class="bg-white p-6 shadow-sm border border-(--primary)/10 flex flex-col min-h-142">
       <div class="flex items-center justify-between mb-6">
         <h3 class="newsreaderFont text-2xl flex items-center gap-3">
           <span class="w-8 h-px bg-(--primary)"></span>
@@ -28,7 +28,7 @@
           </thead>
           <tbody class="divide-y divide-(--bg-primary)">
             <tr
-              v-for="book in books"
+              v-for="book in paginatedBooks"
               :key="book.maSach"
               class="group hover:bg-(--bg-primary)/70 h-20 transition-colors duration-300 divide-y divide-(--bg-secondary)"
             >
@@ -62,7 +62,7 @@
               </td>
               <td class="px-4 py-4 text-center">
                 <span
-                  class="px-2 py-1 bg-(--bg-primary) text-(--primary) rounded-full text-xs font-bold"
+                  class="px-2 py-1 bg-(--bg-primary) text-(--primary) rounded-full text-xs font-bold border border-(--primary)/20"
                   >{{ book.soQuyen }}</span
                 >
               </td>
@@ -93,6 +93,23 @@
           </tbody>
         </table>
       </div>
+      <div class="flex justify-between items-center border-t border-(--bg-primary) mt-3">
+        <div class="flex flex-col gap-1">
+          <p class="text-[11px] italic opacity-70">
+            Hiển thị {{ paginatedBooks.length }} trên tổng số {{ books.length }} sách.
+          </p>
+        </div>
+
+        <el-pagination
+          v-model:current-page="currentPage"
+          v-model:page-size="pageSize"
+          :page-sizes="[4, 8, 16, 100]"
+          layout="sizes, prev, pager, next"
+          :total="books.length"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -100,47 +117,68 @@
 import { useStaffStore } from '@/stores/staff'
 import { faInfo, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { ElMessage, ElMessageBox, ElTooltip } from 'element-plus'
+import { ElMessage, ElMessageBox, ElTooltip, ElPagination } from 'element-plus'
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+
 const staffStore = useStaffStore()
 const { books, publishers } = storeToRefs(staffStore)
-
 const router = useRouter()
-const getPublisherName = (maNXB) => {
-  if (!publishers.value || publishers.value.length === 0) return 'Đang tải...'
 
+const currentPage = ref(1)
+const pageSize = ref(4)
+
+const paginatedBooks = computed(() => {
+  const start = (currentPage.value - 1) * pageSize.value
+  const end = start + pageSize.value
+  return books.value.slice(start, end)
+})
+
+const handleSizeChange = (val) => {
+  pageSize.value = val
+  currentPage.value = 1
+}
+
+const handleCurrentChange = (val) => {
+  currentPage.value = val
+}
+
+const getPublisherName = (maNXB) => {
+  if (!publishers.value || publishers.value.length === 0) return 'Đang nạp dữ liệu...'
   const found = publishers.value.find((p) => p.maNXB === maNXB)
-  return found ? found.tenNXB : 'Không xác định'
+  return found ? found.tenNXB : 'NXB không xác định'
 }
 
 const handleDelete = async (maSach) => {
   try {
     await ElMessageBox.confirm(
-      `Bạn có chắc chắn muốn xóa sách với mã sách là ${maSach}?`,
-      'Xác nhận xóa',
+      `Hành động này sẽ gỡ bỏ vĩnh viễn sách ${maSach.toUpperCase()} khỏi hệ thống. Bạn có chắc chắn?`,
+      'Xác nhận gỡ bỏ',
       {
-        confirmButtonText: 'Xác nhận',
-        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Xác nhận xóa',
+        cancelButtonText: 'Hủy thao tác',
         type: 'warning',
       },
     )
 
     const success = await staffStore.removeBook(maSach)
-
     if (success) {
-      ElMessage.success('Đã xóa sách thành công ' + maSach)
+      ElMessage.success(`Đã gỡ bỏ thành công tác phẩm mã ${maSach}`)
+      if (paginatedBooks.value.length === 0 && currentPage.value > 1) {
+        currentPage.value--
+      }
     }
   } catch (error) {
     if (error !== 'cancel') {
-      ElMessage.error('Không thể xóa dữ liệu vào lúc này')
+      ElMessage.error('Xảy ra lỗi trong quá trình xử lý dữ liệu!')
     }
   }
 }
+
 onMounted(async () => {
-  await staffStore.fetchAllData()
-  books.value = staffStore.books
-  publishers.value = staffStore.publishers
+  if (books.value.length === 0) {
+    await staffStore.fetchAllData()
+  }
 })
 </script>

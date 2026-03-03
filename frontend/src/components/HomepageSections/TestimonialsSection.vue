@@ -14,7 +14,7 @@ import TestimonialBox from './TestimonialBox.vue'
     />
     <div class="flex gap-10 flex-1 justify-end">
       <TestimonialBox
-        comment="Sách chất lượng, dịch vụ nhanh gọn đúng như cam kết. Ưng nhất là khâu bảo mật và mấy chương trình giảm giá cho sinh viên"
+        comment="Sách chất lượng, dịch vụ nhanh gọn đúng như cam kết. Ưng nhất là khâu bảo mật và sự mượt mà của trang web"
         name="Nguyễn Lộc"
         infor="Vĩnh Long"
         avatar="https://avatars.githubusercontent.com/u/62460969?s=400&u=51ce7e1b7504698732f6b66b541a4599cf4b4be6&v=4"

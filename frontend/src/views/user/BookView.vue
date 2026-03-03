@@ -123,8 +123,38 @@
         <div
           v-for="book in books"
           :key="book.tenSach"
-          class="border border-gray-200 p-4 hover:shadow-md transition duration-300 place-items-center"
+          class="border border-gray-200 p-4 hover:shadow-md group transition duration-300 place-items-center relative overflow-hidden"
         >
+          <!-- hover menu -->
+          <div class="absolute top-6 right-0 z-10 flex flex-col gap-1">
+            <div
+              class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-300"
+            >
+              <FontAwesomeIcon
+                :icon="faHeart"
+                class="h-full w-full p-3 text-white hover:text-(--primary) transition-all duration-200 cursor-pointer"
+              />
+            </div>
+            <div
+              class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-500"
+              @click="handleAddToCart"
+            >
+              <FontAwesomeIcon
+                :icon="faCartPlus"
+                class="h-full w-full p-3 text-white hover:text-(--primary) transition-all duration-200 cursor-pointer"
+              />
+            </div>
+
+            <div
+              class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-700"
+              @click="router.push(`/book/${book.maSach}`)"
+            >
+              <FontAwesomeIcon
+                :icon="faArrowRight"
+                class="h-full w-full p-3 text-white hover:text-(--primary) transition-all duration-200 cursor-pointer"
+              />
+            </div>
+          </div>
           <BookCard
             :id="book.maSach"
             :title="book.tenSach"
@@ -139,10 +169,16 @@
 </template>
 <script setup>
 import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import BookCard from '@/components/BookCard.vue'
 import BreadcrumbComponent from '@/components/BreadcrumbComponent.vue'
-import { faFilterCircleXmark, faSearch, faXmark } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCartPlus,
+  faFilterCircleXmark,
+  faArrowRight,
+  faSearch,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   ElDivider,
@@ -156,8 +192,10 @@ import {
 import BookService from '@/services/book.service'
 import categoryService from '@/services/category.service'
 import publisherService from '@/services/publisher.service'
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
 
 const route = useRoute()
+const router = useRouter()
 
 const selectedCategory = ref('')
 const selectedPublisher = ref('')
@@ -174,6 +212,7 @@ const resetFilter = () => {
   selectedPublisher.value = ''
   selectedPrice.value = [20, 100]
 }
+
 const syncParamsFromUrl = () => {
   if (route.query.category) {
     selectedCategory.value = route.query.category
@@ -188,6 +227,10 @@ const syncParamsFromUrl = () => {
   if (route.query.publisher) {
     selectedPublisher.value = route.query.publisher
   }
+}
+
+const handleAddToCart = () => {
+  alert('test')
 }
 
 const fetchBooks = async () => {
