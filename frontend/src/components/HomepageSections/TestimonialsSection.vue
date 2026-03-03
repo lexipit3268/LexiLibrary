@@ -14,12 +14,17 @@ import TestimonialBox from './TestimonialBox.vue'
     />
     <div class="flex gap-10 flex-1 justify-end">
       <TestimonialBox
+        data-aos="zoom-in"
+        data-aos-offset="200"
         comment="Sách chất lượng, dịch vụ nhanh gọn đúng như cam kết. Ưng nhất là khâu bảo mật và sự mượt mà của trang web"
         name="Nguyễn Lộc"
         infor="Vĩnh Long"
         avatar="https://avatars.githubusercontent.com/u/62460969?s=400&u=51ce7e1b7504698732f6b66b541a4599cf4b4be6&v=4"
       />
       <TestimonialBox
+        data-aos="zoom-in"
+        data-aos-offset="200"
+        data-aos-delay="100"
         comment="Web trình bày gọn, dễ nhìn. Cảm giác mượn sách ở đây rất nhẹ nhàng, không bị rối rắm như mấy trang thư viện cũ. Một góc nhỏ khá ổn cho mấy đứa nghiện đọc."
         name="Lexipit3268"
         infor="Sinh Viên ĐHCT"

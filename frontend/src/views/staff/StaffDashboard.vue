@@ -154,8 +154,9 @@ import {
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons'
 import { ElStatistic, ElTooltip } from 'element-plus'
-import router from '@/router'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const staffStore = useStaffStore()
 const { books, publishers, users } = storeToRefs(staffStore)
 

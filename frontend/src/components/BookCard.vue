@@ -1,28 +1,67 @@
 <template>
   <div
-    class="flex flex-col w-52.5 h-fit gap-3 cursor-pointer"
-    @click="router.push({ name: 'single-book', params: { id } })"
+    class="border border-gray-200 p-4 hover:shadow-md group transition duration-300 place-items-center relative overflow-hidden h-full"
   >
-    <div class="relative aspect-2/3 w-full overflow-hidden rounded-sm shadow-sm group">
-      <img
-        :src="
-          image
-            ? image
-            : `https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Loading+image...`
-        "
-        :alt="title"
-        loading="lazy"
-        class="w-full h-full object-cover cursor-pointer group-hover:scale-110 transition-all duration-300"
-      />
+    <!-- hover menu -->
+    <div class="absolute top-6 right-0 z-10 flex flex-col gap-1">
+      <div
+        class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-300"
+      >
+        <FontAwesomeIcon
+          :icon="faHeart"
+          class="h-full w-full p-3 text-white hover:text-(--primary) transition-all duration-200 cursor-pointer"
+        />
+      </div>
+      <div
+        class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-500"
+        @click="handleAddToCart(id)"
+      >
+        <FontAwesomeIcon
+          :icon="faCartPlus"
+          class="h-full w-full p-3 text-white hover:text-(--primary) transition-all duration-200 cursor-pointer"
+        />
+      </div>
+
+      <div
+        class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-700"
+        @click="router.push(`/book/${id}`)"
+      >
+        <FontAwesomeIcon
+          :icon="faArrowRight"
+          class="h-full w-full p-3 text-white hover:text-(--primary) transition-all duration-200 cursor-pointer"
+        />
+      </div>
     </div>
-    <div class="flex flex-col text-center gap-1">
-      <h3 class="newsreaderFont text-xl">{{ title }}</h3>
-      <p class="text-xs text-(--subtext-color)">{{ author }}</p>
-      <p class="text-(--subtext-color)">${{ price }}</p>
+
+    <!-- book -->
+    <div
+      class="flex flex-col w-52.5 h-fit gap-3 cursor-pointer"
+      @click="router.push({ name: 'single-book', params: { id } })"
+    >
+      <div class="relative aspect-2/3 w-full overflow-hidden rounded-sm shadow-sm group">
+        <img
+          :src="
+            image
+              ? image
+              : `https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Loading+image...`
+          "
+          :alt="title"
+          loading="lazy"
+          class="w-full h-full object-cover cursor-pointer group-hover:scale-110 transition-all duration-300"
+        />
+      </div>
+      <div class="flex flex-col text-center gap-1">
+        <h3 class="newsreaderFont text-xl">{{ title }}</h3>
+        <p class="text-xs text-(--subtext-color)">{{ author }}</p>
+        <p class="text-(--subtext-color)">${{ price }}</p>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import { faCartPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const { id, title, author, price, image } = defineProps({
@@ -32,4 +71,8 @@ const { id, title, author, price, image } = defineProps({
   price: Number,
   image: String,
 })
+
+const handleAddToCart = (id) => {
+  alert(id)
+}
 </script>

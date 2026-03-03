@@ -52,9 +52,14 @@ const handleLogin = async () => {
 }
 </script>
 <template>
-  <div class="w-full max-w-sm p-10 bg-white border border-(--bg-secondary) shadow-sm">
+  <div
+    class="w-full max-w-sm p-10 bg-white border border-(--bg-secondary) shadow-sm"
+    data-aos="fade-in"
+  >
     <div class="text-center mb-10">
-      <h1 class="LexiLibrary text-(--primary) leading-none">Lexilibrary</h1>
+      <router-link to="/"
+        ><h1 class="LexiLibrary text-(--primary) leading-none">Lexilibrary</h1></router-link
+      >
       <p class="newsreaderFont text-(--secondary) mt-2 text-lg">Hành trình tri thức</p>
     </div>
 

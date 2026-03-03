@@ -6,6 +6,13 @@ import 'element-plus/dist/index.css'
 import VueSplide from '@splidejs/vue-splide'
 import './assets/index.css'
 import { createPinia } from 'pinia'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+AOS.init({
+  duration: 800,
+  offset: 0,
+})
 
 const pinia = createPinia()
 const app = createApp(App)

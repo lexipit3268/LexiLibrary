@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col px-30 gap-16">
+  <div class="flex flex-col px-30 gap-14">
     <p class="newsreaderFont text-5xl text-center">Sách tương tự</p>
     <ElCarousel :interval="3000" height="480px" indicator-position="outside" arrow="never">
       <ElCarouselItem v-for="(group, index) in bookGroups" :key="index">

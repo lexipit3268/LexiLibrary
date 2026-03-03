@@ -28,6 +28,9 @@ onMounted(async () => {
       <SplideSlide v-for="(cat, index) in categories" :key="index">
         <div
           class="category-card relative w-42.5 h-55 rounded-sm overflow-hidden cursor-pointer transition-all duration-300 group"
+          data-aos="zoom-in"
+          data-aos-offset="200"
+          :data-aos-delay="index * 50"
         >
           <img
             class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-110"

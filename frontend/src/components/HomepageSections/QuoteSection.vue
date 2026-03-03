@@ -5,7 +5,7 @@ import { ElDivider } from 'element-plus'
 </script>
 
 <template>
-  <div class="w-full h-185 py-25">
+  <div class="w-full h-185 py-25 overflow-hidden">
     <div class="overflow-hidden h-full relative">
       <img
         loading="lazy"
@@ -15,6 +15,9 @@ import { ElDivider } from 'element-plus'
       />
       <div
         class="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center gap-12 backdrop-blur-xs backdrop-brightness-70"
+        data-aos="zoom-out"
+        data-aos-duration="1500"
+        data-aos-offset="200"
       >
         <FontAwesomeIcon :icon="faQuoteLeft" class="text-white text-5xl" />
         <div class="text-white w-[75%] flex flex-col gap-4">

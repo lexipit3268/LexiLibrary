@@ -27,38 +27,60 @@
 
         <!-- thong tin sach -->
         <div class="flex flex-col gap-4 py-5 max-w-145">
-          <div class="flex flex-col gap-8">
-            <h3 class="newsreaderFont text-4xl text-(--secondary) text-shadow-md">
+          <div class="flex flex-col gap-6">
+            <h1
+              class="newsreaderFont text-5xl lg:text-7xl text-(--secondary) leading-[1.1] tracking-tight"
+            >
               {{ props.book.tenSach }}
-            </h3>
-            <div class="text-(--subtext-color)">
-              <div class="flex flex-col">
-                <p
-                  v-for="(p, index) in paragraphs"
-                  :key="index"
-                  class="text-(--subtext-color) mb-2 last:mb-0"
-                >
-                  {{ p }}
-                </p>
-              </div>
+            </h1>
+
+            <div class="flex flex-col gap-3 border-l-2 border-amber-200 pl-6 py-1">
+              <p
+                v-for="(p, index) in paragraphs"
+                :key="index"
+                class="text-(--subtext-color) text-lg newsreaderFont leading-relaxed opacity-90"
+              >
+                {{ p }}
+              </p>
             </div>
-            <div>
-              <div class="grid grid-cols-2 grid-rows-3 w-fit gap-x-16 gap-y-2">
-                <p class="text-(--subtext-color)">Tác giả:</p>
-                <span class="font-medium"> {{ props.book.tacGia }}</span>
-                <p class="text-(--subtext-color)">Nhà xuất bản:</p>
-                <span
-                  class="font-medium cursor-pointer hover:text-(--primary) transition-colors duration-300"
-                  @click="router.push({ name: 'book-page', query: { publisher: publisher.maNXB } })"
-                  >{{ publisher.tenNXB }}</span
-                >
-                <p class="text-(--subtext-color)">Năm xuất bản:</p>
-                <span class="font-medium">{{ props.book.namXuatBan }}</span>
-                <p class="text-(--subtext-color)">Sẵn có:</p>
-                <span class="font-medium">{{ props.book.soQuyen }} quyển</span>
+
+            <div class="space-y-4">
+              <div class="grid grid-cols-2 w-full gap-x-16 gap-y-4">
+                <div class="space-y-1">
+                  <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
+                    Tác giả:
+                  </p>
+                  <span class="font-medium"> {{ props.book.tacGia }}</span>
+                </div>
+                <div class="space-y-1">
+                  <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
+                    Nhà xuất bản:
+                  </p>
+                  <span
+                    class="font-medium cursor-pointer hover:text-(--primary) transition-colors duration-300"
+                    @click="
+                      router.push({ name: 'book-page', query: { publisher: publisher.maNXB } })
+                    "
+                    >{{ publisher.tenNXB }}</span
+                  >
+                </div>
+                <div class="space-y-1">
+                  <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
+                    Năm xuất bản:
+                  </p>
+                  <span class="font-medium">{{ props.book.namXuatBan }}</span>
+                </div>
+                <div class="space-y-1">
+                  <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
+                    Sẵn có:
+                  </p>
+                  <span class="font-medium">{{ props.book.soQuyen }} quyển</span>
+                </div>
               </div>
               <div class="space-y-2">
-                <p class="text-(--subtext-color)">Thể loại:</p>
+                <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
+                  Thể loại:
+                </p>
                 <BookTags :categories="categories" />
               </div>
             </div>
@@ -66,37 +88,63 @@
           <ElDivider border-style="dashed" class="m-0!" />
 
           <!-- checkout -->
-          <div class="space-y-2">
-            <p class="text-2xl font-bold tracking-widest">${{ props.book.donGia }}.00</p>
-            <div class="cta flex flex-row items-center gap-4 h-fit">
+          <div class="flex flex-col gap-4 pt-6 border-t border-amber-900/5">
+            <div class="flex items-baseline justify-between">
+              <p class="newsreaderFont text-4xl text-(--secondary) tracking-tight">
+                ${{ props.book.donGia }}.00
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-6">
               <ElInputNumber
                 v-model="num"
                 :min="1"
                 :max="10"
                 controls-position="right"
                 size="large"
+                class="lexi-qty-input-refined"
               >
                 <template #suffix>
-                  <span>Quyển</span>
+                  <span class="text-[10px] uppercase font-bold tracking-widest opacity-50"
+                    >Quyển</span
+                  >
                 </template>
               </ElInputNumber>
-              <AddToCartBtn :book="props.book" @add-to-cart="handleAddToCart(props.book.tenSach)" />
+
+              <AddToCartBtn
+                :book="props.book"
+                @add-to-cart="handleAddToCart(props.book.tenSach)"
+                class="transform hover:scale-[1.02] transition-transform active:scale-95"
+              />
+
               <button
                 type="button"
-                class="w-12 h-12 p-4 rounded-full shadow-md flex items-center justify-center cursor-pointer bg-white group hover:bg-amber-600/20 transition-all duration-200"
+                class="w-14 h-14 border border-amber-900/10 rounded-full flex items-center justify-center cursor-pointer bg-white group hover:bg-red-50 hover:border-red-100 transition-all duration-300 shadow-sm"
               >
                 <FontAwesomeIcon
                   :icon="faHeart"
-                  class="text-black group-hover:text-xl group-hover:text-red-400 transition-all duration-200"
+                  class="text-gray-400 group-hover:text-red-500 text-lg transition-colors duration-300"
                 />
               </button>
             </div>
-            <div class="flex gap-2 justify-start items-center mt-4">
-              <FontAwesomeIcon :icon="faTruckFast" class="text-(--secondary)" />
-              <p class="text-xs text-(--subtext-color)">
-                Giao hàng miễn phí khu vực lân cận hoặc nhận trực tiếp tại thư viện trong vòng 15
-                phút!
-              </p>
+
+            <div
+              class="flex gap-4 p-5 bg-amber-900/2 border border-amber-900/5 rounded-sm items-start"
+            >
+              <div
+                class="w-10 h-10 rounded-full bg-white flex items-center justify-center shrink-0 border border-amber-900/5"
+              >
+                <FontAwesomeIcon :icon="faTruckFast" class="text-amber-700 text-sm" />
+              </div>
+              <div class="space-y-1">
+                <p class="text-xs font-bold text-amber-900/80 uppercase tracking-widest">
+                  Dịch vụ vận chuyển
+                </p>
+                <p class="text-[11px] leading-relaxed text-(--subtext-color) opacity-80">
+                  Giao hàng miễn phí khu vực lân cận hoặc nhận trực tiếp tại quầy thư viện trong
+                  vòng 15 phút.
+                </p>
+              </div>
             </div>
           </div>
         </div>

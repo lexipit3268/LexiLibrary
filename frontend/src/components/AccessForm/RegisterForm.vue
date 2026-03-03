@@ -102,6 +102,7 @@ const handleRegister = async () => {
 <template>
   <div
     class="w-full max-w-lg bg-white border border-(--bg-secondary) shadow-md my-4 overflow-hidden"
+    data-aos="fade-in"
   >
     <div class="p-6 border-b border-(--bg-primary) text-center">
       <h2 class="newsreaderFont text-3xl font-medium text-(--secondary)">Đăng ký tài khoản</h2>
