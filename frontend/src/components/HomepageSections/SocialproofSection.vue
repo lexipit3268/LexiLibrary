@@ -7,7 +7,12 @@ import BadgesBox from './BadgesBox.vue'
   <div
     class="w-full min-h-100 px-18 py-10 flex items-center justify-between relative overflow-hidden"
   >
-    <img src="../../../public/Vector1.svg" alt="" class="absolute bottom-0 left-0" loading="lazy" />
+    <img
+      src="../../../public/book.svg"
+      alt=""
+      class="absolute bottom-0 left-0 w-140 opacity-30"
+      loading="lazy"
+    />
     <MainTitle
       type="row"
       :title="`Uy tín \n& Trách nhiệm`"

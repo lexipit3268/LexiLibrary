@@ -12,9 +12,21 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: 'LexiLibrary/Books',
-    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+  params: async (req, file) => {
+    let folderName = 'Others';
+
+    if (req.baseUrl.includes('books')) {
+      folderName = 'Books';
+    } else if (req.baseUrl.includes('users')) {
+      folderName = 'Users';
+    } else if (req.baseUrl.includes('staffs')) {
+      folderName = 'staffs';
+    }
+
+    return {
+      folder: `LexiLibrary/${folderName}`,
+      allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+    };
   },
 });
 const uploadCloud = multer({ storage });

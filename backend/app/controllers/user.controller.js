@@ -5,6 +5,7 @@ const { StatusCodes } = require('http-status-codes');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('../config');
+const cloudinaryUtil = require('../utils/cloudinary.util');
 exports.register = async (req, res, next) => {
   const { hoLot, ten, email, matKhau, soDienThoai } = req.body;
   if (!hoLot || !ten || !email || !matKhau || !soDienThoai) {
@@ -105,6 +106,30 @@ exports.getMe = async (req, res, next) => {
   }
 };
 
+exports.uploadAvatar = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return next(new ApiError(StatusCodes.BAD_REQUEST, 'Image cannot be empty'));
+    }
+
+    const coverUrl = req.file.path;
+    const publicId = req.file.filename;
+
+    return res.status(StatusCodes.OK).json({
+      message: 'Tải ảnh đại diện thành công',
+      coverUrl: coverUrl,
+      publicId: publicId,
+    });
+  } catch (error) {
+    return next(
+      new ApiError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'An error occurred while uploading the book cover',
+      ),
+    );
+  }
+};
+
 // get all user (Staff)
 exports.findAll = async (req, res, next) => {
   try {
@@ -114,6 +139,32 @@ exports.findAll = async (req, res, next) => {
   } catch (error) {
     return next(
       new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, 'An error while getting all user data'),
+    );
+  }
+};
+
+exports.update = async (req, res, next) => {
+  try {
+    const userService = new UserService(MongoDB.client);
+    const user = await userService.findByMaDocGia(req.params.id);
+    if (!user)
+      return next(new ApiError(StatusCodes.NOT_FOUND, `Not found user with id = ${req.params.id}`));
+
+    const oldPublicAvtId = user.publicAvtId;
+    const newPublicAvtId = req.body.publicAvtId;
+
+    if (oldPublicAvtId && newPublicAvtId && newPublicAvtId !== oldPublicAvtId) {
+      await cloudinaryUtil.deleteImage(oldPublicAvtId);
+    }
+
+    const result = await userService.update(req.params.id, req.body);
+    return res.send(result);
+  } catch (error) {
+    return next(
+      new ApiError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'An error occurred while uploading user information',
+      ),
     );
   }
 };

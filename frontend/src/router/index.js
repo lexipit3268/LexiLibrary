@@ -38,8 +38,27 @@ const router = createRouter({
         {
           path: '/me',
           name: 'user-profile',
-          component: () => import('../views/user/PublicProfile.vue'),
+          component: () => import('../views/user/UserProfile.vue'),
           meta: { title: 'Thông tin cá nhân', requiresAuth: true },
+          children: [
+            {
+              path: '',
+              name: 'public-profile',
+              component: () => import('../components/UserProfile/MainProfile.vue'),
+            },
+            {
+              path: 'edit',
+              name: 'edit-profile',
+              component: () => import('../components/UserProfile/EditProfile.vue'),
+              meta: { title: 'Chỉnh sửa thông tin cá nhân' },
+            },
+            {
+              path: 'edit/password',
+              name: 'edit-password',
+              component: () => import('../components/UserProfile/EditPassword.vue'),
+              meta: { title: 'Thay đổi mật khẩu' },
+            },
+          ],
         },
       ],
     },
