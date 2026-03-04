@@ -1,6 +1,20 @@
 <template>
   <div class="flex flex-col px-30 gap-14">
-    <p class="newsreaderFont text-5xl text-center">Sách tương tự</p>
+    <div class="flex flex-col items-center space-y-4" data-aos="fade-up">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-px bg-(--primary) opacity-50"></div>
+        <span class="text-[10px] uppercase font-bold tracking-[0.4em] text-(--primary)"
+          >Khám phá thêm</span
+        >
+        <div class="w-8 h-px bg-(--primary) opacity-50"></div>
+      </div>
+
+      <h3
+        class="newsreaderFont text-5xl md:text-6xl text-(--secondary) italic tracking-tighter text-center"
+      >
+        Các ấn phẩm tương tự
+      </h3>
+    </div>
     <ElCarousel :interval="3000" height="480px" indicator-position="outside" arrow="never">
       <ElCarouselItem v-for="(group, index) in bookGroups" :key="index">
         <div class="flex justify-center gap-14 h-full">

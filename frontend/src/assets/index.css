@@ -70,4 +70,6 @@ input {
   --el-color-primary-light-3: #bb6e4a;
   /* active */
   --el-color-primary-dark-2: var(--secondary);
+
+  --font-primary: 'Newsreader' !important;
 }

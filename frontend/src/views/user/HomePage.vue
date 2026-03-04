@@ -1,5 +1,6 @@
 <script setup>
 import BrandSlider from '@/components/BrandSlider.vue'
+import BookOfTheYear from '@/components/HomepageSections/BookOfTheYear.vue'
 import CategorySection from '@/components/HomepageSections/CategorySection.vue'
 import HeroSection from '@/components/HomepageSections/HeroSection.vue'
 import NewArrivalsSection from '@/components/HomepageSections/NewArrivalsSection.vue'
@@ -18,6 +19,7 @@ import TestimonialsSection from '@/components/HomepageSections/TestimonialsSecti
     <SocialproofSection />
     <BrandSlider />
   </div>
+  <BookOfTheYear id="S26" />
   <TestimonialsSection />
   <QuoteSection />
 </template>

@@ -10,20 +10,11 @@
       ]"
     />
     <div class="flex flex-col w-full px-30 py-24">
-      <div class="flex flex-row w-full justify-start gap-16 mb-20">
+      <div class="flex flex-row w-full justify-start gap-16 mb-20 relative">
         <!-- hinh anh sach -->
         <div
-          class="bg-pattern overflow-hidden h-fit w-132 bg-amber-800/10 p-8 group hover:shadow-2xl transition-all duration-300"
+          class="bg-pattern overflow-hidden h-fit w-lg bg-amber-800/10 p-8 group hover:shadow-2xl transition-all duration-300"
         >
-          <!-- <img
-            :src="
-              props.book.hinhAnh
-                ? props.book.hinhAnh
-                : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty'
-            "
-            alt=""
-            class="max-w-115 place-self-center object-cover shadow-2xl group-hover:shadow-none group-hover:scale-105 ease-in-out transition-all duration-300"
-          /> -->
           <VueImageZoomer
             :regular="
               props.book.hinhAnh
@@ -35,6 +26,11 @@
             :show-message="false"
             :zoom="props.book.hinhAnh"
             :zoom-amount="2"
+          />
+          <img
+            src="../../../public/book.svg"
+            alt=""
+            class="absolute bottom-10 -left-20 opacity-15"
           />
         </div>
 
@@ -166,14 +162,32 @@
       <!-- thong tin chi tiet sach & review -->
       <div class="w-full">
         <el-collapse v-model="activeName" accordion>
-          <el-collapse-item title="Mô tả" name="1">
-            <div class="px-4">
-              <div class="flex flex-col">
+          <el-collapse-item name="1">
+            <template #title>
+              <div class="flex items-center gap-4 group">
+                <span
+                  class="newsreaderFont text-2xl lg:text-3xl text-(--secondary) group-hover:text-(--primary) transition-colors"
+                  >Mô tả tác phẩm</span
+                >
+              </div>
+            </template>
+            <div class="px-4 mt-6">
+              <div
+                class="first-letter:[font-family:var(--font-primary)] first-letter:text-7xl first-letter:italic first-letter:font-bold first-letter:text-(--primary) first-letter:mr-1 first-letter:float-left"
+              >
                 {{ props.book.moTa }}
               </div>
             </div>
           </el-collapse-item>
-          <el-collapse-item title="Thông tin giao nhận sách" name="2">
+          <el-collapse-item name="2">
+            <template #title>
+              <div class="flex items-center gap-4 group">
+                <span
+                  class="newsreaderFont text-2xl lg:text-3xl text-(--secondary) group-hover:text-(--primary) transition-colors"
+                  >Thông tin giao nhận sách</span
+                >
+              </div>
+            </template>
             <ul class="list-disc list-inside space-y-1 px-4">
               <li>
                 <strong>Dịch vụ linh hoạt:</strong> Giao sách Tiêu chuẩn và Giao hàng nhanh cho mọi
@@ -192,7 +206,15 @@
               </li>
             </ul>
           </el-collapse-item>
-          <el-collapse-item title="Đánh giá" name="3">
+          <el-collapse-item name="3">
+            <template #title>
+              <div class="flex items-center gap-4 group">
+                <span
+                  class="newsreaderFont text-2xl lg:text-3xl text-(--secondary) group-hover:text-(--primary) transition-colors"
+                  >Đánh giá</span
+                >
+              </div>
+            </template>
             <div class="px-4">Hiện chưa có đánh giá nào về sách này</div>
           </el-collapse-item>
         </el-collapse>
