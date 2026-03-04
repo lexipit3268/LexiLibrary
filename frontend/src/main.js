@@ -8,6 +8,8 @@ import './assets/index.css'
 import { createPinia } from 'pinia'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import VueImageZoomer from 'vue-image-zoomer'
+import 'vue-image-zoomer/dist/style.css'
 
 AOS.init({
   duration: 800,
@@ -16,6 +18,7 @@ AOS.init({
 
 const pinia = createPinia()
 const app = createApp(App)
+app.use(VueImageZoomer)
 app.use(ElementPlus)
 app.use(VueSplide)
 app.use(pinia)

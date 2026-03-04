@@ -1,6 +1,6 @@
 <template>
   <div
-    class="border border-gray-200 p-4 hover:shadow-md group transition duration-300 place-items-center relative overflow-hidden h-full"
+    class="border border-gray-200 hover:border-(--secondary) p-4 hover:shadow-md group transition duration-300 place-items-center relative overflow-hidden h-full"
   >
     <!-- hover menu -->
     <div class="absolute top-6 right-0 z-10 flex flex-col gap-1">

@@ -2,6 +2,7 @@
   <div>
     <BreadcrumbComponent
       :title="props.book.tenSach"
+      :image="props.book.hinhAnh"
       :paths="[
         { label: 'Trang chủ', path: '/' },
         { label: 'Sách', path: '/book' },
@@ -12,9 +13,9 @@
       <div class="flex flex-row w-full justify-start gap-16 mb-20">
         <!-- hinh anh sach -->
         <div
-          class="bg-pattern overflow-hidden h-fit w-auto bg-amber-800/10 p-16 group hover:shadow-2xl transition-all duration-300"
+          class="bg-pattern overflow-hidden h-fit w-132 bg-amber-800/10 p-8 group hover:shadow-2xl transition-all duration-300"
         >
-          <img
+          <!-- <img
             :src="
               props.book.hinhAnh
                 ? props.book.hinhAnh
@@ -22,6 +23,18 @@
             "
             alt=""
             class="max-w-115 place-self-center object-cover shadow-2xl group-hover:shadow-none group-hover:scale-105 ease-in-out transition-all duration-300"
+          /> -->
+          <VueImageZoomer
+            :regular="
+              props.book.hinhAnh
+                ? props.book.hinhAnh
+                : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty'
+            "
+            hover-message="Di chuột để zoom"
+            message-pos="top"
+            :show-message="false"
+            :zoom="props.book.hinhAnh"
+            :zoom-amount="2"
           />
         </div>
 
@@ -188,6 +201,8 @@
   </div>
 </template>
 <script setup>
+import { VueImageZoomer } from 'vue-image-zoomer'
+import 'vue-image-zoomer/dist/style.css'
 import { ElCollapse, ElDivider, ElInputNumber, ElMessageBox } from 'element-plus'
 import BreadcrumbComponent from '../BreadcrumbComponent.vue'
 import { computed, ref } from 'vue'
