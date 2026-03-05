@@ -29,7 +29,9 @@
             Quay lại
           </button>
 
-          <button @click="goHome" class="primary-btn cta-btn m-0!">Về trang chủ</button>
+          <button @click="goHome" class="primary-btn cta-btn m-0! border-(--primary)">
+            Về trang chủ
+          </button>
         </div>
       </div>
     </div>

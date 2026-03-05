@@ -13,7 +13,14 @@
           <FontAwesomeIcon :icon="faBook" class="text-(--primary) text-xl" />
         </div>
         <div class="mt-4">
-          <CountUp :from="0" :to="bookLength" :delay="0" :duration="1" :style="statisticStyle" />
+          <CountUp
+            :from="0"
+            :to="bookLength"
+            :delay="0"
+            :duration="1"
+            class-name="font-extrabold text-4xl"
+            :start-when="bookLength > 0"
+          />
           <p class="text-xs text-green-600 font-bold mt-2">
             +3.68% <span class="text-(--subtext-color) font-normal ml-1 italic">tăng trưởng</span>
           </p>
@@ -37,7 +44,8 @@
             :to="publisherLength"
             :delay="0"
             :duration="1"
-            :style="statisticStyle"
+            :start-when="publisherLength > 0"
+            class-name="font-extrabold text-4xl"
           />
           <p class="text-xs text-(--subtext-color) mt-2 italic">Hợp tác bền vững</p>
         </div>
@@ -55,7 +63,14 @@
           <FontAwesomeIcon :icon="faUsers" class="text-(--primary) text-xl" />
         </div>
         <div class="mt-4">
-          <CountUp :from="0" :to="userLength" :delay="0" :duration="1" :style="statisticStyle" />
+          <CountUp
+            :from="0"
+            :to="userLength"
+            :delay="0"
+            :duration="1"
+            :start-when="userLength > 0"
+            class-name="font-extrabold text-4xl tracking-tighter"
+          />
           <p class="text-xs text-green-600 font-bold mt-2">
             +3 <span class="text-(--subtext-color) font-normal ml-1 italic">thành viên mới</span>
           </p>
@@ -220,9 +235,6 @@ onMounted(async () => {
   userLength.value = users.value.length
   latestBooks.value = books.value.slice(-6).reverse()
 })
-
-const statisticStyle =
-  'font-family: Montserrat; font-weight: 700; font-size: 2.25rem; color: var(--text-color); letter-spacing: -0.05em;'
 </script>
 
 <style scoped></style>

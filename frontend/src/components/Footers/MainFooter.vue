@@ -89,9 +89,7 @@ const splideOptions = {
     <div class="brands-section w-full pb-8">
       <Splide :options="splideOptions" :extensions="{ AutoScroll }">
         <SplideSlide v-for="index in 10" :key="index">
-          <div class="LexiLibrary text-(--primary) text-[7rem]! my-4">
-            <router-link to="/">Lexilibrary ✦ </router-link>
-          </div>
+          <div class="LexiLibrary text-(--primary) text-[7rem]! my-4">Lexilibrary ✦</div>
         </SplideSlide>
       </Splide>
     </div>

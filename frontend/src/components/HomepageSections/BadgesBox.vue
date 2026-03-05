@@ -1,14 +1,4 @@
 <template>
-  <!-- <div
-    class="badge flex flex-col justify-end items-start min-w-66 min-h-43 bg-(--bg-primary) px-5 py-7.5 border border-(--bg-secondary) cursor-pointer relative overflow-hidden group hover:shadow-2xl transition-all duration-300"
-  >
-    <h3 class="text-2xl z-1 transition-colors duration-300 group-hover:text-white">{{ title }}</h3>
-    <p
-      class="text-(--subtext-color) z-1 text-[12px] transition-colors duration-300 group-hover:text-white"
-    >
-      {{ subtext }}
-    </p>
-  </div> -->
   <SpotlightCard
     spotlight-color="rgba(212, 140, 106, 1)"
     class="flex! flex-col! justify-end! items-start! min-w-66! min-h-43! bg-(--bg-primary)! px-5! py-7.5! border! border-(--bg-secondary)! cursor-pointer! relative! overflow-hidden! group hover:shadow-2xl! transition-all! duration-300! rounded-none!"

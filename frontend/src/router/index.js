@@ -10,6 +10,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      alias: '/home',
       component: () => import('../layouts/DefaultLayout.vue'),
       children: [
         {

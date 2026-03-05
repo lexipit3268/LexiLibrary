@@ -11,7 +11,15 @@
     <div class="flex flex-row px-10 items-center gap-4">
       <ElDivider class="w-30! border-(--secondary)!" />
       <h1 class="newsreaderFont text-7xl! lg:text-8xl text-(--secondary) tracking-tighter italic">
-        Tất cả ấn phẩm
+        Tất cả
+        <TextType
+          :text="['ấn phẩm', 'tuyệt tác', 'sách hay', 'đều ở đây!']"
+          :typingSpeed="75"
+          :pauseDuration="1500"
+          :showCursor="true"
+          cursorCharacter="|"
+          :textColors="'#d1d5db'"
+        />
       </h1>
     </div>
     <div class="flex gap-10">
@@ -178,6 +186,7 @@ import {
 import BookService from '@/services/book.service'
 import categoryService from '@/services/category.service'
 import publisherService from '@/services/publisher.service'
+import TextType from '@/components/vuebits/TextType/TextType.vue'
 
 const route = useRoute()
 

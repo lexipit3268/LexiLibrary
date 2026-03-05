@@ -138,7 +138,7 @@ const handleUpdatePassword = async () => {
 
     await userService.updateUser(userId, payload, authStore.token)
 
-    ElMessage.success('Mật khẩu LexiLibrary đã được thay đổi')
+    ElMessage.success('Mật khẩu của bạn đã được thay đổi')
     router.push('/me')
   } catch (error) {
     console.error('Lỗi cập nhật mật khẩu:', error)

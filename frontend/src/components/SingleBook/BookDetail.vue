@@ -29,7 +29,10 @@
               :zoom-amount="2"
             />
           </div>
-          <div class="">
+          <div class="relative">
+            <p class="absolute left-[50%] -translate-x-[50%] top-2 text-sm text-(--subtext-color)">
+              Di chuột vào để zoom ảnh bìa sách
+            </p>
             <img src="../../../public/book.svg" alt="" class="w-120 opacity-30" />
           </div>
         </div>

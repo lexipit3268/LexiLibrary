@@ -71,7 +71,7 @@
 
           <div class="flex flex-col gap-1">
             <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-(--subtext-color)"
-              >Hòm thư điện tử</label
+              >Hộp thư điện tử</label
             >
             <p class="text-base font-medium text-black underline decoration-(--bg-secondary)">
               {{ user.email }}

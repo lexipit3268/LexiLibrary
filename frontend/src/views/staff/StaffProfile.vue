@@ -2,7 +2,7 @@
   <div class="p-6 font-['Montserrat'] bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto">
     <div class="grid grid-cols-12 gap-6 items-start">
       <div class="max-h-98 col-span-4 space-y-6">
-        <div
+        <!-- <div
           class="h-75 bg-white p-6 shadow-sm border border-(--primary)/10 text-center relative overflow-hidden"
         >
           <span
@@ -29,7 +29,36 @@
           <p class="text-[9px] uppercase tracking-[0.25em] text-(--primary) font-bold mt-1">
             STaff LexiLibrary
           </p>
-        </div>
+        </div> -->
+        <SpotlightCard
+          spotlight-color="rgba(212, 140, 106, 1)"
+          class="h-75 bg-white p-6 shadow-sm border border-(--primary)/10 text-center relative rounded-none! overflow-hidden"
+        >
+          <span
+            class="absolute -right-2 -bottom-4 opacity-[0.05] text-[6rem]! LexiLibrary select-none"
+            >staff</span
+          >
+
+          <div class="relative w-32 h-32 mx-auto mb-4">
+            <div class="w-full h-full rounded-full border-2 border-(--primary) p-1 shadow-sm">
+              <img
+                :src="staff.image"
+                alt="Avatar"
+                class="w-full h-full rounded-full object-cover bg-(--bg-secondary)"
+              />
+            </div>
+            <button
+              class="absolute bottom-0 right-0 staff-header-icon w-8! h-8! bg-white hover:bg-(--primary)! border border-(--primary)/20 shadow-sm"
+            >
+              <FontAwesomeIcon :icon="faCamera" class="text-[10px]" />
+            </button>
+          </div>
+
+          <h2 class="newsreaderFont text-3xl font-semibold">{{ staff.name }}</h2>
+          <p class="text-[9px] uppercase tracking-[0.25em] text-(--primary) font-bold mt-1">
+            STaff LexiLibrary
+          </p>
+        </SpotlightCard>
 
         <div class="p-6 min-h-full! border border-(--primary)/20 bg-white/50 italic text-center">
           <p class="newsreaderFont text-sm text-(--subtext-color)">
@@ -129,7 +158,9 @@
           <p class="text-[9px] uppercase tracking-widest text-white/70 font-bold">
             Thu nhập ước tính
           </p>
-          <h4 class="newsreaderFont text-2xl font-bold italic">{{ staffStats.salaryBase }} VNĐ</h4>
+          <h4 class="newsreaderFont text-2xl font-bold italic">
+            <CountUp :from="0" :to="staffStats.salaryBase" separator="," :duration="0.5" /> VNĐ
+          </h4>
           <div class="flex justify-between items-center mt-2 pt-2 border-t border-white/10">
             <p class="text-[9px] font-medium italic">Thưởng tích lũy:</p>
             <p class="text-xs font-black text-amber-300">+ {{ staffStats.bonusPoints }} pts</p>
@@ -148,7 +179,9 @@
           <p class="text-[9px] uppercase tracking-widest text-(--subtext-color) font-bold">
             Sách đã xử lý
           </p>
-          <h4 class="newsreaderFont text-3xl font-bold">{{ staffStats.booksProcessed }}</h4>
+          <h4 class="newsreaderFont text-3xl font-bold">
+            <CountUp :from="0" :to="staffStats.booksProcessed" :duration="0.5" />
+          </h4>
           <div class="w-full bg-(--bg-primary) h-1 mt-2 rounded-full overflow-hidden">
             <div class="bg-(--secondary) h-full w-[75%]"></div>
           </div>
@@ -210,6 +243,8 @@ import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCamera, faKey, faGear, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons'
 import { useAuthStore } from '@/stores/auth'
+import SpotlightCard from '@/components/vuebits/SpotlightCard/SpotlightCard.vue'
+import CountUp from '@/components/vuebits/CountUp/CountUp.vue'
 
 const authStore = useAuthStore()
 const staff = authStore.user
@@ -228,7 +263,7 @@ const staffStats = reactive({
   booksProcessed: 1240,
   caffeineLevel: '85%',
   silenceEnforced: 42,
-  salaryBase: '126,832,099',
+  salaryBase: 126832099,
   bonusPoints: 1250,
   nextMeeting: '15/03',
   meetingRoom: 'Phòng Creative',
