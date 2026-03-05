@@ -4,13 +4,15 @@
       <div v-for="(item, index) in items" :key="index" class="newsreaderFont font-light">
         <div class="text-[1.2rem]">{{ item.text }}</div>
         <div class="flex flex-row justify-center items-center">
-          <Vue3Autocounter
-            :startAmount="0"
-            :endAmount="item.number"
-            suffix="+"
+          <CountUp
+            :from="item.number"
+            :to="685"
             :duration="4"
+            delay="0"
+            direction="down"
             class="text-[3rem] font-normal"
           />
+          <span class="text-[3rem] font-normal">+</span>
         </div>
       </div>
     </div>
@@ -18,7 +20,7 @@
 </template>
 
 <script setup>
-import Vue3Autocounter from 'vue3-autocounter'
+import CountUp from '@/components/vuebits/CountUp/CountUp.vue'
 
 const items = [
   { text: 'Dấu ấn', number: 25 },

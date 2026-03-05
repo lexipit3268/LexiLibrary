@@ -6,16 +6,16 @@
       alt=""
       class="absolute -rotate-90 -top-25 left-50 w-32"
       data-aos="zoom-in"
-      data-aos-duration="1500"
-      data-aos-delay="400"
+      data-aos-duration="2000"
+      data-aos-delay="200"
     />
     <img
       src="../../../public/single_line_flower.svg"
       alt=""
       class="absolute rotate-90 -top-20 right-55 w-32"
       data-aos="zoom-in"
-      data-aos-duration="1500"
-      data-aos-delay="600"
+      data-aos-duration="2000"
+      data-aos-delay="400"
     />
     <div class="flex flex-col items-center space-y-4">
       <div class="flex items-center gap-3">

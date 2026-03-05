@@ -13,7 +13,7 @@
           <FontAwesomeIcon :icon="faBook" class="text-(--primary) text-xl" />
         </div>
         <div class="mt-4">
-          <el-statistic :value="outBookLength" :precision="0" :value-style="statisticStyle" />
+          <CountUp :from="0" :to="bookLength" :delay="0" :duration="1" :style="statisticStyle" />
           <p class="text-xs text-green-600 font-bold mt-2">
             +3.68% <span class="text-(--subtext-color) font-normal ml-1 italic">tăng trưởng</span>
           </p>
@@ -32,7 +32,13 @@
           <FontAwesomeIcon :icon="faBuilding" class="text-(--primary) text-xl" />
         </div>
         <div class="mt-4">
-          <el-statistic :value="outPublisherLength" :precision="0" :value-style="statisticStyle" />
+          <CountUp
+            :from="0"
+            :to="publisherLength"
+            :delay="0"
+            :duration="1"
+            :style="statisticStyle"
+          />
           <p class="text-xs text-(--subtext-color) mt-2 italic">Hợp tác bền vững</p>
         </div>
       </div>
@@ -49,7 +55,7 @@
           <FontAwesomeIcon :icon="faUsers" class="text-(--primary) text-xl" />
         </div>
         <div class="mt-4">
-          <el-statistic :value="outUserLength" :precision="0" :value-style="statisticStyle" />
+          <CountUp :from="0" :to="userLength" :delay="0" :duration="1" :style="statisticStyle" />
           <p class="text-xs text-green-600 font-bold mt-2">
             +3 <span class="text-(--subtext-color) font-normal ml-1 italic">thành viên mới</span>
           </p>
@@ -178,7 +184,6 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { useTransition } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { useStaffStore } from '@/stores/staff'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -189,8 +194,9 @@ import {
   faPlus,
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons'
-import { ElStatistic, ElTooltip } from 'element-plus'
+import { ElTooltip } from 'element-plus'
 import { useRouter } from 'vue-router'
+import CountUp from '@/components/vuebits/CountUp/CountUp.vue'
 
 const router = useRouter()
 const staffStore = useStaffStore()
@@ -200,10 +206,6 @@ const latestBooks = ref([])
 const bookLength = ref(0)
 const publisherLength = ref(0)
 const userLength = ref(0)
-
-const outBookLength = useTransition(bookLength, { duration: 2000 })
-const outPublisherLength = useTransition(publisherLength, { duration: 2000 })
-const outUserLength = useTransition(userLength, { duration: 2000 })
 
 const getNamePublisher = (maNXB) => {
   return publishers.value.find((p) => p.maNXB === maNXB).tenNXB

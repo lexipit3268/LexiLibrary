@@ -90,7 +90,7 @@ const splideOptions = {
       <Splide :options="splideOptions" :extensions="{ AutoScroll }">
         <SplideSlide v-for="index in 10" :key="index">
           <div class="LexiLibrary text-(--primary) text-[7rem]! my-4">
-            <router-link to="/">Lexilibrary - </router-link>
+            <router-link to="/">Lexilibrary ✦ </router-link>
           </div>
         </SplideSlide>
       </Splide>

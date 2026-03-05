@@ -2,7 +2,9 @@
   <div class="bg-pattern min-h-screen flex items-center justify-center px-6">
     <div class="text-center shadow-md backdrop-blur-xs p-16 border border-white/70">
       <h1 class="text-9xl font-extrabold text-(--primary) tracking-widest">
-        4<span class="animate-pulse">0</span>4
+        <span class="animate-pulse [animation-delay:0.1s]">4</span>
+        <span class="animate-pulse [animation-delay:0.5s]">0</span>
+        <span class="animate-pulse [animation-delay:0.3s]">4</span>
       </h1>
 
       <div

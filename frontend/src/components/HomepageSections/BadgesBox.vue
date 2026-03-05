@@ -1,5 +1,5 @@
 <template>
-  <div
+  <!-- <div
     class="badge flex flex-col justify-end items-start min-w-66 min-h-43 bg-(--bg-primary) px-5 py-7.5 border border-(--bg-secondary) cursor-pointer relative overflow-hidden group hover:shadow-2xl transition-all duration-300"
   >
     <h3 class="text-2xl z-1 transition-colors duration-300 group-hover:text-white">{{ title }}</h3>
@@ -8,16 +8,27 @@
     >
       {{ subtext }}
     </p>
-  </div>
+  </div> -->
+  <SpotlightCard
+    spotlight-color="rgba(212, 140, 106, 1)"
+    class="flex! flex-col! justify-end! items-start! min-w-66! min-h-43! bg-(--bg-primary)! px-5! py-7.5! border! border-(--bg-secondary)! cursor-pointer! relative! overflow-hidden! group hover:shadow-2xl! transition-all! duration-300! rounded-none!"
+  >
+    <h3 class="text-2xl z-1 transition-colors duration-300">{{ title }}</h3>
+    <p class="text-(--subtext-color) z-1 text-[12px] transition-colors duration-300">
+      {{ subtext }}
+    </p>
+  </SpotlightCard>
 </template>
 <script setup>
+import SpotlightCard from '../vuebits/SpotlightCard/SpotlightCard.vue'
+
 const { title, subtext } = defineProps({
   title: String,
   subtext: String,
 })
 </script>
 <style scoped>
-.badge::after {
+/* .badge::after {
   content: '';
   position: absolute;
   z-index: 0;
@@ -32,5 +43,5 @@ const { title, subtext } = defineProps({
 .badge:hover::after {
   height: 100%;
   transform: translate(-50%, -50%);
-}
+} */
 </style>
