@@ -1,6 +1,23 @@
 <template>
-  <div class="flex flex-col px-30 gap-14">
-    <div class="flex flex-col items-center space-y-4" data-aos="fade-up">
+  <div class="flex flex-col px-30 gap-14 relative">
+    <div class="absolute flex justify-between items-center top-0"></div>
+    <img
+      src="../../../public/single_line_flower.svg"
+      alt=""
+      class="absolute -rotate-90 -top-25 left-50 w-32"
+      data-aos="zoom-in"
+      data-aos-duration="1500"
+      data-aos-delay="400"
+    />
+    <img
+      src="../../../public/single_line_flower.svg"
+      alt=""
+      class="absolute rotate-90 -top-20 right-55 w-32"
+      data-aos="zoom-in"
+      data-aos-duration="1500"
+      data-aos-delay="600"
+    />
+    <div class="flex flex-col items-center space-y-4">
       <div class="flex items-center gap-3">
         <div class="w-8 h-px bg-(--primary) opacity-50"></div>
         <span class="text-[10px] uppercase font-bold tracking-[0.4em] text-(--primary)"

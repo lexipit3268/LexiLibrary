@@ -1,7 +1,9 @@
 <template>
   <div class="bg-pattern min-h-screen flex items-center justify-center px-6">
-    <div class="text-center rounded-2xl shadow-md backdrop-blur-xs p-16">
-      <h1 class="text-9xl font-extrabold text-(--primary) tracking-widest">404</h1>
+    <div class="text-center shadow-md backdrop-blur-xs p-16 border border-white/70">
+      <h1 class="text-9xl font-extrabold text-(--primary) tracking-widest">
+        4<span class="animate-pulse">0</span>4
+      </h1>
 
       <div
         class="bg-white px-2 text-sm rounded rotate-12 absolute transform -translate-y-15 translate-x-8 border border-(--primary) text-(--primary) font-semibold shadow-sm hidden sm:block"

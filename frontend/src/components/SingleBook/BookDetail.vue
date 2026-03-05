@@ -10,44 +10,62 @@
       ]"
     />
     <div class="flex flex-col w-full px-30 py-24">
-      <div class="flex flex-row w-full justify-start gap-16 mb-20 relative">
+      <div class="flex flex-row w-full justify-center gap-16 mb-20">
         <!-- hinh anh sach -->
-        <div
-          class="bg-pattern overflow-hidden h-fit w-lg bg-amber-800/10 p-8 group hover:shadow-2xl transition-all duration-300"
-        >
-          <VueImageZoomer
-            :regular="
-              props.book.hinhAnh
-                ? props.book.hinhAnh
-                : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty'
-            "
-            hover-message="Di chuột để zoom"
-            message-pos="top"
-            :show-message="false"
-            :zoom="props.book.hinhAnh"
-            :zoom-amount="2"
-          />
-          <img
-            src="../../../public/book.svg"
-            alt=""
-            class="absolute bottom-10 -left-20 opacity-15"
-          />
+        <div class="flex flex-col">
+          <div
+            class="bg-pattern overflow-hidden h-fit w-lg bg-amber-800/10 p-8 group hover:shadow-2xl transition-all duration-300 z-10!"
+          >
+            <VueImageZoomer
+              :regular="
+                props.book.hinhAnh
+                  ? props.book.hinhAnh
+                  : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty'
+              "
+              hover-message="Di chuột để zoom"
+              message-pos="top"
+              :show-message="false"
+              :zoom="props.book.hinhAnh"
+              :zoom-amount="2"
+            />
+          </div>
+          <div class="">
+            <img src="../../../public/book.svg" alt="" class="w-120 opacity-30" />
+          </div>
         </div>
 
         <!-- thong tin sach -->
         <div class="flex flex-col gap-4 py-5 max-w-145">
           <div class="flex flex-col gap-6">
-            <h1
-              class="newsreaderFont text-5xl lg:text-7xl text-(--secondary) leading-[1.1] tracking-tight"
-            >
-              {{ props.book.tenSach }}
-            </h1>
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center gap-3" data-aos="fade-right">
+                <span class="text-[10px] uppercase font-bold tracking-[0.4em] text-gray-400"
+                  >mã sách</span
+                >
+                <span
+                  class="px-2 py-0.5 bg-amber-900/5 text-[11px] font-mono text-(--primary) border border-amber-900/10 rounded-sm shadow-sm"
+                >
+                  #{{ props.book.maSach }}
+                </span>
+              </div>
+
+              <h1
+                class="newsreaderFont capitalize text-6xl text-(--secondary) leading-tight tracking-tighter"
+                data-aos="fade-right"
+                data-aos-delay="200"
+              >
+                {{ props.book.tenSach }}
+              </h1>
+            </div>
 
             <div class="flex flex-col gap-3 border-l-2 border-amber-200 pl-6 py-1">
               <p
                 v-for="(p, index) in paragraphs"
                 :key="index"
                 class="text-(--subtext-color) text-lg newsreaderFont leading-relaxed opacity-90"
+                data-aos="fade-up"
+                :data-aos-delay="400"
+                data-aos-once="true"
               >
                 {{ p }}
               </p>
@@ -55,13 +73,13 @@
 
             <div class="space-y-4">
               <div class="grid grid-cols-2 w-full gap-x-16 gap-y-4">
-                <div class="space-y-1">
+                <div class="space-y-1" data-aos="fade-up" data-aos-once="true" data-aos-delay="0">
                   <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
                     Tác giả:
                   </p>
                   <span class="font-medium"> {{ props.book.tacGia }}</span>
                 </div>
-                <div class="space-y-1">
+                <div class="space-y-1" data-aos="fade-up" data-aos-once="true" data-aos-delay="200">
                   <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
                     Nhà xuất bản:
                   </p>
@@ -73,20 +91,27 @@
                     >{{ publisher.tenNXB }}</span
                   >
                 </div>
-                <div class="space-y-1">
+                <div class="space-y-1" data-aos="fade-up" data-aos-once="true" data-aos-delay="300">
                   <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
                     Năm xuất bản:
                   </p>
                   <span class="font-medium">{{ props.book.namXuatBan }}</span>
                 </div>
-                <div class="space-y-1">
+                <div class="space-y-1" data-aos="fade-up" data-aos-once="true" data-aos-delay="400">
                   <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
                     Sẵn có:
                   </p>
-                  <span class="font-medium">{{ props.book.soQuyen }} quyển</span>
+                  <span v-if="props.book.soQuyen > 0" class="font-medium"
+                    >{{ props.book.soQuyen }} quyển</span
+                  >
+                  <span
+                    v-else
+                    class="px-2 py-0.5 bg-red-50 text-red-600 text-[14px] border border-red-200"
+                    >Hết lượt mượn</span
+                  >
                 </div>
               </div>
-              <div class="space-y-2">
+              <div class="space-y-2" data-aos="fade-up" data-aos-once="true" data-aos-delay="500">
                 <p class="text-(--subtext-color) font-bold uppercase text-xs tracking-wider">
                   Thể loại:
                 </p>
@@ -98,13 +123,23 @@
 
           <!-- checkout -->
           <div class="flex flex-col gap-4 pt-6 border-t border-amber-900/5">
-            <div class="flex items-baseline justify-between">
+            <div
+              class="flex items-baseline justify-between"
+              data-aos="fade-up"
+              data-aos-once="true"
+              data-aos-delay="600"
+            >
               <p class="newsreaderFont text-4xl text-(--secondary) tracking-tight">
                 ${{ props.book.donGia }}.00
               </p>
             </div>
 
-            <div class="flex flex-wrap items-center gap-6">
+            <div
+              class="flex flex-wrap items-center gap-6"
+              data-aos="fade-up"
+              data-aos-once="true"
+              data-aos-delay="700"
+            >
               <ElInputNumber
                 v-model="num"
                 :min="1"
@@ -139,6 +174,9 @@
 
             <div
               class="flex gap-4 p-5 bg-amber-900/2 border border-amber-900/5 rounded-sm items-start"
+              data-aos="fade-up"
+              data-aos-once="true"
+              data-aos-delay="800"
             >
               <div
                 class="w-10 h-10 rounded-full bg-white flex items-center justify-center shrink-0 border border-amber-900/5"

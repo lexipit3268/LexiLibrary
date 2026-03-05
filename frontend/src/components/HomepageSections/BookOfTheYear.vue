@@ -63,7 +63,7 @@
 
               <img
                 :src="book.hinhAnh || 'https://placehold.co/400x600/d48c6a/FFF?text=Book'"
-                class="w-72 md:w-104 h-auto object-cover shadow-[30px_30px_70px_rgba(0,0,0,0.35)] rounded-r-sm transition-all duration-1000 group-hover:scale-[1.03] group-hover:-rotate-1 relative z-10"
+                class="w-72 md:w-104 h-auto object-cover shadow-[30px_30px_70px_rgba(0,0,0,0.35)] rounded-r-sm transition-all duration-600 group-hover:scale-[1.03] group-hover:-rotate-1 relative z-10"
               />
             </div>
 
@@ -129,7 +129,7 @@
             </div>
 
             <h2
-              class="newsreaderFont text-6xl! lg:text-[5.5rem] text-(--secondary) leading-none mb-10 tracking-tighter italic font-medium"
+              class="newsreaderFont text-6xl! lg:text-[5.5rem] text-(--secondary) leading-none mb-4 tracking-tighter italic font-medium"
             >
               {{ book.tenSach }}
             </h2>

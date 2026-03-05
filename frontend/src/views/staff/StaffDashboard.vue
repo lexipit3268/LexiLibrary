@@ -1,7 +1,13 @@
 <template>
   <div class="p-6 min-h-screen bg-(--bg-primary) text-(--text-color)">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <div class="bg-white p-6 shadow-sm flex flex-col justify-between">
+      <div
+        class="bg-white p-6 shadow-sm flex flex-col justify-between"
+        data-aos="fade-up"
+        data-aos-offset="0"
+        data-aos-delay="0"
+        data-aos-once="true"
+      >
         <div class="flex justify-between items-start">
           <span class="newsreaderFont text-xl text-(--subtext-color)">Kho sách</span>
           <FontAwesomeIcon :icon="faBook" class="text-(--primary) text-xl" />
@@ -14,7 +20,13 @@
         </div>
       </div>
 
-      <div class="bg-white p-6 shadow-sm flex flex-col justify-between">
+      <div
+        class="bg-white p-6 shadow-sm flex flex-col justify-between"
+        data-aos="fade-up"
+        data-aos-offset="0"
+        data-aos-delay="200"
+        data-aos-once="true"
+      >
         <div class="flex justify-between items-start">
           <span class="newsreaderFont text-xl text-(--subtext-color)">Đối tác NXB</span>
           <FontAwesomeIcon :icon="faBuilding" class="text-(--primary) text-xl" />
@@ -25,7 +37,13 @@
         </div>
       </div>
 
-      <div class="bg-white p-6 shadow-sm flex flex-col justify-between">
+      <div
+        class="bg-white p-6 shadow-sm flex flex-col justify-between"
+        data-aos="fade-up"
+        data-aos-offset="0"
+        data-aos-delay="400"
+        data-aos-once="true"
+      >
         <div class="flex justify-between items-start">
           <span class="newsreaderFont text-xl text-(--subtext-color)">Độc giả</span>
           <FontAwesomeIcon :icon="faUsers" class="text-(--primary) text-xl" />
@@ -39,7 +57,13 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-3 gap-6"
+      data-aos="fade-up"
+      data-aos-offset="0"
+      data-aos-delay="600"
+      data-aos-once="true"
+    >
       <div class="lg:col-span-2 bg-white p-8 shadow-sm">
         <div class="flex justify-between items-center mb-6">
           <h3 class="newsreaderFont text-2xl">Sách mới cập nhật</h3>
@@ -109,7 +133,13 @@
       </div>
 
       <div class="space-y-6">
-        <div class="bg-(--bg-secondary) p-8">
+        <div
+          class="bg-(--bg-secondary) p-8"
+          data-aos="fade-up"
+          data-aos-offset="0"
+          data-aos-delay="800"
+          data-aos-once="true"
+        >
           <h3 class="newsreaderFont text-xl mb-6">Thao tác nhanh</h3>
           <div class="flex flex-col gap-4">
             <button
@@ -127,7 +157,13 @@
           </div>
         </div>
 
-        <div class="p-6 border border-(--primary)/20 italic">
+        <div
+          class="p-6 border border-(--primary)/20 italic"
+          data-aos="fade-up"
+          data-aos-offset="0"
+          data-aos-delay="1000"
+          data-aos-once="true"
+        >
           <p class="newsreaderFont text-(--subtext-color) leading-relaxed">
             Nếu làm không được thì vừa khóc vừa làm
           </p>

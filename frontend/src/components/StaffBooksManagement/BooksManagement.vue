@@ -16,7 +16,7 @@
       </div>
 
       <div class="overflow-x-auto grow">
-        <table class="w-full text-left border-spacing-y-2">
+        <table class="w-full text-left border-spacing-y-2 overflow-hidden">
           <thead>
             <tr class="text-[9px] uppercase tracking-widest text-(--subtext-color) font-black">
               <th class="px-4 pb-2">Thông tin sách</th>
@@ -28,9 +28,13 @@
           </thead>
           <tbody class="divide-y divide-(--bg-primary)">
             <tr
-              v-for="book in paginatedBooks"
+              v-for="(book, index) in paginatedBooks"
               :key="book.maSach"
               class="group hover:bg-(--bg-primary)/70 h-20 transition-colors duration-300 divide-y divide-(--bg-secondary)"
+              data-aos="fade-in"
+              data-aos-offset="0"
+              :data-aos-delay="(index % 4) * 100"
+              data-aos-once="true"
             >
               <td class="py-4 px-4 min-w-100">
                 <div class="flex items-center gap-4">
