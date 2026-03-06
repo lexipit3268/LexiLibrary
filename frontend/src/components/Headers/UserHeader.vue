@@ -74,7 +74,12 @@
         </div>
         <div v-if="userRole !== 'staff'">
           <router-link to="/cart">
-            <FontAwesomeIcon :icon="faCartShopping"></FontAwesomeIcon>
+            <ElBadge v-if="cartCount > 0" :value="cartCount" type="primary" :offset="[2, 1]">
+              <FontAwesomeIcon :icon="faCartShopping"></FontAwesomeIcon>
+            </ElBadge>
+            <ElBadge v-else :value="cartCount" type="primary" :offset="[2, 1]" :hidden="true">
+              <FontAwesomeIcon :icon="faCartShopping"></FontAwesomeIcon>
+            </ElBadge>
           </router-link>
         </div>
         <div v-if="userRole !== 'staff'">
@@ -126,15 +131,16 @@
 </style>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCartShopping, faSearch, faUser, faBell } from '@fortawesome/free-solid-svg-icons'
 import { useAuthStore } from '@/stores/auth'
-import { ElMessage } from 'element-plus'
+import { ElBadge, ElMessage } from 'element-plus'
 
 const authStore = useAuthStore()
 const router = useRouter()
+const cartCount = ref(3)
 
 const userRole = computed(() => authStore.userRole)
 const userAvatar = computed(() => {
@@ -146,6 +152,7 @@ const userAvatar = computed(() => {
 
   return hinhAnh
 })
+
 const handleLogout = () => {
   authStore.logout()
   ElMessage.success('Đã đăng xuất khỏi hệ thống')

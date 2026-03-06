@@ -1,5 +1,5 @@
 <template>
-  <div v-if="image" class="w-full min-h-72 max-h-72 border overflow-hidden relative">
+  <div v-if="image" class="w-full min-h-72 max-h-72 overflow-hidden relative">
     <img
       :src="image"
       class="absolute w-full h-full object-cover object-center"
