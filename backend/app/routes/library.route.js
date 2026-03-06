@@ -6,6 +6,7 @@ const bookRoute = require('./book.route');
 const staffRoute = require('./staff.route');
 const userRoute = require('./user.route');
 const borrowingRoute = require('./borrowing.route');
+const cartRoute = require('../routes/cart.route');
 
 router.use('/categories', categoryRoute);
 router.use('/publishers', publisherRoute);
@@ -13,6 +14,7 @@ router.use('/books', bookRoute);
 router.use('/staffs', staffRoute);
 router.use('/users', userRoute);
 router.use('/borrowings', borrowingRoute);
+router.use('/carts', cartRoute);
 
 router.route('/').get((req, res) => {
   res.send({ message: 'Route ok' });

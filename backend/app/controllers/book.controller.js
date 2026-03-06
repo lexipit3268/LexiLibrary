@@ -145,6 +145,7 @@ exports.update = async (req, res, next) => {
     if (newImgId && oldImgId && newImgId !== oldImgId) {
       await CloudinaryUtil.deleteImage(oldImgId);
     }
+
     const result = await bookService.update(req.params.id, req.body);
     return res.send(result);
   } catch (error) {

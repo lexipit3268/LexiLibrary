@@ -17,6 +17,8 @@ class UserService {
       hinhAnh: payload.hinhAnh || null,
       role: 'user',
       publicAvtId: payload.publicAvtId || null,
+      gioiHanDat: payload.gioiHanDat || 5,
+      isActive: payload.isActive || true,
     };
 
     Object.keys(user).forEach((key) => user[key] === undefined && delete user[key]);

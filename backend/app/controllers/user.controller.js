@@ -62,6 +62,8 @@ exports.login = async (req, res, next) => {
         role: user.role,
         image: user.hinhAnh,
         email: user.email,
+        isActive: user.isActive,
+        limit: user.gioiHanDat,
       },
     });
   } catch (error) {
