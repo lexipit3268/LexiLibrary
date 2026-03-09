@@ -14,7 +14,7 @@
       </div>
       <div
         class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-500"
-        @click="handleAddToCart(id)"
+        @click="handleAddToCart(id, title)"
       >
         <FontAwesomeIcon
           :icon="faCartPlus"
@@ -59,11 +59,17 @@
   </div>
 </template>
 <script setup>
+import cartService from '@/services/cart.service'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faCartPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { ElMessage } from 'element-plus'
+
+const authStore = useAuthStore()
 const router = useRouter()
+
 const { id, title, author, price, image } = defineProps({
   id: String,
   title: String,
@@ -72,7 +78,13 @@ const { id, title, author, price, image } = defineProps({
   image: String,
 })
 
-const handleAddToCart = (id) => {
-  alert(id)
+const handleAddToCart = async (id, title) => {
+  const maDocGia = authStore.user.code
+  const response = await cartService.addToCart({ maSach: id, maDocGia: maDocGia, soLuong: 1 })
+  if (response.status == 200) {
+    ElMessage.success(`Đã thêm sách "${title}" vào giỏ`)
+  } else {
+    ElMessage.error('Không thể thêm sách')
+  }
 }
 </script>

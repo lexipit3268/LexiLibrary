@@ -37,7 +37,13 @@ const router = createRouter({
           ],
         },
         {
-          path: '/me',
+          path: 'cart',
+          name: 'cart-page',
+          component: () => import('../views/user/CartView.vue'),
+          meta: { title: 'Giỏ hàng' },
+        },
+        {
+          path: 'me',
           name: 'user-profile',
           component: () => import('../views/user/UserProfile.vue'),
           meta: { title: 'Thông tin cá nhân', requiresAuth: true },

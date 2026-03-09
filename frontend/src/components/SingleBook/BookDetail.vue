@@ -160,7 +160,7 @@
 
               <AddToCartBtn
                 :book="props.book"
-                @add-to-cart="handleAddToCart(props.book.tenSach)"
+                @add-to-cart="handleAddToCart(props.book)"
                 class="transform hover:scale-[1.02] transition-transform active:scale-95"
               />
 
@@ -266,7 +266,7 @@
 <script setup>
 import { VueImageZoomer } from 'vue-image-zoomer'
 import 'vue-image-zoomer/dist/style.css'
-import { ElCollapse, ElDivider, ElInputNumber, ElMessageBox } from 'element-plus'
+import { ElCollapse, ElDivider, ElInputNumber, ElMessage, ElMessageBox } from 'element-plus'
 import BreadcrumbComponent from '../BreadcrumbComponent.vue'
 import { computed, ref } from 'vue'
 import AddToCartBtn from '../AddToCartBtn.vue'
@@ -276,6 +276,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import cartService from '@/services/cart.service'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -293,7 +294,7 @@ const paragraphs = computed(() => {
 
 const num = ref(1)
 const activeName = ref('1')
-const handleAddToCart = (bookTitle) => {
+const handleAddToCart = async (book) => {
   if (!authStore.isLoggedIn) {
     ElMessageBox.confirm(`Vui lòng đăng nhập để thực hiện chức năng này`, 'Yêu cầu đăng nhập', {
       confirmButtonText: 'Đăng nhập',
@@ -308,7 +309,20 @@ const handleAddToCart = (bookTitle) => {
     )
     return
   }
-  alert('Add to cart book: ' + bookTitle + num.value)
+
+  try {
+    const maDocGia = authStore.user.code
+    const response = await cartService.addToCart({
+      maSach: book.maSach,
+      maDocGia: maDocGia,
+      soLuong: num.value,
+    })
+    if (response.status == 200) {
+      ElMessage.success(`Đã thêm sách "${book.tenSach}" vào giỏ`)
+    }
+  } catch (error) {
+    ElMessage.error('Không thể thêm sách ' + error)
+  }
 }
 </script>
 

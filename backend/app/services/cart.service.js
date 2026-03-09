@@ -32,8 +32,18 @@ class Cart {
   }
 
   async getCart(maDocGia) {
-    const cursor = await this.Cart.find({ maDocGia: maDocGia });
-    return cursor.toArray();
+    return await this.Cart.aggregate([
+      { $match: { maDocGia: maDocGia } },
+      {
+        $lookup: {
+          from: 'Sach', //ket noi collection Sach
+          localField: 'maSach',
+          foreignField: 'maSach',
+          as: 'bookDetails',
+        },
+      },
+      { $unwind: '$bookDetails' },
+    ]).toArray();
   }
 
   async deleteItem(id) {

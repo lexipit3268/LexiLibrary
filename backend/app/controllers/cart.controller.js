@@ -6,10 +6,10 @@ const { StatusCodes } = require('http-status-codes');
 exports.findAll = async (req, res, next) => {
   try {
     const cartService = new CartService(MongoDB.client);
-    if (!req.body?.maDocGia) {
+    if (!req.query?.maDocGia) {
       return next(new ApiError(StatusCodes.BAD_REQUEST, 'maDocGia cannot be empty'));
     }
-    const maDocGia = req.body.maDocGia;
+    const maDocGia = req.query.maDocGia;
     const documents = await cartService.getCart(maDocGia);
     return res.send(documents);
   } catch (error) {
@@ -29,7 +29,7 @@ exports.create = async (req, res, next) => {
   try {
     const cartService = new CartService(MongoDB.client);
     const document = await cartService.addToCart(req.body);
-    return res.send(req.body);
+    return res.send(document);
   } catch (error) {
     return next(
       new ApiError(
