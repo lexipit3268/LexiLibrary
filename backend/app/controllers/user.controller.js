@@ -64,6 +64,8 @@ exports.login = async (req, res, next) => {
         email: user.email,
         isActive: user.isActive,
         limit: user.gioiHanDat,
+        diemUyTin: user.diemUyTin,
+        ngayViPham: user.ngayViPham,
       },
     });
   } catch (error) {

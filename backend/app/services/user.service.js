@@ -19,6 +19,7 @@ class UserService {
       publicAvtId: payload.publicAvtId || null,
       gioiHanDat: payload.gioiHanDat || 5,
       isActive: payload.isActive || true,
+      diemUyTin: payload.diemUyTin || 10,
     };
 
     Object.keys(user).forEach((key) => user[key] === undefined && delete user[key]);
@@ -89,6 +90,27 @@ class UserService {
 
   async delete(id) {
     return await this.User.deleteOne({ maDocGia: id });
+  }
+
+  async checkAndRecoverReputation(maDocGia) {
+    const user = await this.User.find({ maDocGia: maDocGia });
+    if (!user || !user.ngayViPham) return;
+
+    const today = new Date();
+    const twoWeeksMs = 14 * 24 * 60 * 60 * 1000;
+    const ngayViPham = new Date(user.ngayViPham);
+    if (today - ngayViPham >= twoWeeksMs && user.diemUyTin < 10) {
+      await this.User.findOneAndUpdate(
+        { maDocGia: maDocGia },
+        {
+          $set: {
+            diemUyTin: 10,
+            isActive: true,
+            ngayViPham: null,
+          },
+        },
+      );
+    }
   }
 }
 
