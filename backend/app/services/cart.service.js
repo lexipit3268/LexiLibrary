@@ -46,6 +46,13 @@ class Cart {
     ]).toArray();
   }
 
+  async update(id, payload) {
+    const filter = { _id: ObjectId.isValid(id) ? new ObjectId(id) : null };
+    const update = this.extractCartData(payload);
+    console.log(update);
+    return await this.Cart.findOneAndUpdate(filter, { $set: update }, { returnDocument: 'after' });
+  }
+
   async deleteItem(id) {
     return await this.Cart.deleteOne({ _id: new ObjectId(id) });
   }

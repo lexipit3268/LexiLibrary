@@ -40,6 +40,23 @@ exports.create = async (req, res, next) => {
   }
 };
 
+exports.update = async (req, res, next) => {
+  if (!req.params.id) return next(new ApiError(StatusCodes.BAD_REQUEST, '_id cannot be empty'));
+  try {
+    const id = req.params.id;
+    const cartService = new CartService(MongoDB.client);
+    const result = await cartService.update(id, req.body);
+    return res.send(result);
+  } catch (error) {
+    return next(
+      new ApiError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'An error while updating item in cart' + error,
+      ),
+    );
+  }
+};
+
 exports.delete = async (req, res, next) => {
   try {
     const cartService = new CartService(MongoDB.client);
