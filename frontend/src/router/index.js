@@ -41,6 +41,18 @@ const router = createRouter({
           name: 'cart-page',
           component: () => import('../views/user/CartView.vue'),
           meta: { title: 'Giỏ hàng' },
+          children: [
+            {
+              path: '',
+              name: 'cart-list',
+              component: () => import('../components/Cart/CartList.vue'),
+            },
+            {
+              path: 'checkout',
+              name: 'checkout-form',
+              component: () => import('../components/Cart/CheckoutForm.vue'),
+            },
+          ],
         },
         {
           path: 'me',

@@ -276,8 +276,9 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import cartService from '@/services/cart.service'
+import { useCartStore } from '@/stores/cart'
 
+const cartStore = useCartStore()
 const authStore = useAuthStore()
 const router = useRouter()
 
@@ -312,7 +313,7 @@ const handleAddToCart = async (book) => {
 
   try {
     const maDocGia = authStore.user.code
-    const response = await cartService.addToCart({
+    const response = await cartStore.addToCart({
       maSach: book.maSach,
       maDocGia: maDocGia,
       soLuong: num.value,

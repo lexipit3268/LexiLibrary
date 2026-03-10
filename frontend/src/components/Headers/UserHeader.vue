@@ -131,23 +131,19 @@
 </style>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCartShopping, faSearch, faUser, faBell } from '@fortawesome/free-solid-svg-icons'
 import { useAuthStore } from '@/stores/auth'
 import { ElBadge, ElMessage } from 'element-plus'
-import cartService from '@/services/cart.service'
+import { useCartStore } from '@/stores/cart'
 
+const cartStore = useCartStore()
 const authStore = useAuthStore()
 const router = useRouter()
 
-const cartItems = ref([])
-const cartCount = computed(() => {
-  return cartItems.value.reduce((total, item) => {
-    return total + (Number(item.soLuong) || 0)
-  }, 0)
-})
+const cartCount = computed(() => cartStore.totalQuantity)
 
 const userRole = computed(() => authStore.userRole)
 const userAvatar = computed(() => {
@@ -168,10 +164,7 @@ const handleLogout = () => {
 
 onMounted(async () => {
   if (authStore.user?.code) {
-    const data = await cartService.getCartById(authStore.user.code)
-    if (data) {
-      cartItems.value = data
-    }
+    await cartStore.fetchCart(authStore.user.code)
   }
 })
 </script>

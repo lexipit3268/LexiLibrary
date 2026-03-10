@@ -59,14 +59,15 @@
   </div>
 </template>
 <script setup>
-import cartService from '@/services/cart.service'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faCartPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { ElMessage } from 'element-plus'
+import { useCartStore } from '@/stores/cart'
 
+const cartStore = useCartStore()
 const authStore = useAuthStore()
 const router = useRouter()
 
@@ -80,7 +81,7 @@ const { id, title, author, price, image } = defineProps({
 
 const handleAddToCart = async (id, title) => {
   const maDocGia = authStore.user.code
-  const response = await cartService.addToCart({ maSach: id, maDocGia: maDocGia, soLuong: 1 })
+  const response = await cartStore.addToCart({ maSach: id, maDocGia: maDocGia, soLuong: 1 })
   if (response.status == 200) {
     ElMessage.success(`Đã thêm sách "${title}" vào giỏ`)
   } else {
