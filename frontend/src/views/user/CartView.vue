@@ -10,9 +10,24 @@
 
     <div class="max-w-4xl mx-auto py-10 px-6">
       <ElSteps :active="currentStep" align-center finish-status="success" class="custom-steps">
-        <ElStep title="Kiểm tra" description="Giỏ hàng hiện tại" />
-        <ElStep title="Phiếu mượn" description="Thông tin chi tiết phiếu" />
-        <ElStep title="Hoàn tất" description="Chờ nhận sách" />
+        <ElStep
+          data-aos="flip-up"
+          data-aos-delay="100"
+          title="Kiểm tra"
+          description="Giỏ hàng hiện tại"
+        />
+        <ElStep
+          data-aos="flip-up"
+          data-aos-delay="300"
+          title="Phiếu mượn"
+          description="Thông tin chi tiết phiếu"
+        />
+        <ElStep
+          data-aos="flip-up"
+          data-aos-delay="500"
+          title="Hoàn tất"
+          description="Chờ nhận sách"
+        />
       </ElSteps>
     </div>
 

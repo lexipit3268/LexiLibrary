@@ -36,10 +36,18 @@ const handleLogin = async () => {
       authStore.setLogin(user, token)
 
       if (user.role === 'staff') {
-        ElMessage.success(`Chào mừng ${user.name} quay lại trang quản trị.`)
+        ElMessage({
+          message: `Chào mừng ${user.name} quay lại trang quản trị.`,
+          type: 'success',
+          offset: 100,
+        })
         router.push('/staff')
       } else {
-        ElMessage.success(`Đăng nhập thành công! Chào mừng ${user.name}`)
+        ElMessage({
+          message: `Đăng nhập thành công! Chào mừng ${user.name}`,
+          type: 'success',
+          offset: 100,
+        })
         router.push('/')
       }
     }

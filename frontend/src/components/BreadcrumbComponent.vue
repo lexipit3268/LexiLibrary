@@ -31,9 +31,9 @@
     >
     </Silk>
     <div
-      class="h-full w-full flex flex-col justify-center items-center gap-2 absolute top-0 left-0 z-10"
+      class="h-full w-full flex flex-col justify-center items-center gap-2 backdrop-brightness-80 absolute top-0 left-0 z-10"
     >
-      <h3 class="text-5xl text-white font-light newsreaderFont">{{ title }}</h3>
+      <h3 class="text-5xl text-(--bg-primary) font-normal newsreaderFont">{{ title }}</h3>
       <ElBreadcrumb>
         <ElBreadcrumbItem v-for="(item, index) in paths" :key="index" :to="item.path" class="">
           <span class="text-white hover:text-(--primary) transition-colors duration-200">{{

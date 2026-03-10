@@ -75,7 +75,9 @@
         <div v-if="userRole !== 'staff'">
           <router-link to="/cart">
             <ElBadge v-if="cartCount > 0" :value="cartCount" type="primary" :offset="[2, 1]">
-              <FontAwesomeIcon :icon="faCartShopping"></FontAwesomeIcon>
+              <ElTooltip content="Xem giỏ hàng" effect="light">
+                <FontAwesomeIcon :icon="faCartShopping"></FontAwesomeIcon>
+              </ElTooltip>
             </ElBadge>
             <ElBadge v-else :value="cartCount" type="primary" :offset="[2, 1]" :hidden="true">
               <FontAwesomeIcon :icon="faCartShopping"></FontAwesomeIcon>
@@ -136,7 +138,7 @@ import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCartShopping, faSearch, faUser, faBell } from '@fortawesome/free-solid-svg-icons'
 import { useAuthStore } from '@/stores/auth'
-import { ElBadge, ElMessage } from 'element-plus'
+import { ElBadge, ElMessage, ElTooltip } from 'element-plus'
 import { useCartStore } from '@/stores/cart'
 
 const cartStore = useCartStore()

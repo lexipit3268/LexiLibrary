@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_URL = 'http://localhost:3000/api/library/carts'
+const API_URL = 'http://localhost:3000/api/library/carts/'
 
 class CartService {
   async _handleRequest(request) {
@@ -25,12 +25,17 @@ class CartService {
 
   async addToCart(payload) {
     if (!payload.maDocGia || !payload.maSach) return null
-    return await this._handleRequest(axios.post(`${API_URL}/add`, payload))
+    return await this._handleRequest(axios.post(`${API_URL}add`, payload))
   }
 
   async update(id, payload) {
     if (!id) return null
-    return await this._handleRequest(axios.post(`${API_URL}/${id}`, payload))
+    return await this._handleRequest(axios.post(`${API_URL}${id}`, payload))
+  }
+
+  async removeItem(id) {
+    if (!id) return null
+    return await this._handleRequest(axios.delete(API_URL + id))
   }
 }
 export default new CartService()

@@ -39,15 +39,20 @@ export const useCartStore = defineStore('cart', () => {
       console.log('Lỗi khi cập nhật giỏ: ' + error)
     }
   }
+
   const totalQuantity = computed(() => {
     return cartItems.value.reduce((total, item) => {
       return (total += Number(item.soLuong) || 0)
     }, 0)
   })
 
+  const removeFromCart = async (id) => {
+    await cartService.removeItem(id)
+  }
+
   const resetCart = () => {
     cartItems.value = []
   }
 
-  return { cartItems, totalQuantity, fetchCart, addToCart, updateCart, resetCart }
+  return { cartItems, totalQuantity, fetchCart, addToCart, updateCart, removeFromCart, resetCart }
 })
