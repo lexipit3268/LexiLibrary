@@ -59,7 +59,7 @@
                 <ElInputNumber
                   v-model="item.soLuong"
                   :min="1"
-                  :max="10"
+                  :max="5"
                   controls-position="right"
                   size="default"
                   class="lexi-qty-input-refined"
@@ -71,6 +71,16 @@
                       >Quyển</span
                     >
                   </template>
+                  <template #decrease-icon>
+                    <el-icon>
+                      <Minus />
+                    </el-icon>
+                  </template>
+                  <template #increase-icon>
+                    <el-icon>
+                      <Plus />
+                    </el-icon>
+                  </template>
                 </ElInputNumber>
               </div>
             </div>
@@ -80,7 +90,7 @@
             <button @click="$router.push('/book')" class="secondary-btn">Quay lại xem sách</button>
 
             <button
-              v-if="true"
+              v-if="isCountChanging"
               @click="updateAllChanges"
               class="primary-btn py-4! px-8 text-xs tracking-[0.2em] font-bold uppercase"
             >
@@ -172,6 +182,7 @@ import { onMounted, computed, ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
 import { ElDivider, ElInputNumber, ElMessage, ElMessageBox, ElTooltip } from 'element-plus'
+import { Minus, Plus } from '@element-plus/icons-vue'
 
 const authStore = useAuthStore()
 const cartStore = useCartStore()
@@ -179,21 +190,17 @@ const cartStore = useCartStore()
 const isCountChanging = ref(false)
 const cartItems = computed(() => cartStore.cartItems)
 
-// Khi thay đổi số lượng, hiện nút Cập nhật
 const handleChange = () => {
   isCountChanging.value = true
 }
 
-// Logic cập nhật toàn bộ thay đổi
 const updateAllChanges = async () => {
   try {
-    // Duyệt qua danh sách và gọi API cập nhật cho từng item
     for (const item of cartItems.value) {
-      await cartStore.addToCart({
+      await cartStore.updateCart(item._id, {
         maDocGia: authStore.user.code,
         maSach: item.maSach,
         soLuong: item.soLuong,
-        isReplace: true, // Gửi flag này để Backend dùng $set thay vì $inc
       })
     }
     isCountChanging.value = false
@@ -225,11 +232,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* Quy tắc không bo góc */
-* {
-  border-radius: 0 !important;
-}
-
 .lexi-qty-input-refined {
   width: 140px !important;
 }

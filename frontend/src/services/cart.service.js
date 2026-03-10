@@ -27,5 +27,10 @@ class CartService {
     if (!payload.maDocGia || !payload.maSach) return null
     return await this._handleRequest(axios.post(`${API_URL}/add`, payload))
   }
+
+  async update(id, payload) {
+    if (!id) return null
+    return await this._handleRequest(axios.post(`${API_URL}/${id}`, payload))
+  }
 }
 export default new CartService()

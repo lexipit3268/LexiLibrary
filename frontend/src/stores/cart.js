@@ -27,6 +27,18 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  const updateCart = async (id, payload) => {
+    if (!payload || !id) return
+    try {
+      const response = await cartService.update(id, payload)
+      if (response) {
+        await fetchCart(payload.maDocGia)
+      }
+      return response
+    } catch (error) {
+      console.log('Lỗi khi cập nhật giỏ: ' + error)
+    }
+  }
   const totalQuantity = computed(() => {
     return cartItems.value.reduce((total, item) => {
       return (total += Number(item.soLuong) || 0)
@@ -37,5 +49,5 @@ export const useCartStore = defineStore('cart', () => {
     cartItems.value = []
   }
 
-  return { cartItems, totalQuantity, fetchCart, addToCart, resetCart }
+  return { cartItems, totalQuantity, fetchCart, addToCart, updateCart, resetCart }
 })
