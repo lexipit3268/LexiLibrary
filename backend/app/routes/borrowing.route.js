@@ -11,7 +11,7 @@ router
 router
   .route('/:id')
   .get(borrowingController.findOne)
-  .put(borrowingController.update)
+  .post(borrowingController.update)
   .delete(borrowingController.delete);
 
 module.exports = router;

@@ -259,6 +259,7 @@ const handleSave = async () => {
       ElMessage.success('Đã cập nhật dữ liệu sách thành công')
     } else {
       await bookService.createBook(book)
+      await staffStore.fetchAllData()
       ElMessage.success('Đã thêm sách mới vào hệ thống')
     }
 
