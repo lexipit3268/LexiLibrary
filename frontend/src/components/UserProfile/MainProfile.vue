@@ -58,7 +58,9 @@
             <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-(--subtext-color)"
               >Ngày sinh</label
             >
-            <p class="text-base font-medium text-black">{{ user.ngaySinh || 'Chưa cập nhật' }}</p>
+            <p class="text-base font-medium text-black">
+              {{ formatDate(user.ngaySinh) || 'Chưa cập nhật' }}
+            </p>
           </div>
         </div>
 
@@ -203,6 +205,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCamera, faPenNib } from '@fortawesome/free-solid-svg-icons'
 import userService from '@/services/user.service'
 import { ElMessage, ElProgress } from 'element-plus'
+import { formatDate } from '../../../utils/formatDate'
 
 library.add(faCamera, faPenNib)
 
