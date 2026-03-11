@@ -199,7 +199,11 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.meta.role && authStore.userRole !== to.meta.role) {
-    ElMessage.error('Bạn không có quyền truy cập vào khu vực này!')
+    ElMessage({
+      type: 'warning',
+      message: 'Bạn không có quyền truy cập vào khu vực này!',
+      offset: 100,
+    })
     return next('/')
   }
 

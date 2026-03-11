@@ -195,7 +195,7 @@
                       >Hạn mức</span
                     >
                     <span class="text-sm font-black text-[#3a2a1e]"
-                      >{{ authStore.user?.gioiHanDat || 5 }}
+                      >{{ authStore.user?.gioiHanMuon || 5 }}
                       <span class="font-normal text-(--secondary) text-xs">quyển</span></span
                     >
                   </div>

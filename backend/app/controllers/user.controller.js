@@ -63,7 +63,7 @@ exports.login = async (req, res, next) => {
         image: user.hinhAnh,
         email: user.email,
         isActive: user.isActive,
-        limit: user.gioiHanDat,
+        limit: user.gioiHanMuon,
         diemUyTin: user.diemUyTin,
         ngayViPham: user.ngayViPham,
       },

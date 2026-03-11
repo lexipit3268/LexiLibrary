@@ -98,6 +98,31 @@
         </div>
       </div>
 
+      <div>
+        <div>
+          <p>Điểm uy tín</p>
+          <ElProgress type="circle" :percentage="user.diemUyTin * 10" :color="colors">
+            <template #default="">
+              <div class="flex flex-col">
+                <span class="percentage-value">{{ user.diemUyTin }}/10</span>
+                <span class="percentage-label">Điểm</span>
+              </div>
+            </template>
+          </ElProgress>
+        </div>
+        <div>
+          <p>Giới hạn mượn</p>
+          <ElProgress type="circle" :percentage="user.gioiHanMuon * 10 * 2" :color="colors">
+            <template #default="">
+              <div class="flex flex-col">
+                <span class="percentage-value">{{ user.gioiHanMuon }}/5</span>
+                <span class="percentage-label">Sách</span>
+              </div>
+            </template>
+          </ElProgress>
+        </div>
+      </div>
+
       <div class="mt-20 flex flex-col sm:flex-row justify-center gap-5">
         <button
           class="primary-btn px-12 py-3.5 text-xs tracking-widest font-bold uppercase flex items-center justify-center gap-3"
@@ -122,7 +147,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCamera, faPenNib } from '@fortawesome/free-solid-svg-icons'
 import userService from '@/services/user.service'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElProgress } from 'element-plus'
 
 library.add(faCamera, faPenNib)
 
@@ -145,6 +170,14 @@ const fetchUserData = async () => {
     console.error(error)
   }
 }
+
+const colors = [
+  { color: '#f56c6c', percentage: 20 },
+  { color: '#e6a23c', percentage: 40 },
+  { color: '#5cb87a', percentage: 60 },
+  { color: '#d48c6a', percentage: 80 },
+  { color: '#9d674e', percentage: 100 },
+]
 
 onMounted(() => {
   fetchUserData()

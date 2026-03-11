@@ -17,7 +17,7 @@ class UserService {
       hinhAnh: payload.hinhAnh || null,
       role: 'user',
       publicAvtId: payload.publicAvtId || null,
-      gioiHanDat: payload.gioiHanDat || 5,
+      gioiHanMuon: payload.gioiHanMuon || 5,
       isActive: payload.isActive || true,
       diemUyTin: payload.diemUyTin || 10,
     };
