@@ -98,28 +98,83 @@
         </div>
       </div>
 
-      <div>
-        <div>
-          <p>Điểm uy tín</p>
-          <ElProgress type="circle" :percentage="user.diemUyTin * 10" :color="colors">
-            <template #default="">
-              <div class="flex flex-col">
-                <span class="percentage-value">{{ user.diemUyTin }}/10</span>
-                <span class="percentage-label">Điểm</span>
-              </div>
-            </template>
-          </ElProgress>
-        </div>
-        <div>
-          <p>Giới hạn mượn</p>
-          <ElProgress type="circle" :percentage="user.gioiHanMuon * 10 * 2" :color="colors">
-            <template #default="">
-              <div class="flex flex-col">
-                <span class="percentage-value">{{ user.gioiHanMuon }}/5</span>
-                <span class="percentage-label">Sách</span>
-              </div>
-            </template>
-          </ElProgress>
+      <div class="mt-16">
+        <h4
+          class="newsreaderFont text-2xl text-(--secondary) border-b border-(--bg-secondary) pb-2 mb-8 text-left"
+        >
+          Chỉ số
+        </h4>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div
+            class="flex items-center gap-8 p-8 bg-(--bg-primary) border border-(--bg-secondary) relative group transition-all hover:border-(--primary)"
+          >
+            <div
+              class="absolute top-0 right-0 w-4 h-4 border-t border-r border-(--bg-quaternary) opacity-0 group-hover:opacity-100 transition-opacity"
+            ></div>
+
+            <ElProgress
+              type="circle"
+              :percentage="user.diemUyTin * 10"
+              :stroke-width="8"
+              :width="120"
+              :color="colors"
+            >
+              <template #default>
+                <div class="flex flex-col items-center">
+                  <span
+                    class="text-2xl font-bold text-(--secondary) newsreaderFont italic leading-none"
+                  >
+                    {{ user.diemUyTin }}<span class="text-sm">/10</span>
+                  </span>
+                </div>
+              </template>
+            </ElProgress>
+
+            <div class="text-left space-y-1">
+              <p class="text-sm uppercase tracking-[0.2em] font-bold text-(--subtext-color)">
+                Điểm uy tín
+              </p>
+              <p class="text-[11px] text-(--primary) leading-relaxed mt-2 italic">
+                {{ user.diemUyTin >= 8 ? 'Tài khoản rất uy tín' : 'Cần chú ý trả sách đúng hạn' }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="flex items-center gap-8 p-8 bg-(--bg-primary) border border-(--bg-secondary) relative group transition-all hover:border-(--primary)"
+          >
+            <div
+              class="absolute top-0 right-0 w-4 h-4 border-t border-r border-(--bg-quaternary) opacity-0 group-hover:opacity-100 transition-opacity"
+            ></div>
+
+            <ElProgress
+              type="circle"
+              :percentage="(user.gioiHanMuon / 5) * 100"
+              :stroke-width="8"
+              :width="120"
+              :color="colors"
+            >
+              <template #default>
+                <div class="flex flex-col items-center">
+                  <span
+                    class="text-2xl font-bold text-(--secondary) newsreaderFont italic leading-none"
+                  >
+                    {{ user.gioiHanMuon }}<span class="text-sm">/5</span>
+                  </span>
+                </div>
+              </template>
+            </ElProgress>
+
+            <div class="text-left space-y-1">
+              <p class="text-sm uppercase tracking-[0.2em] font-bold text-(--subtext-color)">
+                Hạn mức
+              </p>
+              <p class="text-[11px] text-(--primary) leading-relaxed mt-2 italic">
+                Hạn mức tối đa được phép mượn
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -172,11 +227,11 @@ const fetchUserData = async () => {
 }
 
 const colors = [
-  { color: '#f56c6c', percentage: 20 },
-  { color: '#e6a23c', percentage: 40 },
-  { color: '#5cb87a', percentage: 60 },
-  { color: '#d48c6a', percentage: 80 },
-  { color: '#9d674e', percentage: 100 },
+  { color: '#ef4444', percentage: 20 },
+  { color: '#f59e0b', percentage: 40 },
+  { color: '#d48c6a', percentage: 60 },
+  { color: '#9d674e', percentage: 80 },
+  { color: '#5d4037', percentage: 100 },
 ]
 
 onMounted(() => {
@@ -194,5 +249,9 @@ img {
   transform: translateZ(0);
 
   backface-visibility: hidden;
+}
+
+:deep(.el-progress-circle__track) {
+  stroke: var(--bg-tertiary) !important;
 }
 </style>

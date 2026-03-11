@@ -276,7 +276,7 @@
       <div v-else class="flex flex-col items-center justify-center py-32 text-center">
         <div class="relative mb-8">
           <div class="w-28 h-28 rounded-full bg-[#f7ede2] flex items-center justify-center">
-            <span class="newsreaderFont text-6xl italic text-[#d4c0b0]">∅</span>
+            <span class="newsreaderFont text-6xl italic text-[#d4c0b0] mr-2">∅</span>
           </div>
           <div
             class="absolute -top-1 -right-1 w-5 h-5 rounded-full border-2 border-white bg-(--primary) opacity-60"
