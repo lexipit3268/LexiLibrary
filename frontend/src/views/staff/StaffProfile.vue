@@ -79,9 +79,7 @@
                 class="text-[9px] uppercase font-bold tracking-widest text-(--subtext-color) opacity-70"
                 >{{ label }}</label
               >
-              <div
-                class="bg-(--bg-primary)/60 px-4 py-2.5 rounded-lg text-sm border border-transparent"
-              >
+              <div class="bg-(--bg-primary)/60 px-4 py-2.5 text-sm border border-transparent">
                 {{ value }}
               </div>
             </div>
@@ -265,7 +263,7 @@ const staffStats = reactive({
   silenceEnforced: 42,
   salaryBase: 126832099,
   bonusPoints: 1250,
-  nextMeeting: '15/03',
+  nextMeeting: '18/04',
   meetingRoom: 'Phòng Creative',
   meetingTopic: 'Kế hoạch nhập sách hè',
   meetingStatus: 'Bắt buộc',

@@ -75,12 +75,14 @@
         <div v-if="userRole !== 'staff'">
           <router-link to="/cart">
             <ElBadge v-if="cartCount > 0" :value="cartCount" type="primary" :offset="[2, 1]">
-              <ElTooltip content="Xem giỏ hàng" effect="light">
+              <ElTooltip content="Xem giỏ mượn" effect="light">
                 <FontAwesomeIcon :icon="faCartShopping" class="outline-none"></FontAwesomeIcon>
               </ElTooltip>
             </ElBadge>
             <ElBadge v-else :value="cartCount" type="primary" :offset="[2, 1]" :hidden="true">
-              <FontAwesomeIcon :icon="faCartShopping"></FontAwesomeIcon>
+              <ElTooltip content="Giỏ mượn trống" effect="light">
+                <FontAwesomeIcon :icon="faCartShopping" class="outline-none"></FontAwesomeIcon>
+              </ElTooltip>
             </ElBadge>
           </router-link>
         </div>
