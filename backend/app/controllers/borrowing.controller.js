@@ -6,7 +6,12 @@ const { StatusCodes } = require('http-status-codes');
 exports.findAll = async (req, res, next) => {
   try {
     const borrowingService = new BorrowingService(MongoDB.client);
-    const documents = await borrowingService.find({});
+    let filter = {};
+    if (req.query.maDocGia) {
+      filter.maDocGia = req.query.maDocGia;
+    }
+
+    const documents = await borrowingService.find(filter);
     return res.send(documents);
   } catch (error) {
     return next(

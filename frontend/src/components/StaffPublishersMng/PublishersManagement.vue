@@ -99,9 +99,14 @@ const isModalOpen = ref(false)
 const isEditing = ref(false)
 const selectedPub = ref(null)
 
-const openModal = (pub = null) => {
-  if (pub) isEditing.value = true
-  selectedPub.value = pub ? pub : { maNXB: '', tenNXB: '', diaChi: '' }
+const openModal = (pub) => {
+  if (pub) {
+    isEditing.value = true
+    selectedPub.value = { ...pub }
+  } else {
+    isEditing.value = false
+    selectedPub.value = { maNXB: '', tenNXB: '', diaChi: '' }
+  }
   isModalOpen.value = true
 }
 
@@ -110,6 +115,7 @@ const onSave = async (formData) => {
     if (isEditing.value) {
       await publisherService.updatePublisher(formData.maNXB, formData)
       ElMessage.success('Cập nhật thông tin thành công')
+      isEditing.value = false
     } else {
       await publisherService.createPublisher(formData)
       ElMessage.success('Thêm nhà xuất bản mới thành công')
@@ -134,7 +140,7 @@ const handleDelete = async (id) => {
         type: 'warning',
       },
     )
-
+    if (!id) throw new Error('maNXB không được trống')
     const response = await publisherService.deletePublisher(id)
     if (response) {
       staffStore.publishers = staffStore.publishers.filter((pub) => pub.maNXB !== id)

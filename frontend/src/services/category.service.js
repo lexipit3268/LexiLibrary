@@ -1,15 +1,10 @@
 import axios from 'axios'
+import handleRequest from '../../utils/handleRequest'
 const API_URL = 'http://localhost:3000/api/library/categories/'
 
 class CategoryService {
   async getCategories() {
-    try {
-      const response = await axios.get(API_URL)
-      return response.data
-    } catch (error) {
-      console.error('Lỗi API:', error)
-      return []
-    }
+    return (await handleRequest(axios.get(API_URL))).data
   }
 }
 

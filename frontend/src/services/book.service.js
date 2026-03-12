@@ -1,48 +1,39 @@
 import axios from 'axios'
+import handleRequest from '../../utils/handleRequest'
 const API_URL = 'http://localhost:3000/api/library/books/'
 class BookService {
-  async _handleRequest(request) {
-    try {
-      const response = await request
-      return response.data
-    } catch (error) {
-      console.error('Lỗi API:', error)
-      throw error
-    }
-  }
-
-  async getBooks() {
-    return this._handleRequest(axios.get(API_URL))
-  }
-
   async getBooks(params = {}) {
-    return this._handleRequest(axios.get(API_URL, { params }))
+    const result = await handleRequest(axios.get(API_URL, { params }))
+    return result.data
   }
 
   async getBook(maSach) {
-    return this._handleRequest(axios.get(API_URL + maSach))
+    const result = await handleRequest(axios.get(API_URL + maSach))
+    return result.data
   }
 
   async getRelatedBooks(maTheLoai) {
-    return this._handleRequest(axios.get(API_URL + `?category=` + maTheLoai))
+    const result = await handleRequest(axios.get(API_URL + `?category=` + maTheLoai))
+    return result.data
   }
 
   async uploadBookCover(file) {
     const formData = new FormData()
     formData.append('image', file)
-    return this._handleRequest(axios.post(API_URL + 'upload-cover', formData))
+    const result = await handleRequest(axios.post(API_URL + 'upload-cover', formData))
+    return result.data
   }
 
   async createBook(payload) {
-    return this._handleRequest(axios.post(API_URL, payload))
+    return await handleRequest(axios.post(API_URL, payload))
   }
 
   async updateBook(maSach, payload) {
-    return this._handleRequest(axios.post(API_URL + maSach, payload))
+    return await handleRequest(axios.post(API_URL + maSach, payload))
   }
 
   async deleteBook(maSach) {
-    return this._handleRequest(axios.delete(API_URL + maSach))
+    return await handleRequest(axios.delete(API_URL + maSach))
   }
 }
 export default new BookService()

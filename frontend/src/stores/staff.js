@@ -4,6 +4,7 @@ import bookService from '@/services/book.service'
 import publisherService from '@/services/publisher.service'
 import userService from '@/services/user.service'
 import categoryService from '@/services/category.service'
+import borrowingService from '@/services/borrowing.service'
 
 export const useStaffStore = defineStore('staff', () => {
   const books = ref([])
@@ -18,17 +19,19 @@ export const useStaffStore = defineStore('staff', () => {
     isLoading.value = true
     error.value = null
     try {
-      const [booksRes, publishersRes, usersRes, categoryRes] = await Promise.all([
+      const [booksRes, publishersRes, usersRes, categoryRes, borrowingsRes] = await Promise.all([
         bookService.getBooks(),
         publisherService.getPublishers(),
         userService.getUsers(),
         categoryService.getCategories(),
+        borrowingService.getBorrowings(),
       ])
 
       books.value = booksRes
       publishers.value = publishersRes
       users.value = usersRes
       categories.value = categoryRes
+      borrowings.value = borrowingsRes
     } catch (err) {
       error.value = 'Có lỗi xảy ra khi tải dữ liệu!'
       console.error(err)
@@ -36,6 +39,7 @@ export const useStaffStore = defineStore('staff', () => {
       isLoading.value = false
     }
   }
+
   const removeBook = async (maSach) => {
     try {
       await bookService.deleteBook(maSach)
@@ -48,5 +52,6 @@ export const useStaffStore = defineStore('staff', () => {
       throw error
     }
   }
+
   return { books, publishers, users, categories, removeBook, isLoading, error, fetchAllData }
 })

@@ -1,31 +1,26 @@
 import axios from 'axios'
+import handleRequest from '../../utils/handleRequest'
 const API_URL = 'http://localhost:3000/api/library/publishers/'
 
 class PublisherService {
-  async _handleRequest(request) {
-    try {
-      const response = await request
-      return response.data
-    } catch (error) {
-      console.error('Lỗi API:', error)
-      throw error
-    }
+  async getPublishers() {
+    const result = await handleRequest(axios.get(API_URL))
+    return result.data
   }
 
-  getPublishers() {
-    return this._handleRequest(axios.get(API_URL))
+  async createPublisher(payload) {
+    const result = await handleRequest(axios.post(API_URL, payload))
+    return result.data
   }
 
-  createPublisher(payload) {
-    return this._handleRequest(axios.post(API_URL, payload))
+  async updatePublisher(id, payload) {
+    const result = await handleRequest(axios.post(API_URL + id, payload))
+    return result.data
   }
 
-  updatePublisher(id, payload) {
-    return this._handleRequest(axios.post(API_URL + id, payload))
-  }
-
-  deletePublisher(id) {
-    return this._handleRequest(axios.delete(API_URL + id))
+  async deletePublisher(id) {
+    const result = await handleRequest(axios.delete(API_URL + id))
+    return result.data
   }
 }
 

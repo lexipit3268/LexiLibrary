@@ -1,18 +1,8 @@
 import axios from 'axios'
+import handleRequest from '../../utils/handleRequest'
 const API_URL = 'http://localhost:3000/api/library/users/'
 
 class UserService {
-  async _handleRequest(request) {
-    try {
-      const response = await request
-      return response.data
-    } catch (error) {
-      const message = error.response?.data?.message || error.message
-      console.error('Lỗi API LexiLibrary:', message)
-      throw error
-    }
-  }
-
   _getAuthHeader(token) {
     return {
       headers: { Authorization: `Bearer ${token}` },
@@ -20,18 +10,20 @@ class UserService {
   }
 
   async getUsers(token) {
-    return this._handleRequest(axios.get(API_URL, this._getAuthHeader(token)))
+    const result = await handleRequest(axios.get(API_URL, this._getAuthHeader(token)))
+    return result.data
   }
 
   async getUserInfomation(token) {
-    return this._handleRequest(axios.get(`${API_URL}me`, this._getAuthHeader(token)))
+    const result = await handleRequest(axios.get(`${API_URL}me`, this._getAuthHeader(token)))
+    return result.data
   }
 
   async uploadAvatar(file, token) {
     const formData = new FormData()
     formData.append('image', file)
 
-    return this._handleRequest(
+    const result = await handleRequest(
       axios.post(`${API_URL}upload-avatar`, formData, {
         headers: {
           ...this._getAuthHeader(token).headers,
@@ -39,10 +31,14 @@ class UserService {
         },
       }),
     )
+    return result.data
   }
 
   async updateUser(id, data, token) {
-    return this._handleRequest(axios.post(`${API_URL}${id}`, data, this._getAuthHeader(token)))
+    const result = await handleRequest(
+      axios.post(`${API_URL}${id}`, data, this._getAuthHeader(token)),
+    )
+    return result.data
   }
 }
 
