@@ -1,9 +1,10 @@
-const { ObjectId } = require('mongodb');
 const BookService = require('./book.service');
+const UserService = require('./user.service');
 class Borrowing {
   constructor(client) {
     this.Borrowing = client.db().collection('TheoDoiMuonSach');
     this.bookService = new BookService(client);
+    this.userService = new UserService(client);
   }
 
   extractBorrowingData(payload) {
@@ -65,11 +66,19 @@ class Borrowing {
       throw new Error('LIMIT_EXCEEDED');
     }
 
+    await this.userService.checkAndRecoverReputation(borrowing.maDocGia);
+
+    const docGia = await this.userService.findByMaDocGia(borrowing.maDocGia);
+    if (docGia.diemUyTin < 4) {
+      throw new Error('LOW_REPUTATION');
+    }
+
     await this.Borrowing.insertOne(borrowing);
     await this.bookService.updateStock(borrowing.maSach, -borrowing.soLuong);
 
     return borrowing;
   }
+
   async update(id, payload) {
     const currentBorrowing = await this.Borrowing.findOne({ maPhieu: id });
     if (!currentBorrowing) return null;
@@ -78,6 +87,11 @@ class Borrowing {
 
     if (payload.trangThai === 'DaTra') {
       updateData.ngayTra = payload.ngayTra || new Date().toISOString().slice(0, 10);
+      const today = new Date().toISOString().slice(0, 10);
+      console.log(today, currentBorrowing.ngayCanTra, currentBorrowing.maDocGia);
+      if (today > currentBorrowing.ngayCanTra) {
+        await this.userService.updateReputation(currentBorrowing.maDocGia, -2);
+      }
     }
 
     const restockStatus = ['DaTra', 'TuChoi', 'DaHuy'];

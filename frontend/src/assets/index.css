@@ -62,6 +62,7 @@ input {
 
   --subtext-color: #6a665f;
   --text-color: #000000;
+  --text-color-2: #3a2a1e;
   --white: #ffffff;
 
   --el-color-primary: var(--primary);

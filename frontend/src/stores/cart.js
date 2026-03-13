@@ -50,7 +50,8 @@ export const useCartStore = defineStore('cart', () => {
     await cartService.removeItem(id)
   }
 
-  const resetCart = () => {
+  const resetCart = async (maDocGia) => {
+    await cartService.removeAllItem(maDocGia)
     cartItems.value = []
   }
 

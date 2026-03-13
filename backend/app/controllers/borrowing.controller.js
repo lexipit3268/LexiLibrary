@@ -34,6 +34,12 @@ exports.create = async (req, res, next) => {
         new ApiError(StatusCodes.BAD_REQUEST, 'You have reached the borrowing limit of 5 books.'),
       );
     }
+    if (error.message === 'LOW_REPUTATION') {
+      return next(
+        new ApiError(StatusCodes.BAD_REQUEST, 'Your reputation score is too low (smaller than 6)'),
+      );
+    }
+
     if (error.message === 'OUT_OF_STOCK') {
       return next(new ApiError(StatusCodes.BAD_REQUEST, 'This book is out of stock'));
     }

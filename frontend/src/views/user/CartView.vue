@@ -1,12 +1,6 @@
 <template>
   <div class="cart-page-container min-h-screen bg-(--bg-color)">
-    <BreadcrumbComponent
-      title="Giỏ hàng"
-      :paths="[
-        { label: 'Trang chủ', path: '/' },
-        { label: 'Giỏ hàng', path: '/cart' },
-      ]"
-    />
+    <BreadcrumbComponent :title="title" :paths="paths" />
 
     <div class="max-w-4xl mx-auto py-10 px-6">
       <ElSteps :active="currentStep" align-center finish-status="success" class="custom-steps">
@@ -52,6 +46,18 @@ const currentStep = computed(() => {
   if (route.path === '/cart/checkout') return 1
   return 0
 })
+
+let paths = [
+  { label: 'Trang chủ', path: '/' },
+  { label: 'Giỏ hàng', path: '/cart' },
+]
+
+let title = 'Giỏ hàng'
+
+if (route.fullPath == '/cart/checkout') {
+  title = 'Lập phiếu mượn'
+  paths.push({ label: 'Lập phiếu mượn', path: '/cart/checkout' })
+}
 </script>
 
 <style scoped>

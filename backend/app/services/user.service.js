@@ -20,6 +20,7 @@ class UserService {
       gioiHanMuon: payload.gioiHanMuon || 5,
       isActive: payload.isActive || true,
       diemUyTin: payload.diemUyTin || 10,
+      ngayViPham: payload.ngayViPham || null,
     };
 
     Object.keys(user).forEach((key) => user[key] === undefined && delete user[key]);
@@ -92,8 +93,25 @@ class UserService {
     return await this.User.deleteOne({ maDocGia: id });
   }
 
-  async checkAndRecoverReputation(maDocGia) {
-    const user = await this.User.find({ maDocGia: maDocGia });
+  async updateReputation(id, amount) {
+    return await this.User.findOneAndUpdate(
+      { maDocGia: id },
+      [
+        {
+          $set: {
+            diemUyTin: {
+              $max: [0, { $add: ['$diemUyTin', amount] }],
+            },
+            ngayViPham: new Date().toISOString().slice(0, 10),
+          },
+        },
+      ],
+      { returnDocument: 'after' },
+    );
+  }
+
+  async checkAndRecoverReputation(id) {
+    const user = await this.User.find({ maDocGia: id });
     if (!user || !user.ngayViPham) return;
 
     const today = new Date();
@@ -101,7 +119,7 @@ class UserService {
     const ngayViPham = new Date(user.ngayViPham);
     if (today - ngayViPham >= twoWeeksMs && user.diemUyTin < 10) {
       await this.User.findOneAndUpdate(
-        { maDocGia: maDocGia },
+        { maDocGia: id },
         {
           $set: {
             diemUyTin: 10,

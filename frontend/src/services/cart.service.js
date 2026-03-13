@@ -26,5 +26,10 @@ class CartService {
     if (!id) return null
     return await handleRequest(axios.delete(API_URL + id))
   }
+
+  async removeAllItem(maDocGia) {
+    if (!maDocGia) return null
+    return await handleRequest(axios.delete(API_URL, { data: { maDocGia } }))
+  }
 }
 export default new CartService()

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#fdf8f4]">
+  <div class="min-h-screen bg-[--bg-primary]">
     <div class="h-1 w-full bg-(--primary)"></div>
 
     <div class="max-w-6xl mx-auto px-6 py-14">
@@ -204,7 +204,7 @@
                       >Điểm uy tín</span
                     >
                     <span
-                      :class="authStore.user?.diemUyTin < 6 ? 'text-red-600' : 'text-emerald-700'"
+                      :class="authStore.user?.diemUyTin < 4 ? 'text-red-600' : 'text-emerald-700'"
                       class="text-sm font-black"
                     >
                       {{ authStore.user?.diemUyTin || 10
@@ -232,7 +232,7 @@
                 </div>
 
                 <div
-                  v-if="authStore.user?.diemUyTin < 6"
+                  v-if="authStore.user?.diemUyTin < 4"
                   class="flex gap-2.5 p-3.5 bg-red-50 border border-red-200"
                 >
                   <span class="text-base leading-none mt-0.5">!</span>
@@ -244,7 +244,7 @@
                 <button
                   @click="$router.push('/cart/checkout')"
                   :disabled="
-                    cartItems.length === 0 || authStore.user?.diemUyTin < 6 || isCountChanging
+                    cartItems.length === 0 || authStore.user?.diemUyTin < 4 || isCountChanging
                   "
                   class="primary-btn w-full py-4! text-[10px]! tracking-[0.25em] font-bold uppercase disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed"
                 >
