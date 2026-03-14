@@ -142,7 +142,9 @@ import { faCartShopping, faSearch, faUser, faBell } from '@fortawesome/free-soli
 import { useAuthStore } from '@/stores/auth'
 import { ElBadge, ElMessage, ElTooltip } from 'element-plus'
 import { useCartStore } from '@/stores/cart'
+import { useBorrowingStore } from '@/stores/borrowing'
 
+const borrowingStore = useBorrowingStore()
 const cartStore = useCartStore()
 const authStore = useAuthStore()
 const router = useRouter()
@@ -162,6 +164,7 @@ const userAvatar = computed(() => {
 
 const handleLogout = () => {
   cartStore.resetCartWhenLogout()
+  borrowingStore.resetBorrowingsWhenLogout()
   authStore.logout()
   ElMessage.success('Đã đăng xuất khỏi hệ thống')
   router.push('/login')

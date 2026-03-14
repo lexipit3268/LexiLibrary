@@ -168,11 +168,13 @@ const cartItems = computed(() => cartStore.cartItems)
 
 //  { item_id: [ngayMuon, ngayCanTra] }
 const dates = reactive({})
+const today = dayjs().format('YYYY-MM-DD')
+const twoWeeksLater = dayjs().add(14, 'day').format('YYYY-MM-DD')
 
 const initDates = () => {
   cartItems.value.forEach((item) => {
-    const start = dayjs().format('YYYY-MM-DD')
-    const end = dayjs().add(14, 'day').format('YYYY-MM-DD')
+    const start = today
+    const end = twoWeeksLater
     dates[item._id] = [start, end]
   })
 }
@@ -186,10 +188,14 @@ const handleCreateBorrowing = async () => {
     )
 
     isProcessing.value = true
-
     for (const item of cartItems.value) {
       const selectedDates = dates[item._id]
-
+      if (selectedDates[0] < today) {
+        throw new Error('Vui lòng chọn ngày bắt đầu từ hôm nay')
+      }
+      if (selectedDates[1] > twoWeeksLater) {
+        throw new Error('Giới hạn mượn là 2 tuần')
+      }
       const payload = {
         maDocGia: authStore.user.code,
         maSach: item.maSach,
@@ -210,13 +216,11 @@ const handleCreateBorrowing = async () => {
     router.push('/cart/finish')
   } catch (error) {
     if (error !== 'cancel') {
-      let errMsg = 'Có lỗi xảy ra khi tạo phiếu mượn' + error
+      let errMsg = 'Có lỗi xảy ra khi tạo phiếu mượn: ' + error
       const errResponse = error?.response?.data?.message
 
       if (errResponse && String(errResponse).includes('limit')) {
         errMsg = 'Việc mượn này sẽ vượt quá giới hạn 5 quyển sách'
-      } else if (!error.response) {
-        errMsg = 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại!'
       }
 
       ElMessage({

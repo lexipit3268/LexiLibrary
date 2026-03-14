@@ -34,11 +34,16 @@ export const useBorrowingStore = defineStore('borrowing', () => {
     }
   }
 
+  const resetBorrowingsWhenLogout = () => {
+    borrowings.value = []
+  }
+
   return {
     borrowings,
     isLoading,
     activeCount,
     fetchBorrowings,
     updateStatus,
+    resetBorrowingsWhenLogout,
   }
 })
