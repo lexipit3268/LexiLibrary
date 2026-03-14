@@ -47,13 +47,35 @@ class Borrowing {
       { $match: filter },
       {
         $lookup: {
-          from: 'Sach', // ket noi collection sach
+          from: 'Sach', // ket noi collection Sach
           localField: 'maSach',
           foreignField: 'maSach',
           as: 'bookDetails',
         },
       },
       { $unwind: '$bookDetails' },
+
+      {
+        $lookup: {
+          from: 'DocGia', //ket noi collection DocGia
+          localField: 'maDocGia',
+          foreignField: 'maDocGia',
+          as: 'userDetails',
+        },
+      },
+      {
+        $unwind: {
+          path: '$userDetails',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $project: {
+          'userDetails.matKhau': 0,
+          'userDetails._id': 0,
+          'userDetails.publicAvtId': 0,
+        },
+      },
     ];
     return await this.Borrowing.aggregate(pipeline).toArray();
   }
@@ -102,6 +124,8 @@ class Borrowing {
       if (today > currentBorrowing.ngayCanTra) {
         await this.userService.updateReputation(currentBorrowing.maDocGia, -2);
       }
+    } else if (payload.trangThai) {
+      updateData.ngayTra = null;
     }
 
     const restockStatus = ['DaTra', 'TuChoi', 'DaHuy'];

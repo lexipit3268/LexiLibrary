@@ -129,15 +129,13 @@
               <span class="uppercase text-(--subtext-color) font-bold tracking-tighter"
                 >Hạn trả:</span
               >
-              <span class="font-black text-(--primary)">{{
-                formatDate(borrowing.ngayCanTra)
-              }}</span>
+              <span class="font-bold text-(--primary)">{{ formatDate(borrowing.ngayCanTra) }}</span>
             </div>
             <div v-if="borrowing.ngayTra" class="flex justify-between items-center text-[12px]">
               <span class="uppercase text-(--subtext-color) font-bold tracking-tighter"
                 >Ngày trả thực:</span
               >
-              <span class="font-bold text-(--secondary)">{{ formatDate(borrowing.ngayTra) }}</span>
+              <span class="font-bold text-(--primary)">{{ formatDate(borrowing.ngayTra) }}</span>
             </div>
           </div>
 
@@ -199,7 +197,7 @@ const authStore = useAuthStore()
 const getStatusLabel = (status) => {
   const labels = {
     DangCho: 'Đang chờ duyệt',
-    DaDuyet: 'Đã chấp nhận',
+    DaDuyet: 'Đã được duyệt',
     DangMuon: 'Đang mượn',
     DaTra: 'Đã hoàn trả',
     TuChoi: 'Bị từ chối',

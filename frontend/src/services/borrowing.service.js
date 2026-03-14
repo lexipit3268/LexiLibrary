@@ -26,6 +26,7 @@ class BorrowingService {
 
   async update(maPhieu, payload) {
     if (!maPhieu || !payload.trangThai) return null
+    console.log(payload)
     const result = await handleRequest(axios.post(API_URL + `${maPhieu}`, payload))
     return result.data
   }

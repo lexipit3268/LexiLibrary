@@ -158,6 +158,7 @@ import { useRouter } from 'vue-router'
 import { ElDatePicker, ElMessage, ElMessageBox } from 'element-plus'
 import borrowingService from '@/services/borrowing.service'
 import dayjs from 'dayjs'
+import { getToday } from '../../../utils/formatDate'
 
 const authStore = useAuthStore()
 const cartStore = useCartStore()
@@ -168,7 +169,7 @@ const cartItems = computed(() => cartStore.cartItems)
 
 //  { item_id: [ngayMuon, ngayCanTra] }
 const dates = reactive({})
-const today = dayjs().format('YYYY-MM-DD')
+const today = getToday()
 const twoWeeksLater = dayjs().add(14, 'day').format('YYYY-MM-DD')
 
 const initDates = () => {

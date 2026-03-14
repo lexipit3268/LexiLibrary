@@ -24,9 +24,13 @@ export const useBorrowingStore = defineStore('borrowing', () => {
 
   const updateStatus = async (maPhieu, payload) => {
     try {
-      const response = await borrowingService.update(maPhieu, { trangThai: payload.trangThai })
+      const response = await borrowingService.update(maPhieu, payload)
       if (response) {
-        await fetchBorrowings(payload.maDocGia)
+        if (payload.maDocGia) {
+          await fetchBorrowings(payload.maDocGia)
+        } else {
+          await fetchBorrowings()
+        }
       }
       return response
     } catch (error) {

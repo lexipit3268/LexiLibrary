@@ -8,3 +8,7 @@ export const formatDate = (date) => {
 export const formatTime = (date) => {
   return dayjs(date).format('HH:mm DD-MM-YYYY')
 }
+
+export const getToday = (date) => {
+  return dayjs().format('YYYY-MM-DD')
+}
