@@ -207,14 +207,14 @@ const handleCreateBorrowing = async () => {
       offset: 100,
     })
     await cartStore.resetCart(authStore.user.code)
-    router.push('/history')
+    router.push('/cart/finish')
   } catch (error) {
     if (error !== 'cancel') {
       let errMsg = 'Có lỗi xảy ra khi tạo phiếu mượn' + error
       const errResponse = error?.response?.data?.message
 
       if (errResponse && String(errResponse).includes('limit')) {
-        errMsg = 'Bạn đã đạt giới hạn mượn 5 quyển sách!'
+        errMsg = 'Việc mượn này sẽ vượt quá giới hạn 5 quyển sách'
       } else if (!error.response) {
         errMsg = 'Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại!'
       }

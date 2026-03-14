@@ -24,12 +24,12 @@
         <div class="flex flex-col sm:flex-row justify-center gap-4">
           <button
             @click="goBack"
-            class="cursor-pointer px-6 py-3 border border-(--primary) text-(--primary) hover:bg-white/70 transition duration-300 rounded-full"
+            class="cursor-pointer px-6 py-3 border border-(--primary) text-(--primary) hover:bg-white/70 transition duration-300"
           >
             Quay lại
           </button>
 
-          <button @click="goHome" class="primary-btn cta-btn m-0! border-(--primary)">
+          <button @click="goHome" class="primary-btn cta-btn m-0! border-(--primary) rounded-none!">
             Về trang chủ
           </button>
         </div>

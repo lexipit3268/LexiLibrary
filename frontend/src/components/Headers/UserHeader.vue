@@ -161,6 +161,7 @@ const userAvatar = computed(() => {
 })
 
 const handleLogout = () => {
+  cartStore.resetCartWhenLogout()
   authStore.logout()
   ElMessage.success('Đã đăng xuất khỏi hệ thống')
   router.push('/login')

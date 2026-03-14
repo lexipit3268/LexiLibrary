@@ -44,19 +44,23 @@ const route = useRoute()
 const currentStep = computed(() => {
   if (route.path === '/cart') return 0
   if (route.path === '/cart/checkout') return 1
+  if (route.path === '/cart/finish') return 2
   return 0
 })
 
 let paths = [
   { label: 'Trang chủ', path: '/' },
-  { label: 'Giỏ hàng', path: '/cart' },
+  { label: 'Giỏ mượn', path: '/cart' },
 ]
 
-let title = 'Giỏ hàng'
+let title = 'Giỏ mượn'
 
-if (route.fullPath == '/cart/checkout') {
+if (route.path == '/cart/checkout') {
   title = 'Lập phiếu mượn'
   paths.push({ label: 'Lập phiếu mượn', path: '/cart/checkout' })
+} else if (route.path == '/cart/finish') {
+  title = 'Hoàn tất'
+  paths.push({ label: 'Hoàn tất ', path: '/cart/finish' })
 }
 </script>
 

@@ -93,6 +93,8 @@ exports.update = async (req, res, next) => {
     const maPhieu = req.params.id;
     const payload = req.body;
     const result = await borrowingService.update(maPhieu, payload);
+    if (!result)
+      return next(new ApiError(StatusCodes.NOT_FOUND, 'Not found borrowing with id = ' + maPhieu));
     return res.send(result);
   } catch (error) {
     return next(

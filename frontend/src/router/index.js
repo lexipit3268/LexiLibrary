@@ -53,7 +53,19 @@ const router = createRouter({
               component: () => import('../components/Cart/CheckoutForm.vue'),
               meta: { title: 'Lập phiếu mượn' },
             },
+            {
+              path: 'finish',
+              name: 'finish-page',
+              component: () => import('../components/Cart/FinishPage.vue'),
+              meta: { title: 'Mượn thành công' },
+            },
           ],
+        },
+        {
+          path: 'history',
+          name: 'borrowing-history',
+          component: () => import('../views/user/BorrowingHistory.vue'),
+          meta: { title: 'Lịch sử mượn' },
         },
         {
           path: 'me',

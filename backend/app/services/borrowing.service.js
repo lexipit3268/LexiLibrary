@@ -43,8 +43,19 @@ class Borrowing {
   }
 
   async find(filter) {
-    const cursor = await this.Borrowing.find(filter);
-    return cursor.toArray();
+    const pipeline = [
+      { $match: filter },
+      {
+        $lookup: {
+          from: 'Sach', // ket noi collection sach
+          localField: 'maSach',
+          foreignField: 'maSach',
+          as: 'bookDetails',
+        },
+      },
+      { $unwind: '$bookDetails' },
+    ];
+    return await this.Borrowing.aggregate(pipeline).toArray();
   }
 
   async create(payload) {
@@ -58,7 +69,7 @@ class Borrowing {
 
     const activeBorrowings = await this.Borrowing.find({
       maDocGia: borrowing.maDocGia,
-      trangThai: { $in: ['DangCho', 'DangMuon'] },
+      trangThai: { $in: ['DangCho', 'DaDuyet', 'DangMuon'] },
     }).toArray();
 
     const currentCount = activeBorrowings.reduce((total, item) => total + item.soLuong, 0);
@@ -88,7 +99,6 @@ class Borrowing {
     if (payload.trangThai === 'DaTra') {
       updateData.ngayTra = payload.ngayTra || new Date().toISOString().slice(0, 10);
       const today = new Date().toISOString().slice(0, 10);
-      console.log(today, currentBorrowing.ngayCanTra, currentBorrowing.maDocGia);
       if (today > currentBorrowing.ngayCanTra) {
         await this.userService.updateReputation(currentBorrowing.maDocGia, -2);
       }

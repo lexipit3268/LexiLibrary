@@ -9,7 +9,7 @@ class BorrowingService {
   }
 
   async getBorrowingsById(maDocGia) {
-    const result = await handleRequest(axios.get(API_URL, { params: { maDocGia: maDocGia } }))
+    const result = await handleRequest(axios.get(API_URL, { params: { maDocGia } }))
     return result.data
   }
 
@@ -24,9 +24,9 @@ class BorrowingService {
     return result.data
   }
 
-  async update(payload) {
-    if (!payload.maPhieu || !payload.trangThai) return null
-    const result = await handleRequest(axios.post(API_URL + `/${payload.maPhieu}`, payload))
+  async update(maPhieu, payload) {
+    if (!maPhieu || !payload.trangThai) return null
+    const result = await handleRequest(axios.post(API_URL + `${maPhieu}`, payload))
     return result.data
   }
 }

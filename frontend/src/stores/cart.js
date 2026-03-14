@@ -55,5 +55,18 @@ export const useCartStore = defineStore('cart', () => {
     cartItems.value = []
   }
 
-  return { cartItems, totalQuantity, fetchCart, addToCart, updateCart, removeFromCart, resetCart }
+  const resetCartWhenLogout = () => {
+    cartItems.value = []
+  }
+
+  return {
+    cartItems,
+    totalQuantity,
+    fetchCart,
+    addToCart,
+    updateCart,
+    removeFromCart,
+    resetCart,
+    resetCartWhenLogout,
+  }
 })
