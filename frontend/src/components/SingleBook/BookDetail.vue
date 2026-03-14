@@ -146,7 +146,7 @@
               <ElInputNumber
                 v-model="num"
                 :min="1"
-                :max="10"
+                :max="5"
                 controls-position="right"
                 size="large"
                 class="lexi-qty-input-refined"
@@ -319,10 +319,18 @@ const handleAddToCart = async (book) => {
       soLuong: num.value,
     })
     if (response.status == 200) {
-      ElMessage.success(`Đã thêm sách "${book.tenSach}" vào giỏ`)
+      ElMessage({
+        type: 'success',
+        message: `Đã thêm sách "${book.tenSach}" vào giỏ`,
+        offset: 100,
+      })
     }
   } catch (error) {
-    ElMessage.error('Không thể thêm sách ' + error)
+    ElMessage({
+      type: error,
+      message: 'Không thể thêm sách ' + error,
+      offset: 100,
+    })
   }
 }
 </script>

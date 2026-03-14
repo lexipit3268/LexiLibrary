@@ -13,7 +13,7 @@
         <div class="space-y-3">
           <h1 class="newsreaderFont text-6xl text-(--primary) italic leading-none">Lịch sử mượn</h1>
           <p class="text-(--subtext-color) text-[10px] uppercase tracking-[0.3em] font-bold">
-            Dấu ấn những hành trình tri thức
+            tất cả các phiếu mượn sẽ được lưu trữ tại đây
           </p>
         </div>
         <div class="text-right hidden sm:flex gap-10 items-end">

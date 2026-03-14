@@ -29,7 +29,10 @@
 
       <div class="flex flex-row justify-end items-center gap-6 text-xl flex-1">
         <div>
-          <router-link to="/book"><FontAwesomeIcon :icon="faSearch"></FontAwesomeIcon></router-link>
+          <router-link to="/book">
+            <ElTooltip content="Tìm kiếm sách" effect="light">
+              <FontAwesomeIcon :icon="faSearch" class="outline-none!"></FontAwesomeIcon> </ElTooltip
+          ></router-link>
         </div>
         <div class="w-fit h-fit rounded-full">
           <el-dropdown placement="bottom">

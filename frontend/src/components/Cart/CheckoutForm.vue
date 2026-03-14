@@ -242,6 +242,7 @@ const removeItem = async (id) => {
       message: 'Đã gỡ bỏ khỏi danh sách chuẩn bị mượn',
       offset: 100,
     })
+    await cartStore.fetchCart(authStore.user.code)
   } catch (e) {
     ElMessage({
       type: 'error',
