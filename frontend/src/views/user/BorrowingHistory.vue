@@ -19,7 +19,7 @@
         <div class="text-right hidden sm:flex gap-10 items-end">
           <div class="text-right">
             <span class="text-5xl font-black text-(--primary) opacity-30 leading-none">
-              {{ borrowingStore.borrowings.length }}
+              {{ borrowings.length }}
             </span>
             <p class="text-[9px] uppercase tracking-[0.2em] text-(--subtext-color) mt-1 font-bold">
               Tổng số phiếu
@@ -44,9 +44,9 @@
       </div>
     </div>
 
-    <div v-if="borrowingStore.borrowings.length > 0" class="space-y-8">
+    <div v-if="borrowings.length > 0" class="space-y-8">
       <div
-        v-for="(borrowing, index) in borrowingStore.borrowings"
+        v-for="(borrowing, index) in borrowings"
         :key="borrowing.maPhieu"
         class="bg-white border border-(--bg-secondary) hover:border-(--primary) transition-all duration-300 flex flex-col lg:flex-row items-stretch relative group"
         data-aos-once="true"
@@ -184,7 +184,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { formatDate } from '../../../utils/formatDate'
 import { useAuthStore } from '@/stores/auth'
 import { useBorrowingStore } from '@/stores/borrowing'
@@ -193,6 +193,10 @@ import BreadcrumbComponent from '@/components/BreadcrumbComponent.vue'
 
 const borrowingStore = useBorrowingStore()
 const authStore = useAuthStore()
+
+const borrowings = computed(() => {
+  return [...borrowingStore.borrowings].reverse()
+})
 
 const getStatusLabel = (status) => {
   const labels = {
@@ -230,7 +234,10 @@ const handleCancel = async (maPhieu) => {
       cancelButtonText: 'Quay lại',
       type: 'warning',
     })
-    const success = await borrowingStore.updateStatus(maPhieu, { trangThai: 'DaHuy' })
+    const success = await borrowingStore.updateStatus(maPhieu, {
+      maDocGia: authStore.user.code,
+      trangThai: 'DaHuy',
+    })
     if (success) ElMessage.success('Đã hủy phiếu thành công')
   } catch (e) {
     if (e !== 'cancel') ElMessage.error('Lỗi hệ thống')

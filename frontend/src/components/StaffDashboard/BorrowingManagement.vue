@@ -178,7 +178,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 
 const borrowingStore = useBorrowingStore()
-const borrowings = ref([])
+const borrowings = computed(() => {
+  return [...borrowingStore.borrowings].reverse()
+})
 
 const formatStatus = (status) => {
   const map = {
@@ -249,8 +251,6 @@ const refresh = async () => {
 
 onMounted(async () => {
   await borrowingStore.fetchBorrowings()
-  const data = borrowingStore.borrowings
-  borrowings.value = data.reverse()
 })
 
 const currentPage = ref(1)

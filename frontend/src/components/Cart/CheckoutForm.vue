@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent v-if="isProcessing" />
   <div class="min-h-140 bg-[--bg-primary]">
     <div class="h-1 w-full bg-(--primary)"></div>
 
@@ -159,6 +160,7 @@ import { ElDatePicker, ElMessage, ElMessageBox } from 'element-plus'
 import borrowingService from '@/services/borrowing.service'
 import dayjs from 'dayjs'
 import { getToday } from '../../../utils/formatDate'
+import LoadingComponent from '../LoadingComponent.vue'
 
 const authStore = useAuthStore()
 const cartStore = useCartStore()
