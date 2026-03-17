@@ -16,6 +16,7 @@ class StaffService {
       hinhAnh: payload.hinhAnh || null,
       email: payload.email,
       role: 'staff',
+      publicImgId: payload.publicImgId,
     };
 
     Object.keys(staff).forEach((key) => staff[key] === undefined && delete staff[key]);
