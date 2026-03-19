@@ -10,7 +10,12 @@
       ]"
     />
     <div class="flex flex-col w-full px-30 py-24">
-      <div class="flex flex-row w-full justify-center gap-16 mb-20">
+      <div class="flex flex-row w-full max-w-360 mx-auto justify-center gap-16 mb-20 relative">
+        <img
+          src="../../../public/book2.svg"
+          class="absolute opacity-30 w-70 -right-20 top-5"
+          alt=""
+        />
         <!-- hinh anh sach -->
         <div class="flex flex-col">
           <div
@@ -156,6 +161,12 @@
                     >Quyển</span
                   >
                 </template>
+                <template #decrease-icon>
+                  <el-icon><Minus /></el-icon>
+                </template>
+                <template #increase-icon>
+                  <el-icon><Plus /></el-icon>
+                </template>
               </ElInputNumber>
 
               <AddToCartBtn
@@ -277,6 +288,7 @@ import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
+import { Minus, Plus } from '@element-plus/icons-vue'
 
 const cartStore = useCartStore()
 const authStore = useAuthStore()

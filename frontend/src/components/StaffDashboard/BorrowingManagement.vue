@@ -21,7 +21,7 @@
         <table class="w-full text-left border-collapse table-fixed">
           <thead>
             <tr
-              class="text-[9px] uppercase tracking-widest text-(--subtext-color) font-black border-b border-(--bg-secondary)"
+              class="text-[10px] uppercase tracking-widest text-(--subtext-color) font-black border-b border-(--bg-secondary)"
             >
               <th class="px-4 pb-4 w-32">Mã phiếu</th>
               <th class="px-4 pb-4 w-64">Độc giả</th>
@@ -44,7 +44,7 @@
               data-aos-once="true"
             >
               <td
-                class="px-4 py-4 text-[11px] font-black text-(--primary) newsreaderFont tracking-tighter"
+                class="px-4 py-4 text-[11px] font-bold text-(--primary) newsreaderFont tracking-tighter"
               >
                 {{ borrowing.maPhieu }}
               </td>
@@ -119,7 +119,7 @@
 
               <td class="px-4 py-4 text-right">
                 <el-dropdown
-                  v-if="borrowing.trangThai !== 'DaHuy'"
+                  v-if="borrowing.trangThai !== 'DaHuy' && borrowing.trangThai !== 'DaTra'"
                   trigger="click"
                   @command="(cmd) => handleStatusChange(borrowing, cmd)"
                 >
@@ -245,8 +245,6 @@ const handleStatusChange = async (borrowing, newStatus) => {
 
 const refresh = async () => {
   await borrowingStore.fetchBorrowings()
-  const data = borrowingStore.borrowings
-  borrowings.value = data.reverse()
 }
 
 onMounted(async () => {

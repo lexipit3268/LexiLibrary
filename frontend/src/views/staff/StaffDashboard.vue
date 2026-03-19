@@ -3,9 +3,9 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
       <div
         class="bg-white p-6 shadow-sm flex flex-col justify-between"
-        data-aos="fade-up"
+        data-aos="fade-down"
         data-aos-offset="0"
-        data-aos-delay="0"
+        data-aos-delay="300"
         data-aos-once="true"
       >
         <div class="flex justify-between items-start">
@@ -29,7 +29,7 @@
 
       <div
         class="bg-white p-6 shadow-sm flex flex-col justify-between"
-        data-aos="fade-up"
+        data-aos="fade-down"
         data-aos-offset="0"
         data-aos-delay="200"
         data-aos-once="true"
@@ -53,9 +53,9 @@
 
       <div
         class="bg-white p-6 shadow-sm flex flex-col justify-between"
-        data-aos="fade-up"
+        data-aos="fade-down"
         data-aos-offset="0"
-        data-aos-delay="400"
+        data-aos-delay="0"
         data-aos-once="true"
       >
         <div class="flex justify-between items-start">
@@ -158,7 +158,7 @@
           class="bg-(--bg-secondary) p-8"
           data-aos="fade-up"
           data-aos-offset="0"
-          data-aos-delay="800"
+          data-aos-delay="600"
           data-aos-once="true"
         >
           <h3 class="newsreaderFont text-xl mb-6">Thao tác nhanh</h3>

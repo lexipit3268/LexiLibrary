@@ -182,7 +182,32 @@ const initDates = () => {
   })
 }
 
+const validateAllDates = () => {
+  for (const item of cartItems.value) {
+    const selectedDates = dates[item._id]
+
+    if (!selectedDates || selectedDates[0] < today) {
+      ElMessage.error({
+        message: `Ngày mượn của "${item.bookDetails?.tenSach}" không được nhỏ hơn hôm nay`,
+        offset: 100,
+      })
+      return false
+    }
+
+    if (selectedDates[1] > twoWeeksLater) {
+      ElMessage.error({
+        message: `Hạn trả của "${item.bookDetails?.tenSach}" không được quá 2 tuần`,
+        offset: 100,
+      })
+      return false
+    }
+  }
+  return true
+}
+
 const handleCreateBorrowing = async () => {
+  if (!validateAllDates()) return
+
   try {
     await ElMessageBox.confirm(
       'Hệ thống sẽ tiến hành tạo các phiếu mượn. Bạn có chắc chắn muốn tiếp tục?',
@@ -191,14 +216,9 @@ const handleCreateBorrowing = async () => {
     )
 
     isProcessing.value = true
+
     for (const item of cartItems.value) {
       const selectedDates = dates[item._id]
-      if (selectedDates[0] < today) {
-        throw new Error('Vui lòng chọn ngày bắt đầu từ hôm nay')
-      }
-      if (selectedDates[1] > twoWeeksLater) {
-        throw new Error('Giới hạn mượn là 2 tuần')
-      }
       const payload = {
         maDocGia: authStore.user.code,
         maSach: item.maSach,
@@ -210,27 +230,23 @@ const handleCreateBorrowing = async () => {
       await borrowingService.create(payload)
     }
 
-    ElMessage({
-      type: 'success',
+    ElMessage.success({
       message: 'Toàn bộ phiếu mượn đã được tạo thành công!',
       offset: 100,
     })
+
     await cartStore.resetCart(authStore.user.code)
     router.push('/cart/finish')
   } catch (error) {
     if (error !== 'cancel') {
-      let errMsg = 'Có lỗi xảy ra khi tạo phiếu mượn: ' + error
+      let errMsg = 'Có lỗi xảy ra: ' + error
       const errResponse = error?.response?.data?.message
 
       if (errResponse && String(errResponse).includes('limit')) {
         errMsg = 'Việc mượn này sẽ vượt quá giới hạn 5 quyển sách'
       }
 
-      ElMessage({
-        type: 'error',
-        message: errMsg,
-        offset: 100,
-      })
+      ElMessage.error({ message: errMsg, offset: 100 })
     }
   } finally {
     isProcessing.value = false
