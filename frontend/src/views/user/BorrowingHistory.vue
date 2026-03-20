@@ -172,13 +172,26 @@
       <p class="text-[10px] uppercase tracking-[0.35em] text-[#c5b5ab] mb-3">
         Chưa có phiếu mượn nào
       </p>
-      <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">Lịch sử trống...</h2>
-      <button
-        @click="$router.push('/book')"
-        class="primary-btn text-[10px] px-12 py-4 uppercase tracking-[0.25em] font-bold"
-      >
-        Khám phá kho sách
-      </button>
+      <div v-if="authStore.user">
+        <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">Lịch sử trống...</h2>
+        <button
+          @click="$router.push('/book')"
+          class="primary-btn text-[10px] px-12 py-4 uppercase tracking-[0.25em] font-bold"
+        >
+          Khám phá kho sách
+        </button>
+      </div>
+      <div v-else>
+        <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">
+          Bạn cần đăng nhập để xem lịch sử mượn
+        </h2>
+        <button
+          @click="$router.push('/login')"
+          class="primary-btn text-[10px] px-12 py-4 uppercase tracking-[0.25em] font-bold"
+        >
+          Đăng nhập
+        </button>
+      </div>
     </div>
   </div>
 </template>
