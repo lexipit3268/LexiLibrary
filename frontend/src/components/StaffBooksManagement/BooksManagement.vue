@@ -160,8 +160,8 @@ const handleDelete = async (maSach) => {
       `Hành động này sẽ gỡ bỏ vĩnh viễn sách ${maSach.toUpperCase()} khỏi hệ thống. Bạn có chắc chắn?`,
       'Xác nhận gỡ bỏ',
       {
-        confirmButtonText: 'Xác nhận xóa',
-        cancelButtonText: 'Hủy thao tác',
+        confirmButtonText: 'Xác nhận',
+        cancelButtonText: 'Hủy',
         type: 'warning',
       },
     )

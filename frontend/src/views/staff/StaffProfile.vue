@@ -2,34 +2,6 @@
   <div class="p-6 font-['Montserrat'] bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto">
     <div class="grid grid-cols-12 gap-6 items-start">
       <div class="max-h-98 col-span-4 space-y-6">
-        <!-- <div
-          class="h-75 bg-white p-6 shadow-sm border border-(--primary)/10 text-center relative overflow-hidden"
-        >
-          <span
-            class="absolute -right-2 -bottom-4 opacity-[0.05] text-[6rem]! LexiLibrary select-none"
-            >staff</span
-          >
-
-          <div class="relative w-32 h-32 mx-auto mb-4">
-            <div class="w-full h-full rounded-full border-2 border-(--primary) p-1 shadow-sm">
-              <img
-                :src="staff.image"
-                alt="Avatar"
-                class="w-full h-full rounded-full object-cover bg-(--bg-secondary)"
-              />
-            </div>
-            <button
-              class="absolute bottom-0 right-0 staff-header-icon w-8! h-8! bg-white hover:bg-(--primary)! border border-(--primary)/20 shadow-sm"
-            >
-              <FontAwesomeIcon :icon="faCamera" class="text-[10px]" />
-            </button>
-          </div>
-
-          <h2 class="newsreaderFont text-3xl font-semibold">{{ staff.name }}</h2>
-          <p class="text-[9px] uppercase tracking-[0.25em] text-(--primary) font-bold mt-1">
-            STaff LexiLibrary
-          </p>
-        </div> -->
         <SpotlightCard
           spotlight-color="rgba(212, 140, 106, 1)"
           class="h-75 bg-white p-6 shadow-sm border border-(--primary)/10 text-center relative rounded-none! overflow-hidden"
@@ -236,26 +208,20 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCamera, faKey, faGear, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons'
 import { useAuthStore } from '@/stores/auth'
 import SpotlightCard from '@/components/vuebits/SpotlightCard/SpotlightCard.vue'
 import CountUp from '@/components/vuebits/CountUp/CountUp.vue'
+import axios from 'axios'
 
 const authStore = useAuthStore()
 const staff = authStore.user
-console.log(staff)
-const router = useRouter()
 
-const staffData = reactive({
-  name: 'Admin System',
-  role: 'Quản trị viên',
-  email: 'root@lexilibrary.com',
-  phone: '0123 456 789',
-  joinDate: '12/2025',
-})
+const router = useRouter()
+const staffData = ref({})
 
 const staffStats = reactive({
   booksProcessed: 1240,
@@ -269,10 +235,16 @@ const staffStats = reactive({
   meetingStatus: 'Bắt buộc',
 })
 
-const displayFields = {
-  'Họ tên': staff.name,
-  Email: staff.email,
-  'Liên hệ': staffData.phone,
-  'Ngày gia nhập': staffData.joinDate,
-}
+const displayFields = computed(() => ({
+  'Họ tên': staffData.value.hoTenNV || 'Đang tải...',
+  Email: staffData.value.email || 'Đang tải...',
+  'Liên hệ': staffData.value.soDienThoai || 'Đang tải...',
+  'Ngày gia nhập': '16/03/2026',
+}))
+
+onMounted(async () => {
+  const response = await axios.get('http://localhost:3000/api/library/staffs/' + staff.id)
+  staffData.value = response.data
+  console.log(staffData.value)
+})
 </script>

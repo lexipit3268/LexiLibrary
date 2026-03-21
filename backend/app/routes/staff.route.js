@@ -5,8 +5,7 @@ const router = express.Router();
 
 router.post('/login', staffController.login);
 
-router.get('/me', verifyToken, isStaff, staffController.getMe);
-
 router.route('/').get(verifyToken, isStaff, staffController.findAll).post(staffController.create);
 
+router.route('/:id').get(staffController.findOne);
 module.exports = router;

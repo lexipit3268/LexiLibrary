@@ -61,6 +61,10 @@ class StaffService {
     return result;
   }
 
+  async find(filter) {
+    const cursor = await this.Staff.find(filter);
+    return cursor.toArray();
+  }
   async findByEmail(email) {
     return await this.Staff.findOne({ email: email });
   }

@@ -18,7 +18,7 @@
       </div>
 
       <div class="overflow-x-auto grow min-h-104">
-        <table class="w-full text-left border-collapse table-fixed">
+        <table class="w-full text-left border-collapse table-fixed" v-if="paginatedBorrowings">
           <thead>
             <tr
               class="text-[10px] uppercase tracking-widest text-(--subtext-color) font-black border-b border-(--bg-secondary)"
@@ -145,6 +145,25 @@
             </tr>
           </tbody>
         </table>
+        <div v-else class="flex flex-col items-center justify-center py-14 text-center">
+          <div class="relative mb-8">
+            <div class="w-28 h-28 rounded-full bg-[#f7ede2] flex items-center justify-center">
+              <span class="newsreaderFont text-6xl italic text-[#d4c0b0] mr-2">∅</span>
+            </div>
+            <div
+              class="absolute -top-1 -right-1 w-5 h-5 rounded-full border-2 border-white bg-(--primary) opacity-60"
+            ></div>
+            <div
+              class="absolute -bottom-2 -left-2 w-3 h-3 rounded-full border-2 border-white bg-[#faedcd]"
+            ></div>
+          </div>
+          <p class="text-[10px] uppercase tracking-[0.35em] text-[#c5b5ab] mb-3">
+            Chưa có phiếu mượn nào
+          </p>
+          <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">
+            Danh sách mượn & trả trống...
+          </h2>
+        </div>
       </div>
       <div class="flex justify-between items-center border-t border-(--bg-primary) mt-3 pt-4">
         <div class="flex flex-col gap-1">

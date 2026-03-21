@@ -1,7 +1,7 @@
 const { ObjectId } = require('mongodb');
 class Cart {
   constructor(client) {
-    this.Cart = client.db().collection('GioHang');
+    this.Cart = client.db().collection('GioMuon');
   }
   //quan ly theo kieu: moi gio hang la 1 user - 1 sach - 1 so luong sach
   extractCartData(payload) {
