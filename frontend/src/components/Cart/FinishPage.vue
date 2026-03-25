@@ -13,7 +13,7 @@
         <div class="p-12 text-center space-y-8">
           <div class="space-y-4">
             <h1 class="newsreaderFont text-5xl text-(--text-color-2) italic leading-tight">
-              Giao dịch hoàn tất
+              Tạo phiếu mượn thành công
             </h1>
             <div class="flex items-center justify-center gap-3">
               <div class="h-px w-8 bg-(--primary) opacity-30"></div>
