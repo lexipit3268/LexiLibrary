@@ -273,7 +273,7 @@
         </div>
       </div>
 
-      <div v-else class="flex flex-col items-center justify-center py-32 text-center">
+      <div v-else class="flex flex-col items-center justify-center py-24 text-center">
         <div class="relative mb-8">
           <div class="w-28 h-28 rounded-full bg-[#f7ede2] flex items-center justify-center">
             <span class="newsreaderFont text-6xl italic text-[#d4c0b0] mr-2">∅</span>
@@ -286,13 +286,26 @@
           ></div>
         </div>
         <p class="text-[10px] uppercase tracking-[0.35em] text-[#c5b5ab] mb-3">Chưa có sách nào</p>
-        <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">Giỏ mượn trống...</h2>
-        <button
-          @click="$router.push('/book')"
-          class="primary-btn text-[10px] px-12 py-4 uppercase tracking-[0.25em] font-bold"
-        >
-          Khám phá kho sách
-        </button>
+        <div v-if="authStore.user">
+          <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">Lịch sử trống...</h2>
+          <button
+            @click="$router.push('/book')"
+            class="primary-btn text-[10px] px-12 py-4 uppercase tracking-[0.25em] font-bold"
+          >
+            Khám phá kho sách
+          </button>
+        </div>
+        <div v-else>
+          <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">
+            Bạn cần đăng nhập để thêm sách vào giỏ
+          </h2>
+          <button
+            @click="$router.push('/login')"
+            class="primary-btn text-[10px] px-12 py-4 uppercase tracking-[0.25em] font-bold"
+          >
+            Đăng nhập
+          </button>
+        </div>
       </div>
     </div>
   </div>

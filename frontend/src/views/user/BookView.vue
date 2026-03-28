@@ -30,11 +30,11 @@
           class="group flex flex-row items-center border-b focus-within:border-(--primary) transition-all duration-300 py-4 px-2 gap-4"
         >
           <FontAwesomeIcon
-            v-if="!searchText"
+            v-if="!filters.searchText"
             :icon="faSearch"
             class="group-focus-within:text-(--primary) transition-all duration-300"
           />
-          <div v-if="searchText" @click="searchText = ''">
+          <div v-if="filters.searchText" @click="filters.searchText = ''">
             <ElTooltip content="Xóa tìm kiếm" placement="top">
               <FontAwesomeIcon
                 :icon="faXmark"
@@ -42,7 +42,12 @@
               />
             </ElTooltip>
           </div>
-          <input v-model="searchText" type="text" placeholder="Tên sách..." class="outline-none" />
+          <input
+            v-model="filters.searchText"
+            type="text"
+            placeholder="Tên sách..."
+            class="outline-none"
+          />
         </div>
 
         <!-- Filter -->
@@ -52,10 +57,10 @@
             <h3 class="newsreaderFont text-3xl">Bộ lọc</h3>
             <div
               v-if="
-                selectedCategory ||
-                selectedPublisher ||
-                selectedPrice[0] != 20 ||
-                selectedPrice[1] != 100
+                filters.selectedCategory ||
+                filters.selectedPublisher ||
+                filters.selectedPrice[0] != 20 ||
+                filters.selectedPrice[1] != 100
               "
               @click="resetFilter"
             >
@@ -68,8 +73,8 @@
           <ElDivider border-style="dashed" />
           <div>
             <h3 class="newsreaderFont text-2xl mb-2">Thể loại</h3>
-            <div>
-              <ElRadioGroup v-model="selectedCategory">
+            <div ref="categoryContainer">
+              <ElRadioGroup v-model="filters.selectedCategory">
                 <ElRadio value="">Tất cả</ElRadio>
                 <div
                   class="h-50 overflow-x-hidden overflow-y-hidden hover:overflow-y-auto transition-all duration-200"
@@ -91,7 +96,7 @@
           <div>
             <h3 class="newsreaderFont text-2xl mb-2">Nhà xuất bản</h3>
             <div>
-              <ElRadioGroup v-model="selectedPublisher">
+              <ElRadioGroup v-model="filters.selectedPublisher">
                 <ElRadio value="">Tất cả</ElRadio>
                 <ElRadio
                   v-for="(publisher, index) in publishers"
@@ -107,10 +112,10 @@
           <ElDivider border-style="dashed" />
           <div>
             <h3 class="newsreaderFont text-2xl mb-2">Giá tiền</h3>
-            <ElSlider v-model="selectedPrice" range :step="10" :max="100" />
+            <ElSlider v-model="filters.selectedPrice" range :step="10" :max="100" />
             <div class="flex justify-between mt-2 text-gray-400 text-sm">
-              <span>Min: ${{ selectedPrice[0] }}</span>
-              <span>Max: ${{ selectedPrice[1] }}</span>
+              <span>Min: ${{ filters.selectedPrice[0] }}</span>
+              <span>Max: ${{ filters.selectedPrice[1] }}</span>
             </div>
           </div>
         </div>
@@ -126,7 +131,7 @@
             </p>
           </div>
           <ElSelect
-            v-model="selectedSort"
+            v-model="filters.selectedSort"
             clearable
             placeholder="Sắp xếp theo..."
             class="max-w-62.5"
@@ -168,8 +173,8 @@
   </div>
 </template>
 <script setup>
-import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { onMounted, reactive, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import BookCard from '@/components/BookCard.vue'
 import BreadcrumbComponent from '@/components/BreadcrumbComponent.vue'
 import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -189,58 +194,90 @@ import publisherService from '@/services/publisher.service'
 import TextType from '@/components/vuebits/TextType/TextType.vue'
 
 const route = useRoute()
+const router = useRouter()
 
-const selectedCategory = ref('')
-const selectedPublisher = ref('')
-const selectedPrice = ref([20, 100])
-const selectedSort = ref('')
-const searchText = ref('')
+const filters = reactive({
+  selectedCategory: '',
+  selectedPublisher: '',
+  selectedPrice: [20, 100],
+  selectedSort: '',
+  searchText: '',
+})
 
 const categories = ref([])
 const publishers = ref([])
 const books = ref([])
+const categoryContainer = ref(null)
 
-const resetFilter = () => {
-  selectedCategory.value = ''
-  selectedPublisher.value = ''
-  selectedPrice.value = [20, 100]
+const updateUrl = () => {
+  const query = {
+    ...route.query,
+    q: filters.searchText || undefined,
+    category: filters.selectedCategory || undefined,
+    publisher: filters.selectedPublisher || undefined,
+    minPrice: filters.selectedPrice[0],
+    maxPrice: filters.selectedPrice[1],
+    sort: filters.selectedSort || undefined,
+  }
+
+  Object.keys(query).forEach(
+    (key) => (query[key] === undefined || query[key] === '') && delete query[key],
+  )
+
+  router.replace({ query })
 }
 
 const syncParamsFromUrl = () => {
-  if (route.query.category) {
-    selectedCategory.value = route.query.category
+  filters.selectedCategory = route.query.category || ''
+  filters.selectedPublisher = route.query.publisher || ''
+  filters.searchText = route.query.q || ''
+  filters.selectedSort = route.query.sort || ''
+
+  if (route.query.minPrice && route.query.maxPrice) {
+    filters.selectedPrice = [Number(route.query.minPrice), Number(route.query.maxPrice)]
   } else {
-    selectedCategory.value = ''
-  }
-
-  if (route.query.q) {
-    searchText.value = route.query.q
-  }
-
-  if (route.query.publisher) {
-    selectedPublisher.value = route.query.publisher
+    filters.selectedPrice = [20, 100]
   }
 }
 
 const fetchBooks = async () => {
-  const params = {}
-
-  if (searchText.value) params.q = searchText.value
-  if (selectedCategory.value) params.category = selectedCategory.value
-  if (selectedPublisher.value) params.publisher = selectedPublisher.value
-
-  if (selectedPrice.value) {
-    params.minPrice = selectedPrice.value[0]
-    params.maxPrice = selectedPrice.value[1]
+  const params = {
+    q: route.query.q || undefined,
+    category: route.query.category || undefined,
+    publisher: route.query.publisher || undefined,
+    minPrice: route.query.minPrice || filters.selectedPrice[0],
+    maxPrice: route.query.maxPrice || filters.selectedPrice[1],
+    sort: route.query.sort || undefined,
   }
 
-  if (selectedSort.value === 'latest') params.sort = 'latest'
-  if (selectedSort.value === 'oldest') params.sort = 'oldest'
+  const sortMap = {
+    priceIncreasing: 'price_asc',
+    priceDecreasing: 'price_desc',
+    latest: 'latest',
+    oldest: 'oldest',
+  }
 
-  if (selectedSort.value === 'priceIncreasing') params.sort = 'price_asc'
-  if (selectedSort.value === 'priceDecreasing') params.sort = 'price_desc'
+  if (params.sort) params.sort = sortMap[params.sort] || params.sort
 
   books.value = await BookService.getBooks(params)
+}
+
+const resetFilter = () => {
+  filters.selectedCategory = ''
+  filters.selectedPublisher = ''
+  filters.selectedPrice = [20, 100]
+  filters.selectedSort = ''
+  filters.searchText = ''
+  updateUrl()
+}
+
+const scrollIntoActive = (containerRef) => {
+  if (containerRef.value) {
+    const activeRadio = containerRef.value.querySelector('.el-radio__input.is-checked')
+    if (activeRadio) {
+      activeRadio.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 }
 
 onMounted(async () => {
@@ -249,6 +286,7 @@ onMounted(async () => {
 
   syncParamsFromUrl()
   await fetchBooks()
+  scrollIntoActive(categoryContainer)
 })
 
 watch(
@@ -260,8 +298,8 @@ watch(
   { deep: true },
 )
 
-watch([searchText, selectedCategory, selectedPublisher, selectedPrice, selectedSort], () => {
-  fetchBooks()
+watch(filters, () => {
+  updateUrl()
 })
 </script>
 <style scoped>

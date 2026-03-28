@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="p-6 font-['Montserrat'] bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto text-(--text-color)"
-  >
+  <div class="p-6 bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto text-(--text-color)">
     <div class="bg-white p-6 shadow-sm border border-(--primary)/10 flex flex-col min-h-100">
       <div class="flex items-center justify-between mb-8">
         <h3 class="newsreaderFont text-2xl flex items-center gap-3">
@@ -191,7 +189,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useBorrowingStore } from '@/stores/borrowing'
-import { ElMessage, ElPagination } from 'element-plus'
+import { ElMessage, ElMessageBox, ElPagination } from 'element-plus'
 import { formatDate, getToday } from '../../../utils/formatDate'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
@@ -231,35 +229,42 @@ const getStatusClass = (status) => {
 }
 
 const handleStatusChange = async (borrowing, newStatus) => {
-  try {
-    borrowing.trangThai = newStatus
-    let ngayTra = null
-    if (newStatus === 'DaTra') {
-      ngayTra = getToday()
-    } else {
-      ngayTra = null
-    }
-    borrowing.ngayTra = ngayTra
+  ElMessageBox.confirm(
+    `Bạn có chắc chắn đổi trạng thái phiếu ${borrowing.maPhieu} sang ${formatStatus(newStatus)} không?`,
+    'Xác nhận thay đổi',
+    {
+      confirmButtonText: 'Xác nhận',
+      cancelButtonText: 'Hủy bỏ',
+    },
+  ).then(async () => {
+    try {
+      borrowing.trangThai = newStatus
+      let ngayTra = null
+      if (newStatus === 'DaTra') {
+        ngayTra = getToday()
+      }
+      borrowing.ngayTra = ngayTra
 
-    const response = await borrowingStore.updateStatus(borrowing.maPhieu, {
-      trangThai: newStatus,
-      ngayTra: ngayTra,
-    })
+      const response = await borrowingStore.updateStatus(borrowing.maPhieu, {
+        trangThai: newStatus,
+        ngayTra: ngayTra,
+      })
 
-    if (response) {
+      if (response) {
+        ElMessage({
+          type: 'success',
+          message: `Đã cập nhật phiếu ${borrowing.maPhieu} sang ${formatStatus(newStatus)}`,
+          offset: 100,
+        })
+      }
+    } catch (error) {
       ElMessage({
-        type: 'success',
-        message: `Đã cập nhật phiếu ${borrowing.maPhieu} sang ${formatStatus(newStatus)}`,
+        type: 'error',
+        message: 'Lỗi: ' + error,
         offset: 100,
       })
     }
-  } catch (error) {
-    ElMessage({
-      type: 'error',
-      message: 'Lỗi: ' + error,
-      offset: 100,
-    })
-  }
+  })
 }
 
 const refresh = async () => {
@@ -267,7 +272,7 @@ const refresh = async () => {
 }
 
 onMounted(async () => {
-  await borrowingStore.fetchBorrowings()
+  await refresh()
 })
 
 const currentPage = ref(1)

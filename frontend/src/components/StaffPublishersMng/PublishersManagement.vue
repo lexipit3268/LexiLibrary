@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="p-6 font-['Montserrat'] bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto text-(--text-color)"
-  >
+  <div class="p-6 bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto text-(--text-color)">
     <div class="bg-white p-6 shadow-sm border border-(--primary)/10 flex flex-col min-h-100">
       <div class="flex items-center justify-between mb-6">
         <h3 class="newsreaderFont text-2xl flex items-center gap-3">

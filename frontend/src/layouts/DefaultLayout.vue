@@ -6,7 +6,7 @@ import { ElBacktop } from 'element-plus'
 
 <template>
   <MainHeader></MainHeader>
-  <RouterView :key="$route.fullPath"></RouterView>
+  <RouterView :key="$route.path"></RouterView>
   <MainFooter></MainFooter>
   <ElBacktop class="primary-btn text-white!"></ElBacktop>
 </template>

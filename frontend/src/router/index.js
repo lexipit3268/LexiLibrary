@@ -40,12 +40,12 @@ const router = createRouter({
           path: 'cart',
           name: 'cart-page',
           component: () => import('../views/user/CartView.vue'),
+          meta: { title: 'Giỏ mượn' },
           children: [
             {
               path: '',
               name: 'cart-list',
               component: () => import('../components/Cart/CartList.vue'),
-              meta: { title: 'Giỏ hàng' },
             },
             {
               path: 'checkout',
@@ -190,6 +190,9 @@ const router = createRouter({
     },
   ],
   scrollBehavior(to, from, savedPosition) {
+    if (to.path === from.path) {
+      return false
+    }
     if (savedPosition) {
       return savedPosition
     } else {

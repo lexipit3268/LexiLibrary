@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 font-['Montserrat'] bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto">
+  <div class="p-6 bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto">
     <div class="grid grid-cols-12 gap-6 items-start">
       <div class="max-h-98 col-span-4 space-y-6">
         <SpotlightCard

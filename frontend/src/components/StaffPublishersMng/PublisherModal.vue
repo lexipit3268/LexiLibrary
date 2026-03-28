@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/10 backdrop-blur-[2px] font-['Montserrat']"
+    class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/10 backdrop-blur-[2px]"
   >
     <div class="bg-white w-full max-w-md p-8 shadow-2xl border border-(--primary)/15">
       <h3 class="newsreaderFont text-2xl mb-6 text-(--primary)">
