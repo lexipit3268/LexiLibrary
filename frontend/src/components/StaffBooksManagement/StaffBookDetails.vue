@@ -3,7 +3,7 @@
     class="flex flex-col min-h-[calc(100%-80px)] max-h-150! w-full p-6 bg-(--bg-primary) justify-start"
   >
     <button
-      @click="$router.back()"
+      @click="$router.push('/staff/book')"
       class="cursor-pointer mb-6 flex items-center gap-2 text-(--subtext-color) hover:text-(--primary) transition-colors text-sm font-bold uppercase tracking-widest"
     >
       <FontAwesomeIcon :icon="faArrowLeft" />
@@ -31,7 +31,7 @@
       <div class="flex flex-col gap-4 max-w-145">
         <div class="flex flex-col gap-2">
           <h3 class="newsreaderFont text-2xl text-(--secondary) text-shadow-md">
-            {{ book.tenSach }}
+            {{ book.maSach }} &mdash; {{ book.tenSach }}
           </h3>
           <div class="text-(--subtext-color)">
             <div class="flex flex-col">
@@ -155,11 +155,11 @@ const paragraphs = computed(() => {
 const deleteBook = async (maSach) => {
   try {
     await ElMessageBox.confirm(
-      `Bạn có chắc chắn muốn xóa sách với mã sách là ${maSach}?`,
-      'Xác nhận xóa',
+      `Hành động này sẽ gỡ bỏ vĩnh viễn sách ${maSach} khỏi hệ thống. Bạn có chắc chắn?`,
+      'Xác nhận gỡ bỏ',
       {
         confirmButtonText: 'Xác nhận',
-        cancelButtonText: 'Hủy bỏ',
+        cancelButtonText: 'Hủy',
         type: 'warning',
       },
     )

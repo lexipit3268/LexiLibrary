@@ -18,7 +18,7 @@
       <div class="overflow-x-auto grow">
         <table class="w-full text-left border-spacing-y-2">
           <thead>
-            <tr class="text-[9px] uppercase tracking-widest text-(--subtext-color) font-black">
+            <tr class="text-[10px] uppercase tracking-widest text-(--subtext-color) font-black">
               <th class="px-4 pb-2">Mã định danh</th>
               <th class="px-4 pb-2">Tên nhà xuất bản</th>
               <th class="px-4 pb-2">Địa chỉ trụ sở</th>
@@ -31,13 +31,13 @@
               :key="pub.maNXB"
               class="group hover:bg-(--bg-primary)/70 h-20 transition-colors duration-300 divide-y divide-(--bg-secondary)"
             >
-              <td class="px-4 py-4 text-xs font-bold text-(--primary) newsreaderFont">
+              <td class="px-4 py-4 text-sm font-bold text-(--primary) newsreaderFont">
                 {{ pub.maNXB }}
               </td>
               <td class="px-4 py-4">
                 <p class="font-bold text-sm">{{ pub.tenNXB }}</p>
               </td>
-              <td class="px-4 py-4 text-[11px] text-(--subtext-color) italic max-w-xs truncate">
+              <td class="px-4 py-4 text-sm text-(--subtext-color) italic max-w-xs truncate">
                 {{ pub.diaChi }}
               </td>
               <td class="px-4 py-4 text-right border-b border-(--bg-secondary)">
@@ -48,13 +48,13 @@
                     @click="openModal(pub)"
                     class="staff-header-icon w-7! h-7! bg-white! border border-(--primary)/20 hover:text-(--secondary)"
                   >
-                    <FontAwesomeIcon :icon="faPen" class="text-[9px]" />
+                    <FontAwesomeIcon :icon="faPen" class="text-[10px]" />
                   </button>
                   <button
                     @click="handleDelete(pub.maNXB)"
                     class="staff-header-icon w-7! h-7! bg-white! border border-red-100 hover:bg-red-50! hover:text-red-600!"
                   >
-                    <FontAwesomeIcon :icon="faTrash" class="text-[9px]" />
+                    <FontAwesomeIcon :icon="faTrash" class="text-[10px]" />
                   </button>
                 </div>
               </td>

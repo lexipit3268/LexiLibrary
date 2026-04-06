@@ -16,8 +16,8 @@
           <CountUp
             :from="0"
             :to="bookLength"
-            :delay="0"
-            :duration="1"
+            :delay="1"
+            :duration="2"
             class-name="font-extrabold text-4xl"
             :start-when="bookLength > 0"
           />
@@ -42,8 +42,8 @@
           <CountUp
             :from="0"
             :to="publisherLength"
-            :delay="0"
-            :duration="1"
+            :delay="1"
+            :duration="1.5"
             :start-when="publisherLength > 0"
             class-name="font-extrabold text-4xl"
           />
@@ -66,8 +66,8 @@
           <CountUp
             :from="0"
             :to="userLength"
-            :delay="0"
-            :duration="1"
+            :delay="1"
+            :duration="1.5"
             :start-when="userLength > 0"
             class-name="font-extrabold text-4xl tracking-tighter"
           />

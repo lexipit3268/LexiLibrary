@@ -152,7 +152,7 @@ const router = createRouter({
           path: 'borrowing-history',
           name: 'borrowing-management',
           component: () => import('../components/StaffDashboard/BorrowingManagement.vue'),
-          meta: { title: 'Quản lý nhà mượn trả' },
+          meta: { title: 'Quản lý mượn trả' },
         },
         {
           path: 'me',

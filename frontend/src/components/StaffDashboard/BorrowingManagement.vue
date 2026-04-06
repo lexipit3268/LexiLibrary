@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between mb-8">
         <h3 class="newsreaderFont text-2xl flex items-center gap-3">
           <span class="w-8 h-px bg-(--primary)"></span>
-          Quản lý mượn & trả sách
+          Danh sách phiếu mượn
         </h3>
 
         <button

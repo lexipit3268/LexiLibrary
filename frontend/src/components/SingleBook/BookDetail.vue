@@ -17,29 +17,29 @@
           alt=""
         />
         <!-- hinh anh sach -->
-        <div class="flex flex-col">
-          <div
-            class="bg-pattern overflow-hidden h-fit w-lg bg-amber-800/10 p-8 group hover:shadow-2xl transition-all duration-300 z-10!"
-          >
-            <VueImageZoomer
-              :regular="
-                props.book.hinhAnh
-                  ? props.book.hinhAnh
-                  : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty'
-              "
-              hover-message="Di chuột để zoom"
-              message-pos="top"
-              :show-message="false"
-              :zoom="props.book.hinhAnh"
-              :zoom-amount="2"
-            />
-          </div>
-          <div class="relative">
-            <p class="absolute left-[50%] -translate-x-[50%] top-2 text-sm text-(--subtext-color)">
+        <div class="flex flex-col items-end">
+          <div class="flex flex-col">
+            <div
+              class="bg-pattern overflow-hidden h-fit w-110 bg-amber-800/10 p-8 group hover:shadow-2xl transition-all duration-300 z-10!"
+            >
+              <VueImageZoomer
+                :regular="
+                  props.book.hinhAnh
+                    ? props.book.hinhAnh
+                    : 'https://placehold.co/400x600/d48c6a/FFF?font=Montserrat&text=Empty'
+                "
+                hover-message="Di chuột để zoom"
+                message-pos="top"
+                :show-message="false"
+                :zoom="props.book.hinhAnh"
+                :zoom-amount="1.8"
+              />
+            </div>
+            <p class="mt-1 text-sm text-center text-(--subtext-color)">
               Di chuột vào để zoom ảnh bìa sách
             </p>
-            <img src="../../../public/book.svg" alt="" class="w-120 opacity-30" />
           </div>
+          <img src="../../../public/book.svg" alt="" class="w-120 opacity-30 -translate-y-5" />
         </div>
 
         <!-- thong tin sach -->

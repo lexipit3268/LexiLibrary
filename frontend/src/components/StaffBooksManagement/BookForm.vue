@@ -3,7 +3,7 @@
   <div class="flex flex-col min-h-[calc(100%-80px)] w-full p-6 bg-(--bg-primary)">
     <div class="flex justify-between items-center mb-4">
       <button
-        @click="$router.back()"
+        @click="$router.push('/staff/book')"
         class="flex items-center gap-2 text-(--subtext-color) hover:text-(--primary) transition-all text-sm font-bold uppercase tracking-widest cursor-pointer"
       >
         <FontAwesomeIcon :icon="faArrowLeft" /> Quay lại danh sách

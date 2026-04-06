@@ -287,6 +287,7 @@ onMounted(async () => {
   syncParamsFromUrl()
   await fetchBooks()
   scrollIntoActive(categoryContainer)
+  window.scrollTo(0, 0)
 })
 
 watch(

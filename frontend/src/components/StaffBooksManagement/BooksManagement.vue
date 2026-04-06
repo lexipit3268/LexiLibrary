@@ -18,7 +18,7 @@
       <div class="overflow-x-auto grow">
         <table class="w-full text-left border-spacing-y-2 overflow-hidden">
           <thead>
-            <tr class="text-[9px] uppercase tracking-widest text-(--subtext-color) font-black">
+            <tr class="text-[10px] uppercase tracking-widest text-(--subtext-color) font-black">
               <th class="px-4 pb-2">Thông tin sách</th>
               <th class="px-4 pb-2">Nhà xuất bản</th>
               <th class="px-4 pb-2">Tác giả</th>
@@ -79,7 +79,7 @@
                       @click="router.push(`/staff/book/${book.maSach}`)"
                       class="staff-header-icon w-7! h-7! bg-white! border border-(--primary)/20 hover:text-(--secondary)"
                     >
-                      <FontAwesomeIcon :icon="faInfo" class="text-[9px]" />
+                      <FontAwesomeIcon :icon="faInfo" class="text-[10px]" />
                     </button>
                   </ElTooltip>
 
@@ -88,7 +88,7 @@
                       @click="handleDelete(book.maSach)"
                       class="staff-header-icon w-7! h-7! bg-white! border border-red-100 hover:bg-red-50! hover:text-red-600!"
                     >
-                      <FontAwesomeIcon :icon="faTrash" class="text-[9px]" />
+                      <FontAwesomeIcon :icon="faTrash" class="text-[10px]" />
                     </button>
                   </ElTooltip>
                 </div>
@@ -157,7 +157,7 @@ const getPublisherName = (maNXB) => {
 const handleDelete = async (maSach) => {
   try {
     await ElMessageBox.confirm(
-      `Hành động này sẽ gỡ bỏ vĩnh viễn sách ${maSach.toUpperCase()} khỏi hệ thống. Bạn có chắc chắn?`,
+      `Hành động này sẽ gỡ bỏ vĩnh viễn sách ${maSach} khỏi hệ thống. Bạn có chắc chắn?`,
       'Xác nhận gỡ bỏ',
       {
         confirmButtonText: 'Xác nhận',
