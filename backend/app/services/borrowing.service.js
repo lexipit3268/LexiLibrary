@@ -119,13 +119,17 @@ class Borrowing {
   async update(id, payload) {
     const currentBorrowing = await this.Borrowing.findOne({ maPhieu: id });
     if (!currentBorrowing) return null;
+
     const updateData = {};
     if (payload.trangThai) updateData.trangThai = payload.trangThai;
 
     if (payload.trangThai === 'DaTra') {
-      updateData.ngayTra = payload.ngayTra || new Date().toISOString().slice(0, 10);
-      const today = new Date().toISOString().slice(0, 10);
-      if (today > currentBorrowing.ngayCanTra) {
+      const ngayTraThucTe = payload.ngayTra || new Date().toISOString().slice(0, 10);
+      updateData.ngayTra = ngayTraThucTe;
+
+      const hanTra = new Date(currentBorrowing.ngayCanTra).toISOString().slice(0, 10);
+
+      if (ngayTraThucTe > hanTra) {
         await this.userService.updateReputation(currentBorrowing.maDocGia, -2);
       }
     } else if (payload.trangThai) {

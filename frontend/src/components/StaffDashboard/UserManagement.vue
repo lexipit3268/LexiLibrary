@@ -4,11 +4,11 @@
       <div class="flex items-center justify-between mb-8">
         <h3 class="newsreaderFont text-2xl flex items-center gap-3">
           <span class="w-8 h-px bg-(--primary)"></span>
-          Quản lý độc giả
+          Danh sách độc giả
         </h3>
         <div class="flex gap-4 items-center">
-          <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-(--subtext-color)">
-            Tổng cộng: <span class="text-(--primary)">{{ users.length }}</span> thành viên
+          <p class="text-xs uppercase tracking-[0.2em] font-bold text-(--subtext-color)">
+            Tổng cộng: <span class="text-(--primary)">{{ users.length }}</span> độc giả
           </p>
         </div>
       </div>
@@ -23,6 +23,7 @@
               <th class="px-4 pb-4">Ngày sinh</th>
               <th class="px-4 pb-4">Giới tính</th>
               <th class="px-4 pb-4">Thông tin liên lạc</th>
+              <th class="px-4 pb-4">Ngày vi phạm</th>
               <th class="px-4 pb-4">Điểm số / Giới hạn</th>
               <th class="px-4 pb-4 text-center">Trạng thái</th>
               <th class="px-4 pb-4 text-right">Điều khiển</th>
@@ -31,9 +32,11 @@
 
           <tbody class="divide-y divide-(--bg-primary)">
             <tr
-              v-for="user in users"
+              v-for="(user, index) in users"
               :key="user.maDocGia"
               class="group hover:bg-(--bg-primary)/50 h-24 transition-all duration-300"
+              data-aos="fade-in"
+              :data-aos-delay="(index % 4) * 100"
             >
               <td class="px-4 py-4">
                 <div class="flex items-center gap-3">
@@ -65,10 +68,20 @@
               </td>
 
               <td class="px-4 py-4">
-                <div class="text-[10px] uppercase font-bold space-y-1">
+                <div v-if="user.ngayViPham" class="flex flex-col">
+                  <p class="text-sm font-bold text-red-500">{{ formatDate(user.ngayViPham) }}</p>
+                  <span class="text-[10px] uppercase font-bold text-red-400 tracking-tighter"
+                    >Gần nhất</span
+                  >
+                </div>
+                <p v-else class="text-sm opacity-30 italic">---</p>
+              </td>
+
+              <td class="px-4 py-4">
+                <div class="text-xs font-bold space-y-1">
                   <p>
                     Uy tín:
-                    <span :class="user.diemUyTin > 5 ? 'text-green-600' : 'text-red-600'">{{
+                    <span :class="user.diemUyTin > 6 ? 'text-green-600' : 'text-red-600'">{{
                       user.diemUyTin
                     }}</span>
                   </p>
@@ -106,7 +119,7 @@
             </tr>
 
             <tr v-if="users.length === 0">
-              <td colspan="7" class="py-20 text-center opacity-40 italic newsreaderFont text-xl">
+              <td colspan="8" class="py-20 text-center opacity-40 italic newsreaderFont text-xl">
                 Không tìm thấy dữ liệu độc giả nào...
               </td>
             </tr>

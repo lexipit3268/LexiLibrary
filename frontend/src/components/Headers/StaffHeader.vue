@@ -23,6 +23,10 @@
         Nhà xuất bản
       </h3>
 
+      <h3 class="text-2xl font-semibold" v-else-if="route.name === 'user-management'">
+        Quản lý độc giả
+      </h3>
+
       <h3 class="text-2xl font-semibold" v-else-if="route.name === 'borrowing-management'">
         Lịch sử mượn
       </h3>
