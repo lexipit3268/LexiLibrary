@@ -64,8 +64,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faCartPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useRouter } from 'vue-router'
-import handleAddToCart from '../../utils/handleAddToCart'
-import handleAddToFavorite from '../../utils/handleAddToFavorite'
+import { handleAddToCart, handleAddToFavorite } from '../../utils/handleBookInteractions'
 
 const router = useRouter()
 

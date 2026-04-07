@@ -6,7 +6,7 @@ const cartStore = useCartStore()
 const authStore = useAuthStore()
 const router = useRouter()
 
-const handleAddToCart = async (id, title) => {
+export const handleAddToCart = async (id, title) => {
   if (!authStore.isLoggedIn) {
     ElMessageBox.confirm(`Vui lòng đăng nhập để thực hiện chức năng này`, 'Yêu cầu đăng nhập', {
       confirmButtonText: 'Đăng nhập',
@@ -40,4 +40,10 @@ const handleAddToCart = async (id, title) => {
   }
 }
 
-export default handleAddToCart
+export const handleAddToFavorite = async (id, title) => {
+  ElMessage({
+    type: 'success',
+    message: `Đã thêm "${title}" vào danh sách yêu thích!`,
+    offset: 100,
+  })
+}
