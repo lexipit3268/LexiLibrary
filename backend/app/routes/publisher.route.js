@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const publisherController = require('../controllers/publisher.controller');
+const { verifyToken, isStaff } = require('../middlewares/auth.middleware');
 
 router
   .route('/')
   .get(publisherController.findAll)
-  .post(publisherController.create)
-  .delete(publisherController.deleteAll);
+  .post(verifyToken, isStaff, publisherController.create)
+  .delete(verifyToken, isStaff, publisherController.deleteAll);
 
 router
   .route('/:id')
   .get(publisherController.findOne)
-  .post(publisherController.update)
-  .delete(publisherController.delete);
+  .post(verifyToken, isStaff, publisherController.update)
+  .delete(verifyToken, isStaff, publisherController.delete);
 module.exports = router;

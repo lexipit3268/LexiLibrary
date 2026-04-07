@@ -7,5 +7,5 @@ router.post('/login', staffController.login);
 
 router.route('/').get(verifyToken, isStaff, staffController.findAll).post(staffController.create);
 
-router.route('/:id').get(staffController.findOne);
+router.route('/:id').get(verifyToken, isStaff, staffController.findOne);
 module.exports = router;

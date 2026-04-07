@@ -1,25 +1,26 @@
-import axios from 'axios'
+import api from './api.service'
 import handleRequest from '../../utils/handleRequest'
-const API_URL = 'http://localhost:3000/api/library/publishers/'
+
+const RESOURCE = '/library/publishers/'
 
 class PublisherService {
   async getPublishers() {
-    const result = await handleRequest(axios.get(API_URL))
+    const result = await handleRequest(api.get(RESOURCE))
     return result.data
   }
 
   async createPublisher(payload) {
-    const result = await handleRequest(axios.post(API_URL, payload))
+    const result = await handleRequest(api.post(RESOURCE, payload))
     return result.data
   }
 
   async updatePublisher(id, payload) {
-    const result = await handleRequest(axios.post(API_URL + id, payload))
+    const result = await handleRequest(api.post(`${RESOURCE}${id}`, payload))
     return result.data
   }
 
   async deletePublisher(id) {
-    const result = await handleRequest(axios.delete(API_URL + id))
+    const result = await handleRequest(api.delete(`${RESOURCE}${id}`))
     return result.data
   }
 }

@@ -263,6 +263,7 @@ const handleSave = async () => {
       ElMessage.success('Đã thêm sách mới vào hệ thống')
     }
 
+    await staffStore.fetchAllData()
     router.push('/staff/book')
   } catch (error) {
     console.error(error)

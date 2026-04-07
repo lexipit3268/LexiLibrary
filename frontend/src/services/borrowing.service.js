@@ -1,33 +1,36 @@
-import axios from 'axios'
+import api from './api.service'
 import handleRequest from '../../utils/handleRequest'
-const API_URL = 'http://localhost:3000/api/library/borrowings/'
+
+const RESOURCE = '/library/borrowings/'
 
 class BorrowingService {
   async getBorrowings() {
-    const result = await handleRequest(axios.get(API_URL))
+    const result = await handleRequest(api.get(RESOURCE))
     return result.data
   }
 
   async getBorrowingsById(maDocGia) {
-    const result = await handleRequest(axios.get(API_URL, { params: { maDocGia } }))
+    const result = await handleRequest(api.get(RESOURCE, { params: { maDocGia } }))
     return result.data
   }
 
   async findOne(id) {
-    const result = await handleRequest(axios.get(API_URL`/${id}`))
+    const result = await handleRequest(api.get(`${RESOURCE}${id}`))
     return result.data
   }
 
+  // Tạo mới một phiếu mượn
   async create(payload) {
+    // Giữ nguyên logic validation cơ bản của bạn
     if (!payload.maDocGia || !payload.maSach || !payload.ngayCanTra) return null
-    const result = await handleRequest(axios.post(API_URL, payload))
+
+    const result = await handleRequest(api.post(RESOURCE, payload))
     return result.data
   }
 
   async update(maPhieu, payload) {
     if (!maPhieu || !payload.trangThai) return null
-    console.log(payload)
-    const result = await handleRequest(axios.post(API_URL + `${maPhieu}`, payload))
+    const result = await handleRequest(api.post(`${RESOURCE}${maPhieu}`, payload))
     return result.data
   }
 }

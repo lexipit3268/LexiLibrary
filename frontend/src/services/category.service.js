@@ -1,10 +1,11 @@
-import axios from 'axios'
+import api from './api.service'
 import handleRequest from '../../utils/handleRequest'
-const API_URL = 'http://localhost:3000/api/library/categories/'
+const RESOURCE = '/library/categories/'
 
 class CategoryService {
   async getCategories() {
-    return (await handleRequest(axios.get(API_URL))).data
+    const response = await handleRequest(api.get(RESOURCE))
+    return response.data
   }
 }
 
