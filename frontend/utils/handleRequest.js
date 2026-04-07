@@ -3,7 +3,7 @@ const handleRequest = async (request) => {
     const response = await request
     return response
   } catch (error) {
-    console.error('Lỗi API: ', error)
+    console.log('Lỗi API: ', error)
     throw error
   }
 }

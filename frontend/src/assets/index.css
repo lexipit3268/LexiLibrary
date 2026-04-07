@@ -51,6 +51,10 @@ input {
   transition: all 200ms ease;
 }
 
+body.is-locked {
+  overflow: hidden;
+}
+
 :root {
   --primary: #d48c6a;
   --secondary: #9d674e;

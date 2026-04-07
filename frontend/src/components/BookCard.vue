@@ -63,12 +63,8 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faCartPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { useCartStore } from '@/stores/cart'
+import handleAddToCart from '../../utils/handleAddToCart'
 
-const cartStore = useCartStore()
-const authStore = useAuthStore()
 const router = useRouter()
 
 const { id, title, author, price, image } = defineProps({
@@ -78,38 +74,4 @@ const { id, title, author, price, image } = defineProps({
   price: Number,
   image: String,
 })
-
-const handleAddToCart = async (id, title) => {
-  if (!authStore.isLoggedIn) {
-    ElMessageBox.confirm(`Vui lòng đăng nhập để thực hiện chức năng này`, 'Yêu cầu đăng nhập', {
-      confirmButtonText: 'Đăng nhập',
-      cancelButtonText: 'Hủy bỏ',
-    }).then(() => router.push('/login'))
-    return
-  }
-
-  if (authStore.userRole !== 'user') {
-    ElMessageBox.alert(
-      'Chỉ người dùng thông thường mới có thể mượn sách.',
-      'Quyền truy cập bị từ chối',
-    )
-    return
-  }
-
-  const maDocGia = authStore.user.code
-  const response = await cartStore.addToCart({ maSach: id, maDocGia: maDocGia, soLuong: 1 })
-  if (response.status == 200) {
-    ElMessage({
-      message: `Đã thêm sách "${title}" vào giỏ`,
-      type: 'success',
-      offset: 100,
-    })
-  } else {
-    ElMessage({
-      message: 'Không thể thêm sách',
-      type: 'error',
-      offset: 100,
-    })
-  }
-}
 </script>

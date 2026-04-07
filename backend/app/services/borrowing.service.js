@@ -106,6 +106,10 @@ class Borrowing {
       throw new Error('LOW_REPUTATION');
     }
 
+    if (!docGia.isActive) {
+      throw new Error('INACTIVE_ACCOUNT');
+    }
+
     await this.Borrowing.insertOne(borrowing);
     await this.bookService.updateStock(borrowing.maSach, -borrowing.soLuong);
 

@@ -7,6 +7,7 @@ import {
   faHouse,
   faPeopleRoof,
   faUser,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useAuthStore } from '@/stores/auth'
@@ -65,6 +66,12 @@ const handleLogout = () => {
             </div>
           </router-link>
 
+          <router-link to="/staff/user" v-slot="{ isExactActive, navigate }">
+            <div @click="navigate" :class="['nav-item', isExactActive ? 'active' : '']">
+              <FontAwesomeIcon :icon="faUsers" class="w-5" />
+              <p>Quản lý độc giả</p>
+            </div>
+          </router-link>
           <router-link to="/staff/borrowing-history" v-slot="{ isExactActive, navigate }">
             <div @click="navigate" :class="['nav-item', isExactActive ? 'active' : '']">
               <FontAwesomeIcon :icon="faClockRotateLeft" class="w-5" />

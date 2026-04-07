@@ -14,6 +14,8 @@
 </template>
 
 <script setup>
+import { onMounted, onUnmounted } from 'vue'
+
 const props = defineProps({
   type: {
     type: String,
@@ -21,6 +23,21 @@ const props = defineProps({
   },
   minusH: { type: Number, default: 0 },
   minusW: { type: Number, default: 0 },
+})
+
+onMounted(() => {
+  const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
+
+  if (scrollBarWidth > 0) {
+    document.body.style.paddingRight = `${scrollBarWidth}px`
+  }
+
+  document.body.style.overflow = 'hidden'
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+  document.body.style.paddingRight = ''
 })
 </script>
 

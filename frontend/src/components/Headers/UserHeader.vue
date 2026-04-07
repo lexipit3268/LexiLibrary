@@ -58,6 +58,9 @@
                   <el-dropdown-item>
                     <router-link to="/history">Sách đã mượn</router-link>
                   </el-dropdown-item>
+                  <el-dropdown-item>
+                    <router-link to="/favorite">Sách yêu thích</router-link>
+                  </el-dropdown-item>
                   <el-dropdown-item divided @click="handleLogout" class="logoutBtn"
                     >Đăng xuất
                   </el-dropdown-item>

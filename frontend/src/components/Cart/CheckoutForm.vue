@@ -207,6 +207,13 @@ const validateAllDates = () => {
 
 const handleCreateBorrowing = async () => {
   if (!validateAllDates()) return
+  if (!authStore.user.isActive) {
+    ElMessageBox.alert(
+      'Tài khoản của bạn đang bị khóa nên không thể thực hiện hành động này. Vui lòng thử lại sau.',
+      'Tài khoản bị khóa',
+    )
+    return
+  }
 
   try {
     await ElMessageBox.confirm(
@@ -255,13 +262,23 @@ const handleCreateBorrowing = async () => {
 
 const removeItem = async (id) => {
   try {
-    await cartStore.removeFromCart(id)
-    ElMessage({
-      type: 'success',
-      message: 'Đã gỡ bỏ khỏi danh sách chuẩn bị mượn',
-      offset: 100,
+    ElMessageBox.confirm(
+      'Bạn có chắc không? Thao tác này sẽ mượn và đồng thời gỡ sách ra khỏi giỏ mượn',
+      'Xác nhận',
+      {
+        confirmButtonText: 'Xác nhận',
+        cancelButtonText: 'Hủy bỏ',
+        type: 'warning',
+      },
+    ).then(async () => {
+      await cartStore.removeFromCart(id)
+      ElMessage({
+        type: 'success',
+        message: 'Đã gỡ bỏ khỏi danh sách chuẩn bị mượn',
+        offset: 100,
+      })
+      await cartStore.fetchCart(authStore.user.code)
     })
-    await cartStore.fetchCart(authStore.user.code)
   } catch (e) {
     ElMessage({
       type: 'error',

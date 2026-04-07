@@ -16,29 +16,25 @@ class CartService {
   async addToCart(payload) {
     if (!payload.maDocGia || !payload.maSach) return null
 
-    const response = await handleRequest(api.post(`${RESOURCE}add`, payload))
-    return response.data
+    return await handleRequest(api.post(`${RESOURCE}add`, payload))
   }
 
   async update(id, payload) {
     if (!id) return null
 
-    const response = await handleRequest(api.post(`${RESOURCE}${id}`, payload))
-    return response.data
+    return await handleRequest(api.post(`${RESOURCE}${id}`, payload))
   }
 
   async removeItem(id) {
     if (!id) return null
 
-    const response = await handleRequest(api.delete(`${RESOURCE}${id}`))
-    return response.data
+    return await handleRequest(api.delete(`${RESOURCE}${id}`))
   }
 
   async removeAllItem(maDocGia) {
     if (!maDocGia) return null
 
-    const response = await handleRequest(api.delete(RESOURCE, { data: { maDocGia } }))
-    return response.data
+    return await handleRequest(api.delete(RESOURCE, { data: { maDocGia } }))
   }
 }
 

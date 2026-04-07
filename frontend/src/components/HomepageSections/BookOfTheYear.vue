@@ -67,21 +67,6 @@
               />
             </div>
 
-            <!-- <div
-              class="absolute -top-12 -left-12 w-36 h-36 flex items-center justify-center pointer-events-none"
-            >
-              <div
-                class="absolute inset-0 border border-amber-900/10 rounded-full animate-spin-slow-reverse opacity-40"
-              ></div>
-              <div
-                class="absolute inset-2 border-2 border-dashed border-(--primary)/20 rounded-full animate-spin-slow"
-              ></div>
-              <div
-                class="relative bg-white shadow-xl rounded-full w-20 h-20 flex items-center justify-center border border-amber-900/5"
-              >
-                <span class="newsreaderFont italic text-(--secondary) font-bold text-3xl">L</span>
-              </div>
-            </div> -->
             <div
               class="absolute -top-12 -left-12 w-36 h-36 flex items-center justify-center pointer-events-none animate-spin-slow"
             >

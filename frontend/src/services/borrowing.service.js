@@ -19,11 +19,8 @@ class BorrowingService {
     return result.data
   }
 
-  // Tạo mới một phiếu mượn
   async create(payload) {
-    // Giữ nguyên logic validation cơ bản của bạn
     if (!payload.maDocGia || !payload.maSach || !payload.ngayCanTra) return null
-
     const result = await handleRequest(api.post(RESOURCE, payload))
     return result.data
   }

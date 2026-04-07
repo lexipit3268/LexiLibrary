@@ -171,11 +171,12 @@
 
               <AddToCartBtn
                 :book="props.book"
-                @add-to-cart="handleAddToCart(props.book)"
+                @add-to-cart="handleAddToCart(props.book.maSach, props.book.tenSach)"
                 class="transform hover:scale-[1.02] transition-transform active:scale-95"
               />
 
               <button
+                @click="handleAddToFavortie(props.book)"
                 type="button"
                 class="w-14 h-14 border border-amber-900/10 rounded-full flex items-center justify-center cursor-pointer bg-white group hover:bg-red-50 hover:border-red-100 transition-all duration-300 shadow-sm"
               >
@@ -277,7 +278,7 @@
 <script setup>
 import { VueImageZoomer } from 'vue-image-zoomer'
 import 'vue-image-zoomer/dist/style.css'
-import { ElCollapse, ElDivider, ElInputNumber, ElMessage, ElMessageBox } from 'element-plus'
+import { ElCollapse, ElDivider, ElInputNumber, ElMessage } from 'element-plus'
 import BreadcrumbComponent from '../BreadcrumbComponent.vue'
 import { computed, ref } from 'vue'
 import AddToCartBtn from '../AddToCartBtn.vue'
@@ -286,12 +287,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-import { useCartStore } from '@/stores/cart'
 import { Minus, Plus } from '@element-plus/icons-vue'
+import handleAddToCart from '../../../utils/handleAddToCart'
 
-const cartStore = useCartStore()
-const authStore = useAuthStore()
 const router = useRouter()
 
 const props = defineProps({
@@ -307,43 +305,13 @@ const paragraphs = computed(() => {
 
 const num = ref(1)
 const activeName = ref('1')
-const handleAddToCart = async (book) => {
-  if (!authStore.isLoggedIn) {
-    ElMessageBox.confirm(`Vui lòng đăng nhập để thực hiện chức năng này`, 'Yêu cầu đăng nhập', {
-      confirmButtonText: 'Đăng nhập',
-      cancelButtonText: 'Hủy bỏ',
-    }).then(() => router.push('/login'))
-    return
-  }
-  if (authStore.userRole !== 'user') {
-    ElMessageBox.alert(
-      'Chỉ người dùng thông thường mới có thể mượn sách.',
-      'Quyền truy cập bị từ chối',
-    )
-    return
-  }
 
-  try {
-    const maDocGia = authStore.user.code
-    const response = await cartStore.addToCart({
-      maSach: book.maSach,
-      maDocGia: maDocGia,
-      soLuong: num.value,
-    })
-    if (response.status == 200) {
-      ElMessage({
-        type: 'success',
-        message: `Đã thêm sách "${book.tenSach}" vào giỏ`,
-        offset: 100,
-      })
-    }
-  } catch (error) {
-    ElMessage({
-      type: error,
-      message: 'Không thể thêm sách ' + error,
-      offset: 100,
-    })
-  }
+const handleAddToFavortie = async (book) => {
+  ElMessage({
+    type: 'success',
+    message: `Đã thêm ${book.tenSach} vào danh sách yêu thích!`,
+    offset: 100,
+  })
 }
 </script>
 

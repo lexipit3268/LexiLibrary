@@ -149,6 +149,12 @@ const router = createRouter({
           meta: { title: 'Quản lý nhà xuất bản' },
         },
         {
+          path: 'user',
+          name: 'user-management',
+          component: () => import('../components/StaffDashboard/UserManagement.vue'),
+          meta: { title: 'Quản lý độc giả' },
+        },
+        {
           path: 'borrowing-history',
           name: 'borrowing-management',
           component: () => import('../components/StaffDashboard/BorrowingManagement.vue'),

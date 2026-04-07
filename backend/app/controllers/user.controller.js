@@ -19,7 +19,15 @@ exports.register = async (req, res, next) => {
       return next(new ApiError(StatusCodes.CONFLICT, 'Cannot use this email'));
     }
 
-    const newUser = await userService.create(req.body);
+    const payload = {
+      ...req.body,
+      hinhAnh: req.body.hinhAnh || null,
+      publicAvtId: req.body.puclicAvtId || null,
+      isActive: req.body.isActive || true,
+      ngayViPham: req.body.ngayViPham || null,
+    };
+
+    const newUser = await userService.create(payload);
     //loai bo mat khau
     const { matKhau: _, ...userWithoutPassword } = newUser;
     return res.status(StatusCodes.CREATED).json(userWithoutPassword);
@@ -153,14 +161,13 @@ exports.update = async (req, res, next) => {
     const user = await userService.findByMaDocGia(req.params.id);
     if (!user)
       return next(new ApiError(StatusCodes.NOT_FOUND, `Not found user with id = ${req.params.id}`));
-
-    const oldPublicAvtId = user.publicAvtId;
-    const newPublicAvtId = req.body.publicAvtId;
-
-    if (oldPublicAvtId && newPublicAvtId && newPublicAvtId !== oldPublicAvtId) {
-      await cloudinaryUtil.deleteImage(oldPublicAvtId);
+    if (true) {
+      const oldPublicAvtId = user.publicAvtId;
+      const newPublicAvtId = req.body.publicAvtId;
+      if (oldPublicAvtId && newPublicAvtId && newPublicAvtId !== oldPublicAvtId) {
+        await cloudinaryUtil.deleteImage(oldPublicAvtId);
+      }
     }
-
     const result = await userService.update(req.params.id, req.body);
     return res.send(result);
   } catch (error) {

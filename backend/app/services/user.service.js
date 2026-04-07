@@ -14,13 +14,13 @@ class UserService {
       soDienThoai: payload.soDienThoai,
       email: payload.email,
       matKhau: payload.matKhau,
-      hinhAnh: payload.hinhAnh || null,
+      hinhAnh: payload.hinhAnh,
       role: 'user',
-      publicAvtId: payload.publicAvtId || null,
+      publicAvtId: payload.publicAvtId,
       gioiHanMuon: payload.gioiHanMuon || 5,
-      isActive: payload.isActive || true,
+      isActive: payload.isActive,
       diemUyTin: payload.diemUyTin || 10,
-      ngayViPham: payload.ngayViPham || null,
+      ngayViPham: payload.ngayViPham,
     };
 
     Object.keys(user).forEach((key) => user[key] === undefined && delete user[key]);
