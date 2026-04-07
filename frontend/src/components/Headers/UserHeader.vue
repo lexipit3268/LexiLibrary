@@ -56,7 +56,7 @@
                     <router-link to="/me">Thông tin cá nhân</router-link>
                   </el-dropdown-item>
                   <el-dropdown-item>
-                    <router-link to="/history">Sách đã mượn</router-link>
+                    <router-link to="/history">Lịch sử mượn</router-link>
                   </el-dropdown-item>
                   <el-dropdown-item>
                     <router-link to="/favorite">Sách yêu thích</router-link>

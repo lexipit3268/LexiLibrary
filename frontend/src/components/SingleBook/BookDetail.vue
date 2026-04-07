@@ -176,7 +176,7 @@
               />
 
               <button
-                @click="handleAddToFavortie(props.book)"
+                @click="handleAddToFavorite(props.book.maSach, props.book.tenSach)"
                 type="button"
                 class="w-14 h-14 border border-amber-900/10 rounded-full flex items-center justify-center cursor-pointer bg-white group hover:bg-red-50 hover:border-red-100 transition-all duration-300 shadow-sm"
               >
@@ -278,7 +278,7 @@
 <script setup>
 import { VueImageZoomer } from 'vue-image-zoomer'
 import 'vue-image-zoomer/dist/style.css'
-import { ElCollapse, ElDivider, ElInputNumber, ElMessage } from 'element-plus'
+import { ElCollapse, ElDivider, ElInputNumber } from 'element-plus'
 import BreadcrumbComponent from '../BreadcrumbComponent.vue'
 import { computed, ref } from 'vue'
 import AddToCartBtn from '../AddToCartBtn.vue'
@@ -289,6 +289,7 @@ import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'vue-router'
 import { Minus, Plus } from '@element-plus/icons-vue'
 import handleAddToCart from '../../../utils/handleAddToCart'
+import handleAddToFavorite from '../../../utils/handleAddToFavorite'
 
 const router = useRouter()
 
@@ -305,14 +306,6 @@ const paragraphs = computed(() => {
 
 const num = ref(1)
 const activeName = ref('1')
-
-const handleAddToFavortie = async (book) => {
-  ElMessage({
-    type: 'success',
-    message: `Đã thêm ${book.tenSach} vào danh sách yêu thích!`,
-    offset: 100,
-  })
-}
 </script>
 
 <style scoped>

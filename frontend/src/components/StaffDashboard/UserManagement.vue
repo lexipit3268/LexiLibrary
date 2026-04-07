@@ -4,10 +4,10 @@
       <div class="flex items-center justify-between mb-8">
         <h3 class="newsreaderFont text-2xl flex items-center gap-3">
           <span class="w-8 h-px bg-(--primary)"></span>
-          Quản trị độc giả
+          Quản lý độc giả
         </h3>
         <div class="flex gap-4 items-center">
-          <p class="text-[10px] uppercase tracking-[0.2em] font-black text-(--subtext-color)">
+          <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-(--subtext-color)">
             Tổng cộng: <span class="text-(--primary)">{{ users.length }}</span> thành viên
           </p>
         </div>

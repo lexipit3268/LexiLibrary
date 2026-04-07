@@ -8,6 +8,7 @@
         class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-300"
       >
         <FontAwesomeIcon
+          @click="handleAddToFavorite(id, title)"
           :icon="faHeart"
           class="h-full w-full p-3 text-white hover:text-(--primary) transition-all duration-200 cursor-pointer"
         />
@@ -64,6 +65,7 @@ import { faCartPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useRouter } from 'vue-router'
 import handleAddToCart from '../../utils/handleAddToCart'
+import handleAddToFavorite from '../../utils/handleAddToFavorite'
 
 const router = useRouter()
 
