@@ -10,7 +10,13 @@
       >
         <div class="flex justify-between items-start">
           <span class="newsreaderFont text-xl text-(--subtext-color)">Kho sách</span>
-          <FontAwesomeIcon :icon="faBook" class="text-(--primary) text-xl" />
+          <ElTooltip content="Xem chi tiết" placement="top">
+            <FontAwesomeIcon
+              :icon="faBook"
+              @click="$router.push('/staff/book')"
+              class="text-(--primary) text-xl cursor-pointer outline-none"
+            />
+          </ElTooltip>
         </div>
         <div class="mt-4">
           <CountUp
@@ -36,7 +42,13 @@
       >
         <div class="flex justify-between items-start">
           <span class="newsreaderFont text-xl text-(--subtext-color)">Đối tác NXB</span>
-          <FontAwesomeIcon :icon="faBuilding" class="text-(--primary) text-xl" />
+          <ElTooltip content="Xem chi tiết" placement="top">
+            <FontAwesomeIcon
+              :icon="faBuilding"
+              @click="$router.push('/staff/publisher')"
+              class="text-(--primary) text-xl cursor-pointer outline-none"
+            />
+          </ElTooltip>
         </div>
         <div class="mt-4">
           <CountUp
@@ -60,7 +72,13 @@
       >
         <div class="flex justify-between items-start">
           <span class="newsreaderFont text-xl text-(--subtext-color)">Độc giả</span>
-          <FontAwesomeIcon :icon="faUsers" class="text-(--primary) text-xl" />
+          <ElTooltip content="Xem chi tiết" placement="top">
+            <FontAwesomeIcon
+              :icon="faUsers"
+              @click="$router.push('/staff/user')"
+              class="text-(--primary) text-xl cursor-pointer outline-none"
+            />
+          </ElTooltip>
         </div>
         <div class="mt-4">
           <CountUp

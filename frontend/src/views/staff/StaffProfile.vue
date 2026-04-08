@@ -215,7 +215,7 @@ import { faCamera, faKey, faGear, faChevronRight, faStar } from '@fortawesome/fr
 import { useAuthStore } from '@/stores/auth'
 import SpotlightCard from '@/components/vuebits/SpotlightCard/SpotlightCard.vue'
 import CountUp from '@/components/vuebits/CountUp/CountUp.vue'
-import axios from 'axios'
+import api from '@/services/api.service'
 
 const authStore = useAuthStore()
 const staff = authStore.user
@@ -243,8 +243,7 @@ const displayFields = computed(() => ({
 }))
 
 onMounted(async () => {
-  const response = await axios.get('http://localhost:3000/api/library/staffs/' + staff.id)
+  const response = await api.get('http://localhost:3000/api/library/staffs/' + staff.id)
   staffData.value = response.data
-  console.log(staffData.value)
 })
 </script>

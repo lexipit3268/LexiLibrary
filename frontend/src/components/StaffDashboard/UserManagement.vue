@@ -26,7 +26,7 @@
               <th class="px-4 pb-4">Ngày vi phạm</th>
               <th class="px-4 pb-4">Điểm số / Giới hạn</th>
               <th class="px-4 pb-4 text-center">Trạng thái</th>
-              <th class="px-4 pb-4 text-right">Điều khiển</th>
+              <th class="px-4 pb-4 text-right">Thao tác</th>
             </tr>
           </thead>
 
