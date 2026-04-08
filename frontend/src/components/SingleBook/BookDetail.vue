@@ -178,11 +178,12 @@
               <button
                 @click="handleAddToFavorite(props.book.maSach, props.book.tenSach)"
                 type="button"
-                class="w-14 h-14 border border-amber-900/10 rounded-full flex items-center justify-center cursor-pointer bg-white group hover:bg-red-50 hover:border-red-100 transition-all duration-300 shadow-sm"
+                class="w-14 h-14 border border-amber-900/10 rounded-full flex items-center justify-center cursor-pointer bg-white group hover:bg-red-50 active:scale-85 hover:border-red-100 transition-all duration-200 shadow-sm"
               >
                 <FontAwesomeIcon
-                  :icon="faHeart"
-                  class="text-gray-400 group-hover:text-red-500 text-lg transition-colors duration-300"
+                  :icon="isFavorite ? faHeartSolid : faHeartRegular"
+                  :class="isFavorite ? 'text-red-500' : 'text-gray-400'"
+                  class="group-hover:text-red-500 text-lg transition-colors duration-300"
                 />
               </button>
             </div>
@@ -284,14 +285,18 @@ import { computed, ref } from 'vue'
 import AddToCartBtn from '../AddToCartBtn.vue'
 import BookTags from '../BookTags.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
+import { faHeartCircleCheck as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'vue-router'
 import { Minus, Plus } from '@element-plus/icons-vue'
 import { handleAddToCart, handleAddToFavorite } from '../../../utils/handleBookInteractions'
+import { useFavoriteStore } from '@/stores/favorite'
 
 const router = useRouter()
+const favoriteStore = useFavoriteStore()
 
+const isFavorite = computed(() => favoriteStore.checkIsFavorite(props.book.maSach))
 const props = defineProps({
   book: Object,
   categories: Array,

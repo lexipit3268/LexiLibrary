@@ -192,9 +192,11 @@ import BookService from '@/services/book.service'
 import categoryService from '@/services/category.service'
 import publisherService from '@/services/publisher.service'
 import TextType from '@/components/vuebits/TextType/TextType.vue'
+import { useFavoriteStore } from '@/stores/favorite'
 
 const route = useRoute()
 const router = useRouter()
+const favoriteStore = useFavoriteStore()
 
 const filters = reactive({
   selectedCategory: '',
@@ -286,6 +288,7 @@ onMounted(async () => {
 
   syncParamsFromUrl()
   await fetchBooks()
+  await favoriteStore.fetchFavorite()
   scrollIntoActive(categoryContainer)
   window.scrollTo(0, 0)
 })

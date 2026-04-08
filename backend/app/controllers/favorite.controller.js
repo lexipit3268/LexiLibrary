@@ -49,6 +49,11 @@ exports.deleteOne = async (req, res, next) => {
     const result = await favoriteService.delete(req.params.id);
 
     if (!result) throw new error();
+    if (result.deletedCount === 0)
+      return next(
+        new ApiError(StatusCodes.NOT_FOUND, 'Not found favorite with id = ' + req.params.id),
+      );
+
     return res.send(result);
   } catch (error) {
     return next(

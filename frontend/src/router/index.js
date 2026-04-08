@@ -71,7 +71,7 @@ const router = createRouter({
           path: 'favorite',
           name: 'favorite-page',
           component: () => import('../views/user/FavoriteView.vue'),
-          meta: { title: 'Sách yêu thích', requiresAuth: true, role: 'user' },
+          meta: { title: 'Danh sách yêu thích', requiresAuth: true, role: 'user' },
         },
         {
           path: 'me',

@@ -1,10 +1,12 @@
 import { useAuthStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
+import { useFavoriteStore } from '@/stores/favorite'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 const cartStore = useCartStore()
 const authStore = useAuthStore()
 const router = useRouter()
+const favoriteStore = useFavoriteStore()
 
 export const handleAddToCart = async (id, title) => {
   if (!authStore.isLoggedIn) {
@@ -41,9 +43,30 @@ export const handleAddToCart = async (id, title) => {
 }
 
 export const handleAddToFavorite = async (id, title) => {
-  ElMessage({
-    type: 'success',
-    message: `Đã thêm "${title}" vào danh sách yêu thích!`,
-    offset: 100,
-  })
+  if (!authStore.isLoggedIn) {
+    ElMessageBox.confirm('Vui lòng đăng nhập để lưu sách yêu thích', 'Yêu cầu đăng nhập', {
+      confirmButtonText: 'Đăng nhập',
+      cancelButtonText: 'Hủy',
+    }).then(() => router.push('/login'))
+    return
+  }
+
+  if (authStore.user.role === 'staff') {
+    ElMessageBox.alert(
+      'Chỉ người dùng thông thường mới có thể thực hiện chức năng này',
+      'Quyền truy cập bị từ chối',
+    )
+    return
+  }
+
+  try {
+    const res = await favoriteStore.toggleFavorite(id)
+    if (res.action === 'added') {
+      ElMessage.success({ message: `Đã thêm "${title}" vào danh sách yêu thích`, offset: 100 })
+    } else {
+      ElMessage.info({ message: `Đã xóa "${title}" khỏi danh sách yêu thích`, offset: 100 })
+    }
+  } catch (error) {
+    ElMessage.error('Không thể thực hiện thao tác này')
+  }
 }
