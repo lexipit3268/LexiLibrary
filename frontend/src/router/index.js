@@ -68,6 +68,12 @@ const router = createRouter({
           meta: { title: 'Lịch sử mượn' },
         },
         {
+          path: 'favorite',
+          name: 'favorite-page',
+          component: () => import('../views/user/FavoriteView.vue'),
+          meta: { title: 'Sách yêu thích', requiresAuth: true, role: 'user' },
+        },
+        {
           path: 'me',
           name: 'user-profile',
           component: () => import('../views/user/UserProfile.vue'),
