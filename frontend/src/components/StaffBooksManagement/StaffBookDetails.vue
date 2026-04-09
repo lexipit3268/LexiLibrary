@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent v-if="isLoading" />
   <div
     class="flex flex-col min-h-[calc(100%-80px)] max-h-150! w-full p-6 bg-(--bg-primary) justify-start"
   >
@@ -118,6 +119,7 @@ import { ElDivider, ElMessage, ElMessageBox, ElTooltip } from 'element-plus'
 import BookTags from '../BookTags.vue'
 import { faArrowLeft, faEye, faPenNib, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import LoadingComponent from '../LoadingComponent.vue'
 
 const props = defineProps({
   maSach: String,
@@ -152,9 +154,10 @@ const paragraphs = computed(() => {
   return book.value.moTa.split('\n').filter((p) => p.trim() !== '')
 })
 
+const isLoading = ref(false)
 const deleteBook = async (maSach) => {
   try {
-    await ElMessageBox.confirm(
+    ElMessageBox.confirm(
       `Hành động này sẽ gỡ bỏ vĩnh viễn sách ${maSach} khỏi hệ thống. Bạn có chắc chắn?`,
       'Xác nhận gỡ bỏ',
       {
@@ -162,14 +165,15 @@ const deleteBook = async (maSach) => {
         cancelButtonText: 'Hủy',
         type: 'warning',
       },
-    )
-
-    const success = await staffStore.removeBook(maSach)
-
-    if (success) {
-      ElMessage.success('Đã xóa sách thành công ' + maSach)
-      router.push('/staff/book')
-    }
+    ).then(async () => {
+      isLoading.value = true
+      const success = await staffStore.removeBook(maSach)
+      if (success) {
+        ElMessage.success('Đã xóa sách thành công ' + maSach)
+        router.push('/staff/book')
+        isLoading.value = false
+      }
+    })
   } catch (error) {
     if (error !== 'cancel') {
       ElMessage.error('Không thể xóa dữ liệu vào lúc này')

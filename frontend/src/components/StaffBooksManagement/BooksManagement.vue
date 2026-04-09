@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent v-if="isLoading" />
   <div class="bg-(--bg-primary) p-6 overflow-y-auto min-h-[calc(100%-80px)]">
     <div class="bg-white p-6 shadow-sm border border-(--primary)/10 flex flex-col min-h-142">
       <div class="flex items-center justify-between mb-6">
@@ -125,6 +126,7 @@ import { ElMessage, ElMessageBox, ElTooltip, ElPagination } from 'element-plus'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import LoadingComponent from '../LoadingComponent.vue'
 
 const staffStore = useStaffStore()
 const { books, publishers } = storeToRefs(staffStore)
@@ -154,9 +156,10 @@ const getPublisherName = (maNXB) => {
   return found ? found.tenNXB : 'NXB không xác định'
 }
 
+const isLoading = ref(false)
 const handleDelete = async (maSach) => {
   try {
-    await ElMessageBox.confirm(
+    ElMessageBox.confirm(
       `Hành động này sẽ gỡ bỏ vĩnh viễn sách ${maSach} khỏi hệ thống. Bạn có chắc chắn?`,
       'Xác nhận gỡ bỏ',
       {
@@ -164,15 +167,18 @@ const handleDelete = async (maSach) => {
         cancelButtonText: 'Hủy',
         type: 'warning',
       },
-    )
+    ).then(async () => {
+      isLoading.value = true
 
-    const success = await staffStore.removeBook(maSach)
-    if (success) {
-      ElMessage.success(`Đã gỡ bỏ thành công tác phẩm mã ${maSach}`)
-      if (paginatedBooks.value.length === 0 && currentPage.value > 1) {
-        currentPage.value--
+      const success = await staffStore.removeBook(maSach)
+      if (success) {
+        ElMessage.success(`Đã gỡ bỏ thành công tác phẩm mã ${maSach}`)
+        if (paginatedBooks.value.length === 0 && currentPage.value > 1) {
+          currentPage.value--
+        }
+        isLoading.value = false
       }
-    }
+    })
   } catch (error) {
     if (error !== 'cancel') {
       ElMessage.error('Xảy ra lỗi trong quá trình xử lý dữ liệu!')

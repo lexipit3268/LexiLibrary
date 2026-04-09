@@ -161,6 +161,8 @@ exports.update = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
   try {
     const bookService = new BookService(MongoDB.client);
+    const book = await bookService.findById(req.params.id);
+    await CloudinaryUtil.deleteImage(book.publicImgId);
     const result = await bookService.delete(req.params.id);
     if (!result)
       return next(new ApiError(StatusCodes.NOT_FOUND, `Not found book with id = ${req.params.id}`));
