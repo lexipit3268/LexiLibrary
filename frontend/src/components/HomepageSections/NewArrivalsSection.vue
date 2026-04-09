@@ -43,7 +43,6 @@ const books = ref([])
 onMounted(async () => {
   const data = await BookService.getBooks()
   books.value = data.slice(-10)
-  console.log(books.value)
 })
 
 const splideOptions = {

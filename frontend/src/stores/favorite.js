@@ -37,5 +37,14 @@ export const useFavoriteStore = defineStore('favorite', () => {
     }
   }
 
-  return { favoriteItems, fetchFavorite, checkIsFavorite, toggleFavorite }
+  const clearAllFav = async () => {
+    try {
+      await favoriteService.deleteAll()
+      favoriteItems.value = []
+    } catch (error) {
+      console.error('Lỗi clear all favorite:', error)
+    }
+  }
+
+  return { favoriteItems, fetchFavorite, checkIsFavorite, toggleFavorite, clearAllFav }
 })

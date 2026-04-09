@@ -305,7 +305,7 @@ const updateAllChanges = async () => {
       })
     }
     isCountChanging.value = false
-    ElMessage.success('Đã lưu tất cả thay đổi')
+    ElMessage.success({ message: 'Đã lưu tất cả thay đổi', offset: 100 })
   } catch (e) {
     ElMessage.error('Có lỗi khi cập nhật giỏ hàng: ' + e)
   }
@@ -320,7 +320,7 @@ const removeItem = async (id) => {
     })
     await cartStore.removeFromCart(id)
     await cartStore.fetchCart(authStore.user.code)
-    ElMessage.success('Đã cập nhật giỏ hàng')
+    ElMessage.success({ message: 'Đã cập nhật giỏ hàng', offset: 100 })
   } catch (e) {
     ElMessage.error('Có lỗi khi cập nhật giỏ hàng: ' + e)
   }

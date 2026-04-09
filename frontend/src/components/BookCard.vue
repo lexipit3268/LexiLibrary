@@ -4,20 +4,10 @@
   >
     <!-- hover menu -->
     <div class="absolute top-6 right-0 z-10 flex flex-col gap-1">
-      <!-- <div
-        class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-300"
-      >
-        <FontAwesomeIcon
-          @click="handleAddToFavorite(id, title)"
-          :icon="isFavorite ? faHeartSolid : faHeartRegular"
-          class="h-full w-full p-3 text-white hover:text-(--primary) transition-all duration-200 cursor-pointer"
-        />
-      </div> -->
-
       <ClickSpark
         spark-color="#9d674e"
-        :spark-size="12"
-        :spark-radius="25"
+        :spark-size="8"
+        :spark-radius="20"
         :spark-count="8"
         :duration="600"
         easing="ease-out"
@@ -86,7 +76,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useRouter } from 'vue-router'
 import { handleAddToCart, handleAddToFavorite } from '../../utils/handleBookInteractions'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useFavoriteStore } from '@/stores/favorite'
 import ClickSpark from './vuebits/ClickSpark/ClickSpark.vue'
 
@@ -102,4 +92,8 @@ const { id, title, author, price, image } = defineProps({
 })
 
 const isFavorite = computed(() => favoriteStore.checkIsFavorite(id))
+
+onMounted(async () => {
+  await favoriteStore.fetchFavorite()
+})
 </script>
