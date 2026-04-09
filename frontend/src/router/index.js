@@ -16,7 +16,7 @@ const router = createRouter({
         {
           path: '',
           name: 'home-page',
-          component: () => import('../views/user/HomePage.vue'),
+          component: () => import('../views/HomePage.vue'),
         },
         {
           path: 'book',
@@ -24,14 +24,14 @@ const router = createRouter({
             {
               path: '',
               name: 'book-page',
-              component: () => import('../views/user/BookView.vue'),
+              component: () => import('../views/BookView.vue'),
               meta: { title: 'Sách - LexiLibrary' },
             },
             {
               path: ':id', //   /book/:id
               name: 'single-book',
               props: true,
-              component: () => import('../views/user/SingleBook.vue'),
+              component: () => import('../views/SingleBook.vue'),
               meta: { title: 'Sách - LexiLibrary' },
             },
           ],
@@ -73,6 +73,7 @@ const router = createRouter({
           component: () => import('../views/user/FavoriteView.vue'),
           meta: { title: 'Danh sách yêu thích', requiresAuth: true, role: 'user' },
         },
+        { path: 'contact', name: 'contact-us', component: () => import('../views/ContactUs.vue') },
         {
           path: 'me',
           name: 'user-profile',

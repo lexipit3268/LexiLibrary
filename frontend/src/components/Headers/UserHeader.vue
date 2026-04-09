@@ -19,7 +19,7 @@
           <router-link to="/history" class="isActive">Lịch sử</router-link>
         </div>
         <div>
-          <a href="#">Liên hệ</a>
+          <router-link to="/contact" class="isActive">Liên hệ</router-link>
         </div>
       </nav>
 
