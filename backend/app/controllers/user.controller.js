@@ -25,6 +25,7 @@ exports.register = async (req, res, next) => {
       publicAvtId: req.body.puclicAvtId || null,
       isActive: req.body.isActive || true,
       ngayViPham: req.body.ngayViPham || null,
+      diemUyTin: req.body.diemUyTin || 10,
     };
 
     const newUser = await userService.create(payload);

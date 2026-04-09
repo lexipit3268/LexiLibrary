@@ -19,7 +19,7 @@ class UserService {
       publicAvtId: payload.publicAvtId,
       gioiHanMuon: payload.gioiHanMuon || 5,
       isActive: payload.isActive,
-      diemUyTin: payload.diemUyTin || 10,
+      diemUyTin: payload.diemUyTin,
       ngayViPham: payload.ngayViPham,
     };
 
