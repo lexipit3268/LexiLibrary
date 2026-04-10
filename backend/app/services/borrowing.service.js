@@ -120,6 +120,9 @@ class Borrowing {
     const currentBorrowing = await this.Borrowing.findOne({ maPhieu: id });
     if (!currentBorrowing) return null;
 
+    const restockStatus = ['DaTra', 'TuChoi', 'DaHuy'];
+    if (restockStatus.includes(currentBorrowing.trangThai)) throw new Error('CANNOT_CHANGE');
+
     const updateData = {};
     if (payload.trangThai) updateData.trangThai = payload.trangThai;
 
@@ -136,7 +139,6 @@ class Borrowing {
       updateData.ngayTra = null;
     }
 
-    const restockStatus = ['DaTra', 'TuChoi', 'DaHuy'];
     if (
       restockStatus.includes(updateData.trangThai) &&
       !restockStatus.includes(currentBorrowing.trangThai)

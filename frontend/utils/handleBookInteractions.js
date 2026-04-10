@@ -8,7 +8,7 @@ const authStore = useAuthStore()
 const router = useRouter()
 const favoriteStore = useFavoriteStore()
 
-export const handleAddToCart = async (id, title) => {
+export const handleAddToCart = async (id, title, quantity) => {
   if (!authStore.isLoggedIn) {
     ElMessageBox.confirm(`Vui lòng đăng nhập để thực hiện chức năng này`, 'Yêu cầu đăng nhập', {
       confirmButtonText: 'Đăng nhập',
@@ -26,7 +26,10 @@ export const handleAddToCart = async (id, title) => {
   }
 
   const maDocGia = authStore.user.code
-  const response = await cartStore.addToCart({ maSach: id, maDocGia: maDocGia, soLuong: 1 })
+  let soLuong = 1
+  if (quantity) soLuong = quantity
+
+  const response = await cartStore.addToCart({ maSach: id, maDocGia: maDocGia, soLuong: soLuong })
   if (response.status == 200) {
     ElMessage({
       message: `Đã thêm sách "${title}" vào giỏ`,

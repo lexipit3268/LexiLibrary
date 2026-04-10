@@ -154,6 +154,13 @@
             </div>
           </div>
         </div>
+        <button
+          @click="onReborrow(borrowing)"
+          class="absolute cursor-pointer -top-4 right-10 bg-(--secondary) text-white px-5 py-2.5 text-[10px] uppercase font-semibold tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-all duration-500 shadow-xl hover:bg-(--primary) flex items-center gap-2 z-20"
+        >
+          <FontAwesomeIcon :icon="faRotateLeft" class="text-[9px]" />
+          Tái mượn tác phẩm
+        </button>
       </div>
     </div>
     <EmptyView v-else title="Lịch sử trống" description="Chưa có phiếu mượn nào" />
@@ -168,7 +175,10 @@ import { useBorrowingStore } from '@/stores/borrowing'
 import { ElMessageBox, ElMessage, ElTooltip } from 'element-plus'
 import BreadcrumbComponent from '@/components/BreadcrumbComponent.vue'
 import EmptyView from '@/components/EmptyView.vue'
+import { handleAddToCart } from '../../../utils/handleBookInteractions'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const borrowingStore = useBorrowingStore()
 const authStore = useAuthStore()
 
@@ -219,6 +229,14 @@ const handleCancel = async (maPhieu) => {
     if (success) ElMessage.success('Đã hủy phiếu thành công')
   } catch (e) {
     if (e !== 'cancel') ElMessage.error('Lỗi hệ thống')
+  }
+}
+
+const onReborrow = async (borrowing) => {
+  await handleAddToCart(borrowing.maSach, borrowing.bookDetails?.tenSach, borrowing.soLuong)
+
+  if (authStore.isLoggedIn && authStore.userRole === 'user') {
+    router.push('/cart')
   }
 }
 

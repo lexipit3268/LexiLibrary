@@ -100,6 +100,11 @@ exports.update = async (req, res, next) => {
       return next(new ApiError(StatusCodes.NOT_FOUND, 'Not found borrowing with id = ' + maPhieu));
     return res.send(result);
   } catch (error) {
+    if (error.message === 'CANNOT_CHANGE')
+      return next(
+        new ApiError(StatusCodes.CONFLICT, "The current borrowing's status cannot be changed"),
+      );
+
     return next(
       new ApiError(
         StatusCodes.INTERNAL_SERVER_ERROR,

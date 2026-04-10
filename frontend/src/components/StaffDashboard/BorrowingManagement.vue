@@ -117,7 +117,11 @@
 
               <td class="px-4 py-4 text-right">
                 <el-dropdown
-                  v-if="borrowing.trangThai !== 'DaHuy' && borrowing.trangThai !== 'DaTra'"
+                  v-if="
+                    borrowing.trangThai !== 'DaHuy' &&
+                    borrowing.trangThai !== 'DaTra' &&
+                    borrowing.trangThai !== 'TuChoi'
+                  "
                   trigger="click"
                   @command="(cmd) => handleStatusChange(borrowing, cmd)"
                 >
