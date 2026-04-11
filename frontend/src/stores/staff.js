@@ -53,5 +53,24 @@ export const useStaffStore = defineStore('staff', () => {
     }
   }
 
-  return { books, publishers, users, categories, removeBook, isLoading, error, fetchAllData }
+  const getCategoryStats = async () => {
+    try {
+      return await bookService.getByCategory()
+    } catch (error) {
+      console.error('Lỗi khi lấy sách theo thể loại', error)
+      throw error
+    }
+  }
+
+  return {
+    books,
+    publishers,
+    users,
+    categories,
+    removeBook,
+    isLoading,
+    error,
+    fetchAllData,
+    getCategoryStats,
+  }
 })

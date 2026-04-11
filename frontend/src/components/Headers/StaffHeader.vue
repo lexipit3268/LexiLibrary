@@ -31,6 +31,8 @@
         Lịch sử mượn
       </h3>
 
+      <h3 class="text-2xl font-semibold" v-else-if="route.name === 'analytics-page'">Thống kê</h3>
+
       <h3 class="text-2xl font-semibold" v-else-if="route.name === 'staff-profile'">
         Thông tin cá nhân
       </h3>

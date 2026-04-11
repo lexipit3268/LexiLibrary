@@ -8,6 +8,7 @@ import {
   faPeopleRoof,
   faUser,
   faUsers,
+  faChartSimple,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useAuthStore } from '@/stores/auth'
@@ -47,7 +48,7 @@ const handleLogout = () => {
         <div class="flex flex-col gap-1.5">
           <router-link to="/staff" v-slot="{ isExactActive, navigate }">
             <div @click="navigate" :class="['nav-item', isExactActive ? 'active' : '']">
-              <FontAwesomeIcon :icon="faChartBar" class="w-5" />
+              <FontAwesomeIcon :icon="faChartSimple" class="w-5" />
               <p>Bảng điều khiển</p>
             </div>
           </router-link>
@@ -76,6 +77,12 @@ const handleLogout = () => {
             <div @click="navigate" :class="['nav-item', isExactActive ? 'active' : '']">
               <FontAwesomeIcon :icon="faClockRotateLeft" class="w-5" />
               <p>Lịch sử mượn</p>
+            </div>
+          </router-link>
+          <router-link to="/staff/analytics" v-slot="{ isExactActive, navigate }">
+            <div @click="navigate" :class="['nav-item', isExactActive ? 'active' : '']">
+              <FontAwesomeIcon :icon="faChartBar" class="w-5" />
+              <p>Thống kê</p>
             </div>
           </router-link>
         </div>

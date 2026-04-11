@@ -132,3 +132,19 @@ exports.delete = async (req, res, next) => {
     );
   }
 };
+
+exports.getByStatus = async (req, res, next) => {
+  try {
+    const borrowingService = new BorrowingService(MongoDB.client);
+    const documents = await borrowingService.getByStatus();
+    if (!documents) return next(new ApiError(StatusCodes.NOT_FOUND, 'Not found any borrowings'));
+    return res.send(documents);
+  } catch (error) {
+    return next(
+      new ApiError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'An error occurred while retrieving borrowings by status: ' + error,
+      ),
+    );
+  }
+};

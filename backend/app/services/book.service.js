@@ -24,6 +24,7 @@ class Book {
     Object.keys(book).forEach((key) => book[key] === undefined && delete book[key]);
     return book;
   }
+
   async find(filter, sort = {}) {
     const cursor = await this.Book.find(filter).sort(sort);
     return cursor.toArray();
@@ -37,6 +38,29 @@ class Book {
       { returnDocument: 'after', upsert: true },
     );
     return result;
+  }
+
+  async getByCategory() {
+    const cursor = await this.Book.aggregate([
+      { $unwind: '$maTheLoai' },
+      {
+        $lookup: {
+          from: 'TheLoai',
+          localField: 'maTheLoai',
+          foreignField: 'maTheLoai',
+          as: 'info',
+        },
+      },
+      { $unwind: '$info' },
+      {
+        $group: {
+          _id: '$info.tenTheLoai', // nhom theo ten the loai
+          count: { $sum: 1 },
+        },
+      },
+      { $sort: { count: -1 } },
+    ]);
+    return cursor.toArray();
   }
 
   async findById(id) {

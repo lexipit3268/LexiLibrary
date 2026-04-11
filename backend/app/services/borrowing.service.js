@@ -80,6 +80,13 @@ class Borrowing {
     return await this.Borrowing.aggregate(pipeline).toArray();
   }
 
+  async getByStatus() {
+    const cursor = await this.Borrowing.aggregate([
+      { $group: { _id: '$trangThai', count: { $sum: 1 } } },
+    ]);
+    return cursor.toArray();
+  }
+
   async create(payload) {
     const borrowing = this.extractBorrowingData(payload);
     borrowing.maPhieu = await this.generateMaPhieu();

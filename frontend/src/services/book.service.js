@@ -41,6 +41,11 @@ class BookService {
   async deleteBook(maSach) {
     return await handleRequest(api.delete(`${RESOURCE}${maSach}`))
   }
+
+  async getByCategory() {
+    const result = await handleRequest(api.get(`${RESOURCE}get-by-category`))
+    return result.data
+  }
 }
 
 export default new BookService()

@@ -9,6 +9,8 @@ router
   .post(borrowingController.create)
   .delete(verifyToken, isStaff, borrowingController.deleteAll);
 
+router.route('/get-by-status').get(borrowingController.getByStatus);
+
 router
   .route('/:id')
   .get(borrowingController.findOne)

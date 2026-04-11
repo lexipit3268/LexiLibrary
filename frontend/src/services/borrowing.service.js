@@ -30,6 +30,11 @@ class BorrowingService {
     const result = await handleRequest(api.post(`${RESOURCE}${maPhieu}`, payload))
     return result.data
   }
+
+  async getByStatus() {
+    const result = await handleRequest(api.get(`${RESOURCE}get-by-status`))
+    return result.data
+  }
 }
 
 export default new BorrowingService()

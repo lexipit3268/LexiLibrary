@@ -168,6 +168,11 @@ const router = createRouter({
           meta: { title: 'Quản lý mượn trả' },
         },
         {
+          path: 'analytics',
+          name: 'analytics-page',
+          component: () => import('../components/StaffDashboard/AnalyticsPage.vue'),
+        },
+        {
           path: 'me',
           name: 'staff-profile',
           component: () => import('../views/staff/StaffProfile.vue'),

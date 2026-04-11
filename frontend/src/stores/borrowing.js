@@ -42,6 +42,14 @@ export const useBorrowingStore = defineStore('borrowing', () => {
     borrowings.value = []
   }
 
+  const getStatusStats = async () => {
+    try {
+      return await borrowingService.getByStatus()
+    } catch (error) {
+      console.log('Lỗi khi lấy tống kết phiếu mượn theo trạng thái: ' + error)
+    }
+  }
+
   return {
     borrowings,
     isLoading,
@@ -49,5 +57,6 @@ export const useBorrowingStore = defineStore('borrowing', () => {
     fetchBorrowings,
     updateStatus,
     resetBorrowingsWhenLogout,
+    getStatusStats,
   }
 })

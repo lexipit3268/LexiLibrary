@@ -12,6 +12,8 @@ router
 
 router.route('/upload-cover').post(uploadCloud.single('image'), bookController.uploadCover);
 
+router.route('/get-by-category').get(verifyToken, isStaff, bookController.getByCategory);
+
 router
   .route('/:id')
   .get(bookController.findOne)

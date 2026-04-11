@@ -176,3 +176,19 @@ exports.delete = async (req, res, next) => {
     );
   }
 };
+
+exports.getByCategory = async (req, res, next) => {
+  try {
+    const bookService = new BookService(MongoDB.client);
+    const documents = await bookService.getByCategory();
+    if (!documents) return next(new ApiError(StatusCodes.NOT_FOUND, 'Not found any books'));
+    return res.send(documents);
+  } catch (error) {
+    return next(
+      new ApiError(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'An error occurred while retrieving books by category: ' + error,
+      ),
+    );
+  }
+};
