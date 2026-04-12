@@ -272,7 +272,12 @@
           </div>
         </div>
       </div>
-      <EmptyView v-else title="Danh sách giỏ mượn trống..." description="Chưa có sách" />
+      <EmptyView
+        v-else
+        title="Danh sách giỏ mượn trống..."
+        description="Chưa có sách"
+        advise="Bạn cần đăng nhập để thêm sách vào giỏ"
+      />
     </div>
   </div>
 </template>

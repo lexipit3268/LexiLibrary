@@ -163,7 +163,12 @@
         </button>
       </div>
     </div>
-    <EmptyView v-else title="Lịch sử trống" description="Chưa có phiếu mượn nào" />
+    <EmptyView
+      v-else
+      title="Lịch sử trống"
+      description="Chưa có phiếu mượn nào"
+      advise="Bạn cần đăng nhập để xem lịch sử mượn"
+    />
   </div>
 </template>
 

@@ -23,7 +23,7 @@
     </div>
     <div v-else>
       <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">
-        Bạn cần đăng nhập để thêm sách vào giỏ
+        {{ advise }}
       </h2>
       <button
         @click="$router.push('/login')"
@@ -39,6 +39,7 @@ import { useAuthStore } from '@/stores/auth'
 const { title, description } = defineProps({
   title: String,
   description: String,
+  advise: String,
 })
 const authStore = useAuthStore()
 </script>
