@@ -67,8 +67,15 @@ exports.create = async (req, res, next) => {
     return next(new ApiError(StatusCodes.BAD_REQUEST, 'tenSach cannot be empty'));
   }
 
+  if (!req.body.maSach.startsWith('S'))
+    return next(new ApiError(StatusCodes.BAD_REQUEST, "maSach must be started with 'S'"));
   try {
     const bookService = new BookService(MongoDB.client);
+    const existingBook = await bookService.findById(req.body.maSach);
+    if (existingBook)
+      return next(
+        new ApiError(StatusCodes.BAD_REQUEST, 'Existing book with maSach = ' + req.body.maSach),
+      );
     const document = await bookService.create(req.body);
     return res.send(document);
   } catch (error) {

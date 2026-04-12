@@ -22,13 +22,13 @@ class BorrowingService {
   async create(payload) {
     if (!payload.maDocGia || !payload.maSach || !payload.ngayCanTra) return null
     const result = await handleRequest(api.post(RESOURCE, payload))
-    return result.data
+    return result
   }
 
   async update(maPhieu, payload) {
     if (!maPhieu || !payload.trangThai) return null
     const result = await handleRequest(api.post(`${RESOURCE}${maPhieu}`, payload))
-    return result.data
+    return result
   }
 
   async getByStatus() {

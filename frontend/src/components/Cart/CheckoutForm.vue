@@ -161,15 +161,17 @@ import borrowingService from '@/services/borrowing.service'
 import dayjs from 'dayjs'
 import { getToday } from '../../../utils/formatDate'
 import LoadingComponent from '../LoadingComponent.vue'
+import { useBorrowingStore } from '@/stores/borrowing'
 
 const authStore = useAuthStore()
 const cartStore = useCartStore()
+const borrowingStore = useBorrowingStore()
+
 const router = useRouter()
 
 const isProcessing = ref(false)
 const cartItems = computed(() => cartStore.cartItems)
 
-//  { item_id: [ngayMuon, ngayCanTra] }
 const dates = reactive({})
 const today = getToday()
 const twoWeeksLater = dayjs().add(14, 'day').format('YYYY-MM-DD')
@@ -186,17 +188,30 @@ const validateAllDates = () => {
   for (const item of cartItems.value) {
     const selectedDates = dates[item._id]
 
-    if (!selectedDates || selectedDates[0] < today) {
-      ElMessage.error({
-        message: `Ngày mượn của "${item.bookDetails?.tenSach}" không được nhỏ hơn hôm nay`,
-        offset: 100,
-      })
+    if (!selectedDates || !selectedDates[0] || !selectedDates[1]) {
+      ElMessage.error(`Vui lòng chọn đầy đủ ngày mượn/trả cho "${item.bookDetails?.tenSach}"`)
       return false
     }
 
-    if (selectedDates[1] > twoWeeksLater) {
+    const start = dayjs(selectedDates[0])
+    const end = dayjs(selectedDates[1])
+    const currentToday = dayjs(today)
+
+    if (start.isBefore(currentToday, 'day')) {
+      ElMessage.error(`Ngày mượn của "${item.bookDetails?.tenSach}" không được nhỏ hơn hôm nay`)
+      return false
+    }
+
+    if (end.isBefore(start, 'day')) {
+      ElMessage.error(`Ngày trả của "${item.bookDetails?.tenSach}" không thể trước ngày mượn`)
+      return false
+    }
+
+    const duration = end.diff(start, 'day')
+
+    if (duration > 14) {
       ElMessage.error({
-        message: `Hạn trả của "${item.bookDetails?.tenSach}" không được quá 2 tuần`,
+        message: `Tác phẩm "${item.bookDetails?.tenSach}" chỉ được mượn tối đa 14 ngày (Hiện tại: ${duration} ngày)`,
         offset: 100,
       })
       return false
@@ -207,6 +222,22 @@ const validateAllDates = () => {
 
 const handleCreateBorrowing = async () => {
   if (!validateAllDates()) return
+  if (borrowingStore.activeCount == 5) {
+    ElMessage.error({
+      message: `Bạn đã đạt giới hạn mượn sách. Hãy hoàn thành việc mượn để tiếp tục khám phá thêm sách mới!`,
+      offset: 100,
+    })
+    return
+  }
+
+  if (cartStore.totalQuantity > 5) {
+    ElMessage.error({
+      message: `Tổng số lượng sách mượn (${cartStore.totalQuantity}) vượt quá giới hạn 5 quyển. Vui lòng điều chỉnh lại giỏ mượn.`,
+      offset: 100,
+    })
+    return
+  }
+
   if (!authStore.user.isActive) {
     ElMessageBox.alert(
       'Tài khoản của bạn đang bị khóa nên không thể thực hiện hành động này. Vui lòng thử lại sau.',
@@ -291,6 +322,7 @@ const removeItem = async (id) => {
 onMounted(async () => {
   if (authStore.user?.code) {
     await cartStore.fetchCart(authStore.user.code)
+    await borrowingStore.fetchBorrowings(authStore.user.code)
     initDates()
   }
 })

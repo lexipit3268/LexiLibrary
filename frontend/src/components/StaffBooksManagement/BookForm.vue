@@ -239,8 +239,8 @@ const handleImageChange = (file) => {
 const isLoading = ref(false)
 
 const handleSave = async () => {
-  if (!book.tenSach || !book.maSach) {
-    ElMessage.warning('Vui lòng điền đầy đủ thông tin')
+  if (!book.tenSach || !book.maSach || !book.maNXB) {
+    ElMessage.warning({ message: 'Vui lòng điền đầy đủ thông tin', offset: 100 })
     return
   }
 
@@ -258,8 +258,8 @@ const handleSave = async () => {
       await bookService.updateBook(book.maSach, book)
       ElMessage.success('Đã cập nhật dữ liệu sách thành công')
     } else {
-      await bookService.createBook(book)
-      await staffStore.fetchAllData()
+      const result = await bookService.createBook(book)
+      if (!result) return
       ElMessage.success('Đã thêm sách mới vào hệ thống')
     }
 

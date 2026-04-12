@@ -171,7 +171,7 @@
 
               <AddToCartBtn
                 :book="props.book"
-                @add-to-cart="handleAddToCart(props.book.maSach, props.book.tenSach)"
+                @add-to-cart="handleAddToCart(props.book.maSach, props.book.tenSach, num)"
                 class="transform hover:scale-[1.02] transition-transform active:scale-95"
               />
 
