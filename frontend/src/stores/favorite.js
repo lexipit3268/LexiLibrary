@@ -1,14 +1,18 @@
 import { defineStore } from 'pinia'
 import favoriteService from '@/services/favorite.service'
 import { ref } from 'vue'
+import { useAuthStore } from './auth'
 
 export const useFavoriteStore = defineStore('favorite', () => {
   const favoriteItems = ref([])
 
   const fetchFavorite = async () => {
     try {
-      const response = await favoriteService.getFavorites()
-      favoriteItems.value = response || []
+      const authStore = useAuthStore()
+      if (authStore.user) {
+        const response = await favoriteService.getFavorites()
+        favoriteItems.value = response || []
+      }
     } catch (error) {
       console.error('Lỗi khi tải danh sách yêu thích:', error)
     }
