@@ -43,6 +43,11 @@ exports.create = async (req, res, next) => {
     if (error.message === 'OUT_OF_STOCK') {
       return next(new ApiError(StatusCodes.BAD_REQUEST, 'This book is out of stock'));
     }
+
+    if (error.message === 'OUT_OF_CAPACITY') {
+      return next(new ApiError(StatusCodes.BAD_REQUEST, 'This book is out of capacity'));
+    }
+
     if (error.message === 'INACTIVE_ACCOUNT') {
       return next(new ApiError(StatusCodes.BAD_REQUEST, 'Your account is being locked'));
     }

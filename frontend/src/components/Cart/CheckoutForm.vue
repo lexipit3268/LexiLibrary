@@ -157,11 +157,11 @@ import { useCartStore } from '@/stores/cart'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import { ElDatePicker, ElMessage, ElMessageBox } from 'element-plus'
-import borrowingService from '@/services/borrowing.service'
 import dayjs from 'dayjs'
 import { getToday } from '../../../utils/formatDate'
 import LoadingComponent from '../LoadingComponent.vue'
 import { useBorrowingStore } from '@/stores/borrowing'
+import borrowingService from '@/services/borrowing.service'
 
 const authStore = useAuthStore()
 const cartStore = useCartStore()
@@ -264,7 +264,6 @@ const handleCreateBorrowing = async () => {
         ngayMuon: selectedDates[0],
         ngayCanTra: selectedDates[1],
       }
-
       await borrowingService.create(payload)
     }
 
@@ -282,6 +281,10 @@ const handleCreateBorrowing = async () => {
 
       if (errResponse && String(errResponse).includes('limit')) {
         errMsg = 'Việc mượn này sẽ vượt quá giới hạn 5 quyển sách'
+      }
+
+      if (errResponse && String(errResponse).includes('capacity')) {
+        errMsg = 'Số lượng tồn kho không đủ để thực hiện yêu cầu của bạn'
       }
 
       ElMessage.error({ message: errMsg, offset: 100 })

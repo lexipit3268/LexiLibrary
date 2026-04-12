@@ -160,6 +160,7 @@
               :author="book.tacGia"
               :price="book.donGia"
               :image="book.hinhAnh"
+              :quantity="book.soQuyen"
             />
           </div>
         </div>

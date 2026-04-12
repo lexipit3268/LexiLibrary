@@ -22,6 +22,16 @@ export const useBorrowingStore = defineStore('borrowing', () => {
     }
   }
 
+  const createBorrowing = async (payload) => {
+    try {
+      const res = await borrowingService.create(payload)
+      return res
+    } catch (error) {
+      console.log('Lỗi khi tạo: ' + error)
+      return null
+    }
+  }
+
   const updateStatus = async (maPhieu, payload) => {
     try {
       const response = await borrowingService.update(maPhieu, payload)
@@ -35,6 +45,7 @@ export const useBorrowingStore = defineStore('borrowing', () => {
       return response
     } catch (error) {
       console.log('Lỗi khi cập nhật: ' + error)
+      return null
     }
   }
 
@@ -58,5 +69,6 @@ export const useBorrowingStore = defineStore('borrowing', () => {
     updateStatus,
     resetBorrowingsWhenLogout,
     getStatusStats,
+    createBorrowing,
   }
 })

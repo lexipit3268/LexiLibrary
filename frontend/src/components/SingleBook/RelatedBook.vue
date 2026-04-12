@@ -43,6 +43,7 @@
             :author="book.tacGia"
             :image="book.hinhAnh"
             :price="book.donGia"
+            :quantity="book.soQuyen"
           />
         </div>
       </ElCarouselItem>

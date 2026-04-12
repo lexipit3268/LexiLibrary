@@ -54,6 +54,7 @@
           :title="item.bookDetails.tenSach"
           :image="item.bookDetails.hinhAnh"
           :price="item.bookDetails.donGia"
+          :quantity="item.bookDetails.soQuyen"
         />
       </div>
     </div>
@@ -77,15 +78,37 @@ const cartStore = useCartStore()
 const data = computed(() => favoriteStore.favoriteItems)
 
 const isLoading = ref(false)
-const handleAddAllToCard = async () => {
-  isLoading.value = true
-  favoriteStore.favoriteItems.forEach(async (fav) => {
-    console.log(fav)
-    await cartStore.addToCart({ maSach: fav.maSach, maDocGia: fav.maDocGia })
-  })
-  isLoading.value = false
 
-  ElMessage.success({ message: 'Đã thêm toàn bộ vào giỏ mượn', offset: 100 })
+const handleAddAllToCard = async () => {
+  try {
+    isLoading.value = true
+
+    const inStock = favoriteStore.favoriteItems.filter((fav) => fav.bookDetails.soQuyen > 0)
+    const outOfStock = favoriteStore.favoriteItems.filter((fav) => fav.bookDetails.soQuyen <= 0)
+
+    if (inStock.length === 0 && outOfStock.length > 0) {
+      throw new Error('Tất cả tác phẩm bạn chọn đều đã hết sách!')
+    }
+
+    for (const fav of inStock) {
+      await cartStore.addToCart({ maSach: fav.maSach, maDocGia: fav.maDocGia })
+    }
+
+    if (outOfStock.length > 0) {
+      const titles = outOfStock.map((i) => i.bookDetails.tenSach).join(', ')
+      ElMessage.warning({
+        message: `Đã thêm ${inStock.length} cuốn. Còn các cuốn sau hết hàng: ${titles}`,
+        duration: 2000,
+        offset: 100,
+      })
+    } else {
+      ElMessage.success('Đã thêm toàn bộ vào giỏ!')
+    }
+  } catch (error) {
+    ElMessage.error(error.message)
+  } finally {
+    isLoading.value = false
+  }
 }
 
 const handleClearAll = async () => {

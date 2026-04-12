@@ -115,7 +115,7 @@
                   <span
                     v-else
                     class="px-2 py-0.5 bg-red-50 text-red-600 text-[14px] border border-red-200"
-                    >Hết lượt mượn</span
+                    >Không</span
                   >
                 </div>
               </div>
@@ -170,6 +170,7 @@
               </ElInputNumber>
 
               <AddToCartBtn
+                v-if="props.book.soQuyen > 0"
                 :book="props.book"
                 @add-to-cart="handleAddToCart(props.book.maSach, props.book.tenSach, num)"
                 class="transform hover:scale-[1.02] transition-transform active:scale-95"

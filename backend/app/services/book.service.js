@@ -91,11 +91,6 @@ class Book {
     return result;
   }
 
-  async isAvailable(id) {
-    const book = await this.Book.findOne({ maSach: id }, { projection: { soQuyen: 1 } });
-    return book && book.soQuyen > 0;
-  }
-
   async delete(id) {
     if (!id) return null;
     const result = await this.Book.deleteOne({ maSach: id });

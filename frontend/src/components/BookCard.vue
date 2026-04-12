@@ -23,6 +23,7 @@
       <div
         class="flex items-center justify-center bg-(--primary) border border-(--primary) hover:bg-white h-fit w-fit aspect-square text-lg opacity-0 group-hover:opacity-100 translate-x-10 group-hover:translate-x-0 transition-all duration-500"
         @click="handleAddToCart(id, title)"
+        v-if="quantity > 0"
       >
         <FontAwesomeIcon
           :icon="faCartPlus"
@@ -89,6 +90,7 @@ const { id, title, author, price, image } = defineProps({
   author: String,
   price: Number,
   image: String,
+  quantity: Number,
 })
 
 const isFavorite = computed(() => favoriteStore.checkIsFavorite(id))

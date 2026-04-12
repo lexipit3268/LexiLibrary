@@ -9,6 +9,7 @@ const handleRequest = async (request) => {
     if (error.response && error.response.data) {
       const serverMessage = error.response.data.message
       console.log('Lỗi từ Backend:', serverMessage)
+      throw error
     } else {
       ElMessage.error('Có lỗi xảy ra, vui lòng thử lại sau')
     }

@@ -15,6 +15,7 @@
               :author="book.tacGia"
               :price="book.donGia"
               :image="book.hinhAnh"
+              :quantity="book.soQuyen"
             />
           </SplideSlide>
         </Splide>

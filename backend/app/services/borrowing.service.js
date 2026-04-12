@@ -91,9 +91,14 @@ class Borrowing {
     const borrowing = this.extractBorrowingData(payload);
     borrowing.maPhieu = await this.generateMaPhieu();
 
-    const isBookAvailable = await this.bookService.isAvailable(borrowing.maSach);
-    if (!isBookAvailable) {
+    const book = await this.bookService.findById(borrowing.maSach);
+
+    if (!book || book.soQuyen <= 0) {
       throw new Error('OUT_OF_STOCK');
+    }
+
+    if (borrowing.soLuong > book.soQuyen) {
+      throw new Error('OUT_OF_CAPACITY');
     }
 
     const activeBorrowings = await this.Borrowing.find({
