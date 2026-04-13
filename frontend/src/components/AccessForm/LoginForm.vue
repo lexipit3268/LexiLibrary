@@ -52,8 +52,7 @@ const handleLogin = async () => {
       }
     }
   } catch (error) {
-    const message =
-      error.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.'
+    const message = 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.'
     ElMessage.error(message)
     console.error('Login error:', error)
   }

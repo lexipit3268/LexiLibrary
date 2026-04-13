@@ -2,10 +2,9 @@ import { useAuthStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
 import { useFavoriteStore } from '@/stores/favorite'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { useRouter } from 'vue-router'
+import router from '@/router'
 const cartStore = useCartStore()
 const authStore = useAuthStore()
-const router = useRouter()
 const favoriteStore = useFavoriteStore()
 
 export const handleAddToCart = async (id, title, quantity) => {
