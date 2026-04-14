@@ -31,7 +31,7 @@
               :key="pub.maNXB"
               class="group hover:bg-(--bg-primary)/70 h-20 transition-colors duration-300 divide-y divide-(--bg-secondary)"
             >
-              <td class="px-4 py-4 text-sm font-bold text-(--primary) newsreaderFont">
+              <td class="px-4 py-4 text-sm font-bold text-(--primary)">
                 {{ pub.maNXB }}
               </td>
               <td class="px-4 py-4">

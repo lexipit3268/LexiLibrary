@@ -7,15 +7,12 @@
             class="overflow-hidden w-60 h-60 rounded-full border-4 border-white bg-white shadow-md"
           >
             <img
-              v-if="user.hinhAnh"
-              :src="user.hinhAnh"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
-            <img
-              v-else
-              src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-              alt=""
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              :src="
+                user.hinhAnh
+                  ? user.hinhAnh
+                  : 'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3407.jpg'
+              "
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
         </div>

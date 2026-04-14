@@ -162,7 +162,7 @@ const userAvatar = computed(() => {
   const hinhAnh = authStore.user?.image
 
   if (!hinhAnh) {
-    return 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+    return 'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3407.jpg'
   }
 
   return hinhAnh

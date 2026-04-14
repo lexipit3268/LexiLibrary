@@ -45,7 +45,7 @@ export const useBorrowingStore = defineStore('borrowing', () => {
       return response
     } catch (error) {
       console.log('Lỗi khi cập nhật: ' + error)
-      return null
+      throw error
     }
   }
 

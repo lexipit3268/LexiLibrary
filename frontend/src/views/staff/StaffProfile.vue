@@ -40,8 +40,8 @@
       </div>
 
       <div class="max-h-98 col-span-8 bg-white p-6 shadow-sm border border-(--primary)/10">
-        <div class="mb-8">
-          <h3 class="newsreaderFont text-xl mb-6 flex items-center gap-3">
+        <div class="mb-2">
+          <h3 class="newsreaderFont text-xl mb-2 flex items-center gap-3">
             <span class="w-8 h-px bg-(--primary)"></span>
             Thông tin nhân sự
           </h3>
@@ -57,8 +57,8 @@
             </div>
           </div>
         </div>
-        <div class="pt-6 border-t border-(--bg-primary)">
-          <h3 class="newsreaderFont text-xl mb-4 text-(--secondary)">Tài khoản & Bảo mật</h3>
+        <div class="pt-2 border-t border-(--bg-primary)">
+          <h3 class="newsreaderFont text-xl mb-2 text-(--secondary)">Tài khoản & Bảo mật</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div
               @click="router.push('/staff/settings/security')"
@@ -238,6 +238,8 @@ const staffStats = reactive({
 const displayFields = computed(() => ({
   'Họ tên': staffData.value.hoTenNV || 'Đang tải...',
   Email: staffData.value.email || 'Đang tải...',
+  'Địa chỉ': staffData.value.diaChi || 'Đang tải...',
+  'Chức vụ': staffData.value.chucVu || 'Đang tải...',
   'Liên hệ': staffData.value.soDienThoai || 'Đang tải...',
   'Ngày gia nhập': '16/03/2026',
 }))

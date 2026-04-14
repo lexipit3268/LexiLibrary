@@ -37,6 +37,7 @@
               class="group hover:bg-(--bg-primary)/50 h-24 transition-all duration-300"
               data-aos="fade-in"
               :data-aos-delay="(index % 5) * 100"
+              data-aos-once="true"
             >
               <td class="px-4 py-4">
                 <div class="flex items-center gap-3">
@@ -44,14 +45,12 @@
                     class="w-12 h-12 rounded-full overflow-hidden border border-(--primary)/20 p-0.5 bg-white"
                   >
                     <img
-                      v-if="user.hinhAnh"
-                      :src="user.hinhAnh"
+                      :src="
+                        user.hinhAnh
+                          ? user.hinhAnh
+                          : `https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3407.jpg`
+                      "
                       class="w-full h-full object-cover rounded-full"
-                    />
-                    <img
-                      v-else
-                      src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-                      alt=""
                     />
                   </div>
                   <div>

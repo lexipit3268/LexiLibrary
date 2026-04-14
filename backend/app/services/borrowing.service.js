@@ -132,11 +132,28 @@ class Borrowing {
     const currentBorrowing = await this.Borrowing.findOne({ maPhieu: id });
     if (!currentBorrowing) return null;
 
-    const restockStatus = ['DaTra', 'TuChoi', 'DaHuy'];
-    if (restockStatus.includes(currentBorrowing.trangThai)) throw new Error('CANNOT_CHANGE');
-
     const updateData = {};
     if (payload.trangThai) updateData.trangThai = payload.trangThai;
+
+    if (currentBorrowing.trangThai === payload.trangThai) {
+      throw new Error('CANNOT_CHANGE');
+    }
+
+    // chi co the TuChoi khi DangCho
+    if (currentBorrowing.trangThai !== 'DangCho' && updateData.trangThai === 'TuChoi') {
+      throw new Error('CANNOT_CHANGE');
+    }
+
+    if (currentBorrowing.trangThai !== 'DaDuyet' && updateData.trangThai === 'DangMuon') {
+      throw new Error('CANNOT_CHANGE');
+    }
+
+    if (currentBorrowing.trangThai !== 'DangMuon' && updateData.trangThai === 'DaTra') {
+      throw new Error('CANNOT_CHANGE');
+    }
+
+    const restockStatus = ['DaTra', 'TuChoi', 'DaHuy'];
+    if (restockStatus.includes(currentBorrowing.trangThai)) throw new Error('CANNOT_CHANGE');
 
     if (payload.trangThai === 'DaTra') {
       const ngayTraThucTe = payload.ngayTra || new Date().toISOString().slice(0, 10);

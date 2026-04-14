@@ -19,7 +19,7 @@
                 <img
                   :src="
                     user.hinhAnh ||
-                    'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+                    'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3407.jpg'
                   "
                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />

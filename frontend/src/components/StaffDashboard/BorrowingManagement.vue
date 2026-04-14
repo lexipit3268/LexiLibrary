@@ -41,9 +41,7 @@
               :data-aos-delay="(index % 4) * 100"
               data-aos-once="true"
             >
-              <td
-                class="px-4 py-4 text-[11px] font-bold text-(--primary) newsreaderFont tracking-tighter"
-              >
+              <td class="px-4 py-4 text-xs font-bold text-(--primary) tracking-tighter">
                 {{ borrowing.maPhieu }}
               </td>
 
@@ -52,7 +50,14 @@
                   <div
                     class="w-10 h-10 rounded-full border border-(--primary)/20 overflow-hidden shrink-0"
                   >
-                    <img :src="borrowing.userDetails?.hinhAnh" class="w-full h-full object-cover" />
+                    <img
+                      :src="
+                        borrowing.userDetails.hinhAnh
+                          ? borrowing.userDetails.hinhAnh
+                          : `https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3407.jpg`
+                      "
+                      class="w-full h-full object-cover"
+                    />
                   </div>
                   <div class="flex flex-col truncate">
                     <p class="text-sm text-(--text-color-2) truncate">
@@ -96,9 +101,7 @@
               <td class="px-4 py-4 text-center">
                 <div class="w-full min-h-10 flex flex-col justify-center items-center">
                   <template v-if="borrowing.ngayTra">
-                    <span class="text-xs font-bold newsreaderFont">{{
-                      formatDate(borrowing.ngayTra)
-                    }}</span>
+                    <span class="text-xs font-bold">{{ formatDate(borrowing.ngayTra) }}</span>
                   </template>
                   <template v-else>
                     <span class="text-[18px] text-(--bg-secondary) font-light">—</span>
@@ -132,13 +135,31 @@
                   </button>
                   <template #dropdown>
                     <el-dropdown-menu class="rounded-none! border-(--primary)/20!">
-                      <el-dropdown-item command="DaDuyet">Duyệt phiếu</el-dropdown-item>
-                      <el-dropdown-item command="DangMuon">Đã lấy sách</el-dropdown-item>
-                      <el-dropdown-item command="DaTra" class="text-green-600!"
-                        >Đã trả sách</el-dropdown-item
+                      <el-dropdown-item
+                        v-if="
+                          borrowing.trangThai === 'DangCho' && borrowing.trangThai !== 'DaDuyet'
+                        "
+                        command="DaDuyet"
+                        >Duyệt phiếu</el-dropdown-item
                       >
-                      <el-dropdown-item command="TuChoi" class="text-red-500!"
-                        >Từ chối</el-dropdown-item
+                      <el-dropdown-item
+                        v-if="borrowing.trangThai === 'DangCho'"
+                        command="TuChoi"
+                        class="text-red-500!"
+                        >Từ chối
+                      </el-dropdown-item>
+                      <el-dropdown-item
+                        v-if="
+                          borrowing.trangThai === 'DaDuyet' && borrowing.trangThai !== 'DangMuon'
+                        "
+                        command="DangMuon"
+                        >Đã lấy sách</el-dropdown-item
+                      >
+                      <el-dropdown-item
+                        v-if="borrowing.trangThai === 'DangMuon' && borrowing.trangThai !== 'DaTra'"
+                        command="DaTra"
+                        class="text-green-600!"
+                        >Đã trả sách</el-dropdown-item
                       >
                     </el-dropdown-menu>
                   </template>
@@ -231,12 +252,10 @@ const handleStatusChange = async (borrowing, newStatus) => {
     },
   ).then(async () => {
     try {
-      borrowing.trangThai = newStatus
       let ngayTra = null
       if (newStatus === 'DaTra') {
         ngayTra = getToday()
       }
-      borrowing.ngayTra = ngayTra
 
       const response = await borrowingStore.updateStatus(borrowing.maPhieu, {
         trangThai: newStatus,
@@ -251,9 +270,13 @@ const handleStatusChange = async (borrowing, newStatus) => {
         })
       }
     } catch (error) {
+      let errMessage = 'Có lỗi xảy ra khi cập nhật phiếu mượn'
+      if (error.message.toString().includes('409')) {
+        errMessage = 'Trạng thái cập nhật không phù hợp'
+      }
       ElMessage({
         type: 'error',
-        message: 'Lỗi: ' + error,
+        message: errMessage,
         offset: 100,
       })
     }

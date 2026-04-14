@@ -3,6 +3,19 @@ const ApiError = require('../api-error');
 const config = require('../config');
 const { StatusCodes } = require('http-status-codes');
 
+const openAuth = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  try {
+    const user = jwt.verify(token, config.jwt.secret);
+    req.user = user;
+  } catch (error) {
+    console.log('Not logined yet');
+  }
+  next();
+};
+
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -30,4 +43,4 @@ const isStaff = (req, res, next) => {
   }
 };
 
-module.exports = { verifyToken, isStaff };
+module.exports = { verifyToken, isStaff, openAuth };
