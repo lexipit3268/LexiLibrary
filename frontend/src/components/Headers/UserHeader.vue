@@ -33,21 +33,26 @@
             <ElTooltip content="Tìm kiếm sách" effect="light">
               <FontAwesomeIcon :icon="faSearch" class="outline-none!"></FontAwesomeIcon> </ElTooltip
           ></router-link> -->
-          <div v-if="!showSearchBox" @click="showSearchBox = true" class="cursor-pointer">
+          <div class="flex gap-2">
+            <div v-show="showSearchBox">
+              <ElInput
+                class="min-w-60! bg-transparent!"
+                v-model="searchText"
+                placeholder="Nhập tên sách..."
+                :clearable="true"
+                :autofocus="true"
+                @keyup.enter="handleBookSearch"
+                @clear="showSearchBox = false"
+              />
+            </div>
             <ElTooltip content="Tìm kiếm sách" effect="light">
-              <FontAwesomeIcon :icon="faSearch" class="outline-none!"></FontAwesomeIcon>
+              <div
+                @click="showSearchBox = !showSearchBox"
+                class="cursor-pointer min-h-8 text-center flex items-center justify-center"
+              >
+                <FontAwesomeIcon :icon="faSearch" class="outline-none!"></FontAwesomeIcon>
+              </div>
             </ElTooltip>
-          </div>
-          <div v-if="showSearchBox">
-            <ElInput
-              class="min-w-60! bg-transparent!"
-              v-model="searchText"
-              placeholder="Nhập tên sách..."
-              :clearable="true"
-              :autofocus="true"
-              @keyup.enter="handleBookSearch"
-              @clear="showSearchBox = false"
-            />
           </div>
         </div>
         <div class="w-fit h-fit rounded-full">
