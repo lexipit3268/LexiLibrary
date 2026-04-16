@@ -190,7 +190,7 @@
             </tr>
           </tbody>
         </table>
-        <EmptyView v-else title="Danh sách mượn & trả trống..." />
+        <EmptyView v-else title="Danh sách mượn & trả trống..." :hide-button="true" />
       </div>
       <div class="flex justify-between items-center border-t border-(--bg-primary) mt-3 pt-4">
         <div class="flex flex-col gap-1">

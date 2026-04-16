@@ -138,32 +138,31 @@
 
             <div class="grow space-y-4">
               <div>
-                <p class="text-xs uppercase font-bold text-(--primary) tracking-widest mb-1"></p>
                 <h2 class="text-xl font-bold text-(--text-color-2) leading-tight">
                   {{ detail.bookDetails?.maSach }} &mdash; {{ detail.bookDetails?.tenSach }}
                 </h2>
-                <p class="text-sm italic text-(--subtext-color)">
+                <p class="text-sm font-semibold text-(--subtext-color)">
                   Tác giả:
-                  <span class="font-bold text-(--text-color)">{{
-                    detail.bookDetails?.tacGia
-                  }}</span>
+                  <span class="text-(--text-color)">{{ detail.bookDetails?.tacGia }}</span>
                 </p>
               </div>
 
               <div class="flex gap-10 border-y border-(--bg-primary) py-3">
                 <div>
-                  <p class="text-xs uppercase text-(--subtext-color) font-bold">Nhà xuất bản</p>
+                  <p class="text-xs uppercase text-(--subtext-color) font-semibold">Nhà xuất bản</p>
                   <p class="text-sm font-bold">{{ getPublisherName(detail.bookDetails?.maNXB) }}</p>
                 </div>
                 <div>
-                  <p class="text-xs uppercase text-(--subtext-color) font-bold">Năm xuất bản</p>
+                  <p class="text-xs uppercase text-(--subtext-color) font-semibold">Năm xuất bản</p>
                   <p class="text-sm font-bold">{{ detail.bookDetails?.namXuatBan }}</p>
                 </div>
               </div>
 
               <div>
-                <p class="text-xs uppercase font-bold text-(--subtext-color) mb-1">Mô tả ngắn</p>
-                <p class="text-sm leading-relaxed opacity-80 line-clamp-3 text-justify">
+                <p class="text-xs uppercase font-semibold text-(--subtext-color) mb-1">
+                  Mô tả ngắn
+                </p>
+                <p class="text-sm leading-relaxed opacity-80 line-clamp-4 text-justify">
                   {{ detail.bookDetails?.moTa }}
                 </p>
               </div>
@@ -171,10 +170,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div v-else class="flex justify-center items-center h-64">
-      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-(--primary)"></div>
     </div>
   </div>
 </template>
@@ -188,6 +183,8 @@ import { formatDate } from '../../../utils/formatDate'
 import { formatStatus, getStatusClass } from '../../../utils/formatBorrowingStatus'
 import { useStaffStore } from '@/stores/staff'
 import { storeToRefs } from 'pinia'
+import router from '@/router'
+import { ElMessage } from 'element-plus'
 
 const props = defineProps({
   maPhieu: String,
@@ -213,7 +210,10 @@ onMounted(async () => {
     await staffStore.fetchAllData()
     rawData.value = await borrowingService.findOne(props.maPhieu)
   } catch (error) {
-    console.error('Lỗi lấy chi tiết phiếu:', error)
+    if (error.message.includes('404')) {
+      router.replace('/staff/borrowing-management')
+      ElMessage({ message: 'Không tìm thấy phiếu với phiếu này', offset: 100, type: 'warning' })
+    }
   }
 })
 </script>

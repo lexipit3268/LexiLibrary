@@ -24,7 +24,7 @@
               <th class="px-4 pb-4">Giới tính</th>
               <th class="px-4 pb-4">Thông tin liên lạc</th>
               <th class="px-4 pb-4">Ngày vi phạm</th>
-              <th class="px-4 pb-4">Điểm số / Giới hạn</th>
+              <th class="px-4 pb-4">Uu tín / Giới hạn</th>
               <th class="px-4 pb-4 text-center">Trạng thái</th>
               <th class="px-4 pb-4 text-right">Thao tác</th>
             </tr>

@@ -130,7 +130,7 @@ const onSave = async (formData) => {
 const handleDelete = async (id) => {
   try {
     await ElMessageBox.confirm(
-      `Bạn có chắc chắn muốn ngừng hợp tác với nhà xuất bản #${id}?`,
+      `Bạn có chắc chắn muốn xóa thông tin nhà xuất bản ${id}?`,
       'Xác nhận xóa',
       {
         confirmButtonText: 'Xác nhận',

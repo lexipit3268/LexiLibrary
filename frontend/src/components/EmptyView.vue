@@ -11,11 +11,13 @@
         class="absolute -bottom-2 -left-2 w-3 h-3 rounded-full border-2 border-white bg-[#faedcd]"
       ></div>
     </div>
-    <p class="text-[10px] uppercase tracking-[0.35em] text-[#c5b5ab] mb-3">{{ description }}</p>
+    <p class="text-[10px] uppercase tracking-[0.35em] text-[#c5b5ab] mb-3">
+      {{ props.description }}
+    </p>
     <div v-if="authStore.user">
-      <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">{{ title }}</h2>
+      <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">{{ props.title }}</h2>
       <button
-        v-if="hideButton"
+        v-if="!hideButton"
         @click="$router.push('/book')"
         class="primary-btn text-[10px] px-12 py-4 uppercase tracking-[0.25em] font-bold"
       >
@@ -24,7 +26,7 @@
     </div>
     <div v-else>
       <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">
-        {{ advise }}
+        {{ props.advise }}
       </h2>
       <button
         @click="$router.push('/login')"
@@ -37,11 +39,24 @@
 </template>
 <script setup>
 import { useAuthStore } from '@/stores/auth'
-const { title, description } = defineProps({
-  title: String,
-  description: String,
-  advise: String,
-  hideButton: Boolean,
+const props = defineProps({
+  title: {
+    type: String,
+    default: 'Chưa có tiêu đề',
+  },
+  description: {
+    type: String,
+    default: 'MÔ TẢ TRỐNG',
+  },
+  advise: {
+    type: String,
+    default: 'Hãy đăng nhập để tiếp tục',
+  },
+  hideButton: {
+    type: Boolean,
+    default: false,
+  },
 })
+
 const authStore = useAuthStore()
 </script>

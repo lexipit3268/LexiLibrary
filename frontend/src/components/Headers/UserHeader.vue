@@ -29,10 +29,25 @@
 
       <div class="flex flex-row justify-end items-center gap-6 text-xl flex-1">
         <div>
-          <router-link to="/book">
+          <!-- <router-link to="/book">
             <ElTooltip content="Tìm kiếm sách" effect="light">
               <FontAwesomeIcon :icon="faSearch" class="outline-none!"></FontAwesomeIcon> </ElTooltip
-          ></router-link>
+          ></router-link> -->
+          <div v-if="!showSearchBox" @click="showSearchBox = true" class="cursor-pointer">
+            <ElTooltip content="Tìm kiếm sách" effect="light">
+              <FontAwesomeIcon :icon="faSearch" class="outline-none!"></FontAwesomeIcon>
+            </ElTooltip>
+          </div>
+          <div v-if="showSearchBox">
+            <ElInput
+              class="min-w-60!"
+              v-model="searchText"
+              :clearable="true"
+              :autofocus="true"
+              @keyup.enter="handleBookSearch"
+              @clear="showSearchBox = false"
+            />
+          </div>
         </div>
         <div class="w-fit h-fit rounded-full">
           <el-dropdown placement="bottom">
@@ -141,12 +156,12 @@
 </style>
 
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCartShopping, faSearch, faUser, faBell } from '@fortawesome/free-solid-svg-icons'
 import { useAuthStore } from '@/stores/auth'
-import { ElBadge, ElMessage, ElTooltip } from 'element-plus'
+import { ElBadge, ElInput, ElMessage, ElTooltip } from 'element-plus'
 import { useCartStore } from '@/stores/cart'
 import { useBorrowingStore } from '@/stores/borrowing'
 
@@ -174,6 +189,16 @@ const handleLogout = () => {
   authStore.logout()
   ElMessage.success('Đã đăng xuất khỏi hệ thống')
   router.push('/login')
+}
+
+const showSearchBox = ref(false)
+const searchText = ref('')
+
+const handleBookSearch = () => {
+  if (searchText.value.trim()) {
+    router.push(`/book?q=${searchText.value}`)
+    showSearchBox.value = false
+  }
 }
 
 onMounted(async () => {
