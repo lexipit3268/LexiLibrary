@@ -25,6 +25,7 @@
             <ElOption label="Đã duyệt" value="DaDuyet" />
             <ElOption label="Đang mượn" value="DangMuon" />
             <ElOption label="Đã trả" value="DaTra" />
+            <ElOption label="Đã hủy" value="DaHuy" />
             <ElOption label="Từ chối" value="TuChoi" />
           </ElSelect>
         </div>
