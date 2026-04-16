@@ -1,7 +1,7 @@
 <template>
   <div class="p-6 bg-(--bg-primary) min-h-[calc(100vh-80px)] overflow-y-auto text-(--text-color)">
     <button
-      @click="$router.push('/staff/borrowing')"
+      @click="$router.push('/staff/borrowing-management')"
       class="cursor-pointer mb-6 flex items-center gap-2 text-(--subtext-color) hover:text-(--primary) transition-colors text-sm font-bold uppercase tracking-widest"
     >
       <FontAwesomeIcon :icon="faArrowLeft" />
@@ -163,7 +163,7 @@
 
               <div>
                 <p class="text-xs uppercase font-bold text-(--subtext-color) mb-1">Mô tả ngắn</p>
-                <p class="text-sm leading-relaxed opacity-80 line-clamp-4 text-justify">
+                <p class="text-sm leading-relaxed opacity-80 line-clamp-3 text-justify">
                   {{ detail.bookDetails?.moTa }}
                 </p>
               </div>
