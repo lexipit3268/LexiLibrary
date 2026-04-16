@@ -179,7 +179,7 @@ const handleToggleStatus = async (user) => {
 
     await userService.updateUser(user.maDocGia, { isActive: nextStatus })
 
-    ElMessage.success(`${actionText} tài khoản thành công`)
+    ElMessage.success({ message: `${actionText} tài khoản thành công`, offset: 100 })
     await loadData()
   } catch (error) {
     if (error !== 'cancel') {

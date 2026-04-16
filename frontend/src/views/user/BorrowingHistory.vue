@@ -155,6 +155,7 @@
           </div>
         </div>
         <button
+          v-if="['TuChoi', 'DaHuy', 'DaTra'].includes(borrowing.trangThai)"
           @click="onReborrow(borrowing)"
           class="absolute cursor-pointer -top-4 right-10 bg-(--secondary) text-white px-5 py-2.5 text-[10px] uppercase font-semibold tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-all duration-500 shadow-xl hover:bg-(--primary) flex items-center gap-2 z-20"
         >

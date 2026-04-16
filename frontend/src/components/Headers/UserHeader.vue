@@ -40,8 +40,9 @@
           </div>
           <div v-if="showSearchBox">
             <ElInput
-              class="min-w-60!"
+              class="min-w-60! bg-transparent!"
               v-model="searchText"
+              placeholder="Nhập tên sách..."
               :clearable="true"
               :autofocus="true"
               @keyup.enter="handleBookSearch"
@@ -152,6 +153,10 @@
 :deep(.el-dropdown-menu__item.logoutBtn:hover) {
   background-color: #fef2f2 !important;
   color: #dc2626 !important;
+}
+
+:deep(.el-input__wrapper) {
+  background-color: #ffffff70 !important;
 }
 </style>
 

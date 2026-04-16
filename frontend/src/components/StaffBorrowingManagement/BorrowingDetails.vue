@@ -50,7 +50,7 @@
               <span class="text-xs uppercase tracking-widest text-(--subtext-color) font-bold"
                 >Số lượng</span
               >
-              <span class="text-sm font-bold">{{ detail.soLuong }} bản</span>
+              <span class="text-sm font-bold">{{ detail.soLuong }} quyển</span>
             </div>
           </div>
 
