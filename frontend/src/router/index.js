@@ -162,11 +162,19 @@ const router = createRouter({
           meta: { title: 'Quản lý độc giả' },
         },
         {
-          path: 'borrowing-history',
+          path: 'borrowing-management',
           name: 'borrowing-management',
-          component: () => import('../components/StaffDashboard/BorrowingManagement.vue'),
+          component: () => import('../components/StaffBorrowingManagement/BorrowingManagement.vue'),
           meta: { title: 'Quản lý mượn trả' },
         },
+        {
+          path: 'borrowing-management/:maPhieu',
+          name: 'borrowing-details',
+          component: () => import('../components/StaffBorrowingManagement/BorrowingDetails.vue'),
+          meta: { title: 'Chi tiết phiếu mượn' },
+          props: true,
+        },
+
         {
           path: 'analytics',
           name: 'analytics-page',

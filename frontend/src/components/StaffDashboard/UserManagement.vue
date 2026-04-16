@@ -7,7 +7,7 @@
           Danh sách độc giả
         </h3>
         <div class="flex gap-4 items-center">
-          <p class="text-xs uppercase tracking-[0.2em] font-bold text-(--subtext-color)">
+          <p class="text-xs uppercase font-medium text-(--subtext-color)">
             Tổng cộng: <span class="text-(--primary)">{{ users.length }}</span> độc giả
           </p>
         </div>
@@ -54,7 +54,7 @@
                     />
                   </div>
                   <div>
-                    <p class="font-bold text-sm">{{ user.hoLot }} {{ user.ten }}</p>
+                    <p class="font-medium text-sm">{{ user.hoLot }} {{ user.ten }}</p>
                     <p class="text-xs uppercase tracking-tighter opacity-60">{{ user.maDocGia }}</p>
                   </div>
                 </div>
@@ -70,15 +70,17 @@
 
               <td class="px-4 py-4">
                 <div class="space-y-0.5">
-                  <p class="text-sm font-bold">{{ user.soDienThoai }}</p>
+                  <p class="text-sm font-medium">{{ user.soDienThoai }}</p>
                   <p class="text-xs font-medium italic opacity-80">{{ user.email }}</p>
                 </div>
               </td>
 
               <td class="px-4 py-4">
                 <div v-if="user.ngayViPham" class="flex flex-col">
-                  <p class="text-sm font-bold text-red-500">{{ formatDate(user.ngayViPham) }}</p>
-                  <span class="text-[10px] uppercase font-bold text-red-400 tracking-tighter"
+                  <p class="text-sm font-medium text-red-500">
+                    {{ formatDate(user.ngayViPham) }}
+                  </p>
+                  <span class="text-[10px] uppercase font-medium text-red-400 tracking-tighter"
                     >Gần nhất</span
                   >
                 </div>
@@ -86,7 +88,7 @@
               </td>
 
               <td class="px-4 py-4">
-                <div class="text-xs font-bold space-y-1">
+                <div class="text-xs font-medium space-y-1">
                   <p>
                     Uy tín:
                     <span :class="user.diemUyTin > 6 ? 'text-green-600' : 'text-red-600'">{{

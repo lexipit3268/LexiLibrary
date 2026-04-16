@@ -27,7 +27,10 @@
         Quản lý độc giả
       </h3>
 
-      <h3 class="text-2xl font-semibold" v-else-if="route.name === 'borrowing-management'">
+      <h3
+        class="text-2xl font-semibold"
+        v-else-if="['borrowing-management', 'borrowing-details'].includes(route.name)"
+      >
         Lịch sử mượn
       </h3>
 

@@ -73,7 +73,7 @@ const handleLogout = () => {
               <p>Quản lý độc giả</p>
             </div>
           </router-link>
-          <router-link to="/staff/borrowing-history" v-slot="{ isExactActive, navigate }">
+          <router-link to="/staff/borrowing-management" v-slot="{ isExactActive, navigate }">
             <div @click="navigate" :class="['nav-item', isExactActive ? 'active' : '']">
               <FontAwesomeIcon :icon="faClockRotateLeft" class="w-5" />
               <p>Lịch sử mượn</p>

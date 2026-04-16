@@ -15,6 +15,7 @@
     <div v-if="authStore.user">
       <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">{{ title }}</h2>
       <button
+        v-if="hideButton"
         @click="$router.push('/book')"
         class="primary-btn text-[10px] px-12 py-4 uppercase tracking-[0.25em] font-bold"
       >
@@ -40,6 +41,7 @@ const { title, description } = defineProps({
   title: String,
   description: String,
   advise: String,
+  hideButton: Boolean,
 })
 const authStore = useAuthStore()
 </script>

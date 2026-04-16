@@ -188,7 +188,7 @@
               <FontAwesomeIcon :icon="faPlus" />
               Nhập sách mới
             </button>
-            <router-link to="/staff/borrowing-history">
+            <router-link to="/staff/borrowing-management">
               <button class="cta-btn my-0! rounded-none! w-full! bg-white text-(--primary)">
                 <span>Quản lý mượn trả</span>
                 <FontAwesomeIcon :icon="faArrowRight" /></button

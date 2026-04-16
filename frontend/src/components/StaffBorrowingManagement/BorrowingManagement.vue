@@ -7,16 +7,34 @@
           Danh sách phiếu mượn
         </h3>
 
-        <button
-          @click="refresh()"
-          class="primary-btn px-6! py-3! flex items-center gap-2 font-bold shadow-lg shadow-(--primary)/20"
-        >
-          <span class="text-xs uppercase tracking-widest">Đồng bộ dữ liệu</span>
-        </button>
+        <div class="flex gap-4 justify-center items-center">
+          <button
+            @click="refresh()"
+            class="primary-btn min-w-fit px-5! py-2! flex items-center gap-2 font-semibold shadow-lg shadow-(--primary)/20"
+          >
+            <span class="text-xs uppercase tracking-widest">Đồng bộ dữ liệu</span>
+          </button>
+
+          <ElSelect
+            v-model="filter"
+            clearable
+            placeholder="Lọc theo trạng thái..."
+            class="min-w-50"
+          >
+            <ElOption label="Đang chờ duyệt" value="DangCho" />
+            <ElOption label="Đã duyệt" value="DaDuyet" />
+            <ElOption label="Đang mượn" value="DangMuon" />
+            <ElOption label="Đã trả" value="DaTra" />
+            <ElOption label="Từ chối" value="TuChoi" />
+          </ElSelect>
+        </div>
       </div>
 
       <div class="overflow-x-auto grow min-h-104">
-        <table class="w-full text-left border-collapse table-fixed" v-if="paginatedBorrowings">
+        <table
+          class="w-full text-left border-collapse table-fixed"
+          v-if="paginatedBorrowings.length >= 1"
+        >
           <thead>
             <tr
               class="text-[10px] uppercase tracking-widest text-(--subtext-color) font-black border-b border-(--bg-secondary)"
@@ -26,8 +44,8 @@
               <th class="px-4 pb-4">Thông tin Tác phẩm</th>
               <th class="px-4 pb-4 w-48 text-center">Ngày mượn/Hạn trả</th>
               <th class="px-4 pb-4 w-40 text-center">Ngày trả</th>
-              <th class="px-4 pb-4 w-36 text-center">Trạng thái</th>
-              <th class="px-4 pb-4 w-20 text-right">Xử lý</th>
+              <th class="px-4 pb-4 w-30 text-center">Trạng thái</th>
+              <th class="px-4 pb-4 w-20"></th>
             </tr>
           </thead>
 
@@ -110,53 +128,35 @@
               </td>
 
               <td class="px-4 py-4 text-center">
-                <div
-                  class="inline-block px-3 py-1 w-24 h-6 text-[9px] font-semibold uppercase tracking-widest border border-transparent transition-all"
-                  :class="getStatusClass(borrowing.trangThai)"
-                >
-                  {{ formatStatus(borrowing.trangThai) }}
-                </div>
-              </td>
-
-              <td class="px-4 py-4 text-right">
                 <el-dropdown
-                  v-if="
-                    borrowing.trangThai !== 'DaHuy' &&
-                    borrowing.trangThai !== 'DaTra' &&
-                    borrowing.trangThai !== 'TuChoi'
-                  "
+                  v-if="['DangCho', 'DaDuyet', 'DangMuon'].includes(borrowing.trangThai)"
                   trigger="click"
                   @command="(cmd) => handleStatusChange(borrowing, cmd)"
                 >
-                  <button
-                    class="staff-header-icon w-8! h-8! bg-white! border border-(--primary)/20 hover:text-(--secondary) transition-all active:scale-90"
+                  <div
+                    class="cursor-pointer flex items-center justify-center w-24 h-6 text-[9px] font-semibold uppercase tracking-widest border border-transparent transition-all"
+                    :class="getStatusClass(borrowing.trangThai)"
                   >
-                    <FontAwesomeIcon :icon="faEllipsis" />
-                  </button>
+                    <span class="">{{ formatStatus(borrowing.trangThai) }}</span>
+                    <FontAwesomeIcon :icon="faChevronDown" class="text-[8px] ml-2 opacity-80" />
+                  </div>
+
                   <template #dropdown>
                     <el-dropdown-menu class="rounded-none! border-(--primary)/20!">
-                      <el-dropdown-item
-                        v-if="
-                          borrowing.trangThai === 'DangCho' && borrowing.trangThai !== 'DaDuyet'
-                        "
-                        command="DaDuyet"
+                      <el-dropdown-item v-if="borrowing.trangThai === 'DangCho'" command="DaDuyet"
                         >Duyệt phiếu</el-dropdown-item
                       >
                       <el-dropdown-item
                         v-if="borrowing.trangThai === 'DangCho'"
                         command="TuChoi"
                         class="text-red-500!"
-                        >Từ chối
-                      </el-dropdown-item>
-                      <el-dropdown-item
-                        v-if="
-                          borrowing.trangThai === 'DaDuyet' && borrowing.trangThai !== 'DangMuon'
-                        "
-                        command="DangMuon"
+                        >Từ chối</el-dropdown-item
+                      >
+                      <el-dropdown-item v-if="borrowing.trangThai === 'DaDuyet'" command="DangMuon"
                         >Đã lấy sách</el-dropdown-item
                       >
                       <el-dropdown-item
-                        v-if="borrowing.trangThai === 'DangMuon' && borrowing.trangThai !== 'DaTra'"
+                        v-if="borrowing.trangThai === 'DangMuon'"
                         command="DaTra"
                         class="text-green-600!"
                         >Đã trả sách</el-dropdown-item
@@ -164,35 +164,38 @@
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
+
+                <div
+                  v-else
+                  class="inline-block px-3 py-1 w-24 h-6 text-[9px] font-semibold uppercase tracking-widest border border-transparent transition-all"
+                  :class="getStatusClass(borrowing.trangThai)"
+                >
+                  {{ formatStatus(borrowing.trangThai) }}
+                </div>
+              </td>
+              <td
+                class="px-4 py-4 max-w-16 text-center opacity-0 group-hover:opacity-100 transition-all duration-200"
+              >
+                <ElTooltip content="Xem chi tiết" effect="light">
+                  <button
+                    type="button"
+                    class="cursor-pointer w-8! h-8! bg-white! border border-(--primary)/20 hover:text-(--secondary) transition-all active:scale-90 rounded-full"
+                    @click="$router.push(`borrowing-management/${borrowing.maPhieu}`)"
+                  >
+                    <FontAwesomeIcon :icon="faEllipsis" class="text-xs" />
+                  </button>
+                </ElTooltip>
               </td>
             </tr>
           </tbody>
         </table>
-        <div v-else class="flex flex-col items-center justify-center py-14 text-center">
-          <div class="relative mb-8">
-            <div class="w-28 h-28 rounded-full bg-[#f7ede2] flex items-center justify-center">
-              <span class="newsreaderFont text-6xl italic text-[#d4c0b0] mr-2">∅</span>
-            </div>
-            <div
-              class="absolute -top-1 -right-1 w-5 h-5 rounded-full border-2 border-white bg-(--primary) opacity-60"
-            ></div>
-            <div
-              class="absolute -bottom-2 -left-2 w-3 h-3 rounded-full border-2 border-white bg-[#faedcd]"
-            ></div>
-          </div>
-          <p class="text-[10px] uppercase tracking-[0.35em] text-[#c5b5ab] mb-3">
-            Chưa có phiếu mượn nào
-          </p>
-          <h2 class="newsreaderFont text-4xl italic text-[#c5b5ab] mb-8">
-            Danh sách mượn & trả trống...
-          </h2>
-        </div>
+        <EmptyView v-else title="Danh sách mượn & trả trống..." />
       </div>
       <div class="flex justify-between items-center border-t border-(--bg-primary) mt-3 pt-4">
         <div class="flex flex-col gap-1">
           <p class="text-[11px] italic opacity-70">
-            Hiển thị {{ paginatedBorrowings.length }} trên tổng số {{ borrowings.length }} phiếu
-            mượn.
+            Hiển thị {{ paginatedBorrowings.length }} trên tổng số
+            {{ filteredBorrowings.length }} phiếu mượn.
           </p>
         </div>
 
@@ -200,7 +203,7 @@
           v-model:current-page="currentPage"
           v-model:page-size="pageSize"
           :page-sizes="[4, 8, 16, 32]"
-          :total="borrowings.length"
+          :total="filteredBorrowings.length"
           layout="total, sizes, prev, pager, next"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
@@ -214,33 +217,24 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useBorrowingStore } from '@/stores/borrowing'
-import { ElMessage, ElMessageBox, ElPagination } from 'element-plus'
+import { ElMessage, ElMessageBox, ElOption, ElPagination, ElSelect, ElTooltip } from 'element-plus'
 import { formatDate, getToday } from '../../../utils/formatDate'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
-import { formatStatus } from '../../../utils/formatStatus'
+import { faEllipsis, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { formatStatus, getStatusClass } from '../../../utils/formatBorrowingStatus'
+import EmptyView from '../EmptyView.vue'
 
 const borrowingStore = useBorrowingStore()
 const borrowings = computed(() => {
   return [...borrowingStore.borrowings].reverse()
 })
 
-const getStatusClass = (status) => {
-  switch (status) {
-    case 'DangCho':
-      return 'bg-(--bg-quaternary) text-(--text-color-2) border-(--secondary)/40!'
-    case 'DaDuyet':
-    case 'DangMuon':
-      return 'bg-(--bg-tertiary) text-(--subtext-color) border-(--subtext-color)/40!'
-    case 'DaTra':
-      return 'bg-green-50 text-green-600  border-green-200!'
-    case 'TuChoi':
-    case 'DaHuy':
-      return 'bg-red-50 text-red-600 border-red-200!'
-    default:
-      return 'bg-(--bg-primary) text-(--subtext-color) border-(--bg-secondary)!'
-  }
-}
+const filter = ref('')
+
+const filteredBorrowings = computed(() => {
+  if (!filter.value) return borrowings.value
+  return borrowings.value.filter((brr) => brr.trangThai === filter.value)
+})
 
 const handleStatusChange = async (borrowing, newStatus) => {
   ElMessageBox.confirm(
@@ -297,7 +291,7 @@ const pageSize = ref(4)
 const paginatedBorrowings = computed(() => {
   const start = (currentPage.value - 1) * pageSize.value
   const end = start + pageSize.value
-  return borrowings.value.slice(start, end)
+  return filteredBorrowings.value.slice(start, end)
 })
 
 const handleSizeChange = (val) => {

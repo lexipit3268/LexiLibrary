@@ -182,6 +182,7 @@ import BreadcrumbComponent from '@/components/BreadcrumbComponent.vue'
 import EmptyView from '@/components/EmptyView.vue'
 import { handleAddToCart } from '../../../utils/handleBookInteractions'
 import { useRouter } from 'vue-router'
+import { getStatusClass } from '../../../utils/formatBorrowingStatus'
 
 const router = useRouter()
 const borrowingStore = useBorrowingStore()
@@ -201,23 +202,6 @@ const getStatusLabel = (status) => {
     DaHuy: 'Đã hủy',
   }
   return labels[status] || status
-}
-
-const getStatusClass = (status) => {
-  switch (status) {
-    case 'DangCho':
-      return 'bg-(--bg-quaternary) text-(--text-color-2) border-(--secondary)'
-    case 'DaDuyet':
-    case 'DangMuon':
-      return 'bg-(--bg-tertiary) text-(--subtext-color) border-(--subtext-color)'
-    case 'DaTra':
-      return 'bg-white text-(--primary) border-(--primary)'
-    case 'TuChoi':
-    case 'DaHuy':
-      return 'bg-red-50 text-red-600 border-red-200'
-    default:
-      return 'bg-(--bg-primary) text-(--subtext-color) border-(--bg-secondary)'
-  }
 }
 
 const handleCancel = async (maPhieu) => {
