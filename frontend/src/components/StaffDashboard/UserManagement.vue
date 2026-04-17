@@ -7,7 +7,7 @@
           Danh sách độc giả
         </h3>
         <div class="flex gap-4 items-center">
-          <p class="text-xs uppercase font-medium text-(--subtext-color)">
+          <p class="text-xs uppercase font-semibold text-(--subtext-color)">
             Tổng cộng: <span class="text-(--primary)">{{ users.length }}</span> độc giả
           </p>
         </div>
@@ -146,7 +146,7 @@ import { storeToRefs } from 'pinia'
 import { useStaffStore } from '@/stores/staff'
 import userService from '@/services/user.service'
 import { ElMessageBox, ElMessage } from 'element-plus'
-import { formatDate } from '../../../utils/formatDate'
+import { formatDate } from '../../../utils/date.util'
 
 const staffStore = useStaffStore()
 const { users } = storeToRefs(staffStore)

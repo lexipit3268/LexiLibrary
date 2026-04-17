@@ -192,7 +192,7 @@
         </table>
         <EmptyView v-else title="Danh sách mượn & trả trống..." :hide-button="true" />
       </div>
-      <div class="flex justify-between items-center border-t border-(--bg-primary) mt-3 pt-4">
+      <div class="flex justify-between items-center border-t border-(--bg-primary) pt-4">
         <div class="flex flex-col gap-1">
           <p class="text-[11px] italic opacity-70">
             Hiển thị {{ paginatedBorrowings.length }} trên tổng số
@@ -219,10 +219,10 @@
 import { computed, onMounted, ref } from 'vue'
 import { useBorrowingStore } from '@/stores/borrowing'
 import { ElMessage, ElMessageBox, ElOption, ElPagination, ElSelect, ElTooltip } from 'element-plus'
-import { formatDate, getToday } from '../../../utils/formatDate'
+import { formatDate, getToday } from '../../../utils/date.util'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faEllipsis, faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { formatStatus, getStatusClass } from '../../../utils/formatBorrowingStatus'
+import { formatStatus, getStatusClass } from '../../../utils/borrowing.util'
 import EmptyView from '../EmptyView.vue'
 
 const borrowingStore = useBorrowingStore()

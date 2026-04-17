@@ -21,9 +21,17 @@
 
     <div class="pt-24 pb-16 px-10 md:px-20 text-center">
       <h2 class="LexiLibrary text-(--primary) mb-3">{{ user.hoLot }} {{ user.ten }}</h2>
-      <div class="inline-block px-5 py-1 rounded-full bg-(--bg-primary) border border-(--primary)">
+      <div
+        v-if="user.isActive"
+        class="inline-block px-5 py-1 rounded-full bg-(--bg-primary) border border-(--primary)"
+      >
         <span class="text-[10px] font-bold uppercase tracking-widest text-(--secondary)">
-          {{ user.role === 'staff' ? 'Thành viên quản trị' : 'Độc giả thư viện' }}
+          Độc giả thư viện
+        </span>
+      </div>
+      <div v-else class="inline-block px-5 py-1 rounded-full bg-red-100/50 border border-red-500">
+        <span class="text-[10px] font-bold uppercase tracking-widest text-red-500">
+          Tài khoản đang bị khóa
         </span>
       </div>
 
@@ -202,7 +210,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCamera, faPenNib } from '@fortawesome/free-solid-svg-icons'
 import userService from '@/services/user.service'
 import { ElMessage, ElProgress } from 'element-plus'
-import { formatDate } from '../../../utils/formatDate'
+import { formatDate } from '../../../utils/date.util'
 
 library.add(faCamera, faPenNib)
 
