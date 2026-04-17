@@ -76,7 +76,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useRouter } from 'vue-router'
-import { handleAddToCart, handleAddToFavorite } from '../../utils/book.util'
+import { handleAddToCart, handleAddToFavorite } from '../utils/book.util'
 import { computed, onMounted } from 'vue'
 import { useFavoriteStore } from '@/stores/favorite'
 import ClickSpark from './vuebits/ClickSpark/ClickSpark.vue'

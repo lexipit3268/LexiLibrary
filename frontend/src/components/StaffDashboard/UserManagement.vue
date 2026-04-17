@@ -146,7 +146,7 @@ import { storeToRefs } from 'pinia'
 import { useStaffStore } from '@/stores/staff'
 import userService from '@/services/user.service'
 import { ElMessageBox, ElMessage } from 'element-plus'
-import { formatDate } from '../../../utils/date.util'
+import { formatDate } from '../../utils/date.util'
 
 const staffStore = useStaffStore()
 const { users } = storeToRefs(staffStore)

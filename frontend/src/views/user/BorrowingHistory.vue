@@ -175,15 +175,15 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
-import { formatDate } from '../../../utils/date.util'
+import { formatDate } from '../../utils/date.util'
 import { useAuthStore } from '@/stores/auth'
 import { useBorrowingStore } from '@/stores/borrowing'
 import { ElMessageBox, ElMessage, ElTooltip } from 'element-plus'
 import BreadcrumbComponent from '@/components/BreadcrumbComponent.vue'
 import EmptyView from '@/components/EmptyView.vue'
-import { handleAddToCart } from '../../../utils/book.util'
+import { handleAddToCart } from '../../utils/book.util'
 import { useRouter } from 'vue-router'
-import { getStatusClass } from '../../../utils/borrowing.util'
+import { getStatusClass } from '../../utils/borrowing.util'
 
 const router = useRouter()
 const borrowingStore = useBorrowingStore()

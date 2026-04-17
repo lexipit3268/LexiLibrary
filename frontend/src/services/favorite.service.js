@@ -1,5 +1,5 @@
 import api from './api.service'
-import handleRequest from '../../utils/handleRequest'
+import handleRequest from '../utils/handleRequest'
 
 const RESOURCE = '/library/favorites/'
 

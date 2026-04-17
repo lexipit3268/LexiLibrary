@@ -219,10 +219,10 @@
 import { computed, onMounted, ref } from 'vue'
 import { useBorrowingStore } from '@/stores/borrowing'
 import { ElMessage, ElMessageBox, ElOption, ElPagination, ElSelect, ElTooltip } from 'element-plus'
-import { formatDate, getToday } from '../../../utils/date.util'
+import { formatDate, getToday } from '../../utils/date.util'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faEllipsis, faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { formatStatus, getStatusClass } from '../../../utils/borrowing.util'
+import { formatStatus, getStatusClass } from '../../utils/borrowing.util'
 import EmptyView from '../EmptyView.vue'
 
 const borrowingStore = useBorrowingStore()

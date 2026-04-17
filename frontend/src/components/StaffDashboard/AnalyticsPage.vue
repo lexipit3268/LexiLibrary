@@ -146,7 +146,7 @@ import { ElTooltip, ElSkeleton } from 'element-plus'
 
 import { useStaffStore } from '@/stores/staff'
 import { useBorrowingStore } from '@/stores/borrowing'
-import { formatStatus } from '../../../utils/borrowing.util'
+import { formatStatus } from '../../utils/borrowing.util'
 
 const staffStore = useStaffStore()
 const borrowingStore = useBorrowingStore()

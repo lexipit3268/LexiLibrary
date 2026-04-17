@@ -210,7 +210,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCamera, faPenNib } from '@fortawesome/free-solid-svg-icons'
 import userService from '@/services/user.service'
 import { ElMessage, ElProgress } from 'element-plus'
-import { formatDate } from '../../../utils/date.util'
+import { formatDate } from '../../utils/date.util'
 
 library.add(faCamera, faPenNib)
 

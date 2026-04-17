@@ -291,7 +291,7 @@ import { faHeartCircleCheck as faHeartSolid } from '@fortawesome/free-solid-svg-
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'vue-router'
 import { Minus, Plus } from '@element-plus/icons-vue'
-import { handleAddToCart, handleAddToFavorite } from '../../../utils/book.util'
+import { handleAddToCart, handleAddToFavorite } from '../../utils/book.util'
 import { useFavoriteStore } from '@/stores/favorite'
 
 const router = useRouter()
