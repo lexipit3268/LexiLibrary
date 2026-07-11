@@ -107,21 +107,20 @@ classDiagram
 
 ## Key Features
 
-### Readers (Patrons)
+### Guests & Registered Readers
 
-- Browse catalog with granular server-side filters (by title, category, publisher, pricing range).
-- Dynamic sorting options (price ascending/descending, oldest/latest publications).
-- Persistent borrowing cart system (GioMuon).
-- Bookmarks for favorite books (YeuThich).
-- Real-time borrowing request submittal with structured validation.
-- Personal operational history tracking to view active, pending, or returned borrowing slips.
+- **Authentication & Profile:** Seamless account registration, secure login, and personal profile management.
+- **Catalog Exploration:** Advanced search capabilities, full catalog browsing, and detailed information viewing for every book.
+- **Favorites System:** Curate a personalized reading list by adding or removing books from a dedicated favorites collection.
+- **Borrowing Cart:** A flexible cart system allowing users to easily add or remove books before finalizing their request.
+- **Borrowing Workflow:** Create formal borrowing slips directly from the cart and track the real-time status of personal borrowing history.
 
-### Library Staff (Clerks)
+### Library Staff
 
-- Unified operational interface with live status filters.
-- **Borrowing Processing:** Direct workflow to transition requests from Pending to Approved, Active Borrowing, or Returned. Embedded conflict prevention handling (HTTP 409 management).
-- **Inventory Management:** Complete CRUD system for books with Cloudinary cover upload integration and safe soft-delete logic (utilizing an `isActive` flag instead of destructive clearing).
-- **Audit Control:** Verification panels for user management, structural categories, and publication companies.
+- **Library Dashboard:** View comprehensive statistics and overviews of library operations and inventory metrics.
+- **Catalog Management:** Full CRUD (Create, Read, Update, Delete) control over book inventory and publisher records.
+- **Borrowing Processing:** Manage the entire lifecycle of reader borrowing slips, including approving, rejecting, and updating operational statuses (e.g., currently borrowing, returned).
+- **Reader Administration:** Oversee the complete patron list with administrative authority to lock or manage specific reader accounts based on library policies.
 
 ## Technology Stack
 
