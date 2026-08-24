@@ -11,15 +11,18 @@
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
 
   <br />
-  <br />
 
   <img src="https://img.shields.io/github/repo-size/lexipit3268/LexiLibrary?style=flat-square&color=blue" alt="Repo Size" />
   <img src="https://img.shields.io/github/stars/lexipit3268/LexiLibrary?style=flat-square&color=yellow" alt="Stars" />
   <img src="https://img.shields.io/github/forks/lexipit3268/LexiLibrary?style=flat-square&color=orange" alt="Forks" />
   <img src="https://img.shields.io/github/last-commit/lexipit3268/LexiLibrary?style=flat-square&color=green" alt="Last Commit" />
-</div>
+  <br/>
+  <br/>
+<a href="https://lexilibrary.pages.dev" target="_blank">
+  <img src="https://img.shields.io/badge/Live_Demo-lexilibrary.pages.dev-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Live Demo" />
 
-<br />
+</a>
+</div>
 
 # LexiLibrary - Library Book Borrowing and Returning Management System
 
