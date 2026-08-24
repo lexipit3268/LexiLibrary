@@ -1,5 +1,5 @@
 import api from './api.service'
-const BASE_URL = 'http://localhost:3000/api/library/'
+const BASE_URL = 'https://lexilibrary.onrender.com/api/library/'
 
 class AuthService {
   register(payload) {

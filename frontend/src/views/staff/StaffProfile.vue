@@ -245,7 +245,7 @@ const displayFields = computed(() => ({
 }))
 
 onMounted(async () => {
-  const response = await api.get('http://localhost:3000/api/library/staffs/' + staff.id)
+  const response = await api.get('https://lexilibrary.onrender.com/api/library/staffs/' + staff.id)
   staffData.value = response.data
 })
 </script>

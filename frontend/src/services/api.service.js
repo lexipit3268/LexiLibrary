@@ -4,7 +4,7 @@ import { ElMessageBox } from 'element-plus'
 import router from '@/router'
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://lexilibrary.onrender.com/api',
   headers: {
     'Content-Type': 'application/json',
   },
