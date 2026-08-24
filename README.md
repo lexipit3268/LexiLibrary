@@ -198,7 +198,7 @@ LEXILIBRARY/
 ### 1. Repository Acquisition
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/lexipit3268/LexiLibrary.git
 cd LexiLibrary
 
 ```
